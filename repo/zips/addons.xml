@@ -18,6 +18,24 @@
 		<description>Fishenzon Repo</description>
 		<platform>all</platform>
 	</extension>
+</addon><addon id="repository.MBTV" name="MBTV Repo" version="1.0.0" provider-name="MeirB88">
+    <extension point="xbmc.addon.repository" name="MBTV Repo">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/MeirB88/MeirB88.github.io/master/repo/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/MeirB88/MeirB88.github.io/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/MeirB88/MeirB88.github.io/master/repo/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>MBTV Repo</summary>
+        <description>MBTV Repo</description>
+        <disclaimer />
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="repository.bugatsinho" name=" Bugatsinho repository" version="2.7" provider-name="Bugatsinho">
     <extension point="xbmc.addon.repository" name="Bugatsinho repository">
         <dir>
