@@ -35,7 +35,7 @@ def installed(addon):
             name = tools.parse_dom(tools.read_from_file(url), 'addon', ret='name', attrs={'id': addon})
             icon = os.path.join(CONFIG.ADDONS, addon, 'icon.png')  # read from infolabel?
             logging.log_notify('[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, name[0]),
-                               '[COLOR {0}]Add-on Enabled[/COLOR]'.format(CONFIG.COLOR2), '2000', icon)
+                               '[COLOR {0}]הרחבה הופעלה[/COLOR]'.format(CONFIG.COLOR2), '2000', icon)
         except:
             pass
 

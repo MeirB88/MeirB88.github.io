@@ -85,9 +85,9 @@ class BuildMenu:
         else:
             directory.add_file('Kodi Version: {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS,
                                themeit=CONFIG.THEME3)
-            directory.add_dir('Save Data Menu', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+            directory.add_dir('תפריט שמירת מידע', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
             directory.add_separator()
-            directory.add_file('URL for txt file not valid', icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
+            directory.add_file('כתובת לקובץ הטקסט לא תקינה', icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.BUILDFILE), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
             return
 
@@ -106,7 +106,7 @@ class BuildMenu:
                 return
 
         directory.add_file('Kodi Version: {0}'.format(CONFIG.KODIV), icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
-        directory.add_dir('Save Data Menu', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+        directory.add_dir('תפריט שמירת מידע', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
         directory.add_separator()
 
         if len(match) >= 1:
@@ -122,15 +122,15 @@ class BuildMenu:
 
         elif hidden > 0:
             if adultcount > 0:
-                directory.add_file('There is currently only Adult builds', icon=CONFIG.ICONBUILDS,
+                directory.add_file('יש כרגע רק בילדים למבוגרים בלבד', icon=CONFIG.ICONBUILDS,
                                    themeit=CONFIG.THEME3)
                 directory.add_file('Enable Show Adults in Addon Settings > Misc', icon=CONFIG.ICONBUILDS,
                                    themeit=CONFIG.THEME3)
             else:
-                directory.add_file('Currently No Builds Offered from {0}'.format(CONFIG.ADDONTITLE),
+                directory.add_file('אין בילדים מוצעים מ {0}'.format(CONFIG.ADDONTITLE),
                                    icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME3)
         else:
-            directory.add_file('Text file for builds not formatted correctly.', icon=CONFIG.ICONBUILDS,
+            directory.add_file('קובץ הטקסט לבילדים לא כתוב נכון', icon=CONFIG.ICONBUILDS,
                                themeit=CONFIG.THEME3)
 
     def view_build(self, name):
@@ -140,13 +140,13 @@ class BuildMenu:
         if response:
             link = tools.clean_text(response.text)
         else:
-            directory.add_file('URL for txt file not valid', themeit=CONFIG.THEME3)
+            directory.add_file('קישור לקובץ הטקסט שגוי', themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.BUILDFILE), themeit=CONFIG.THEME3)
             return
 
         if not check.check_build(name, 'version'):
-            directory.add_file('Error reading the txt file.', themeit=CONFIG.THEME3)
-            directory.add_file('{0} was not found in the builds list.'.format(name), themeit=CONFIG.THEME3)
+            directory.add_file('שגיאה בקריאת קובץ הטקסט.', themeit=CONFIG.THEME3)
+            directory.add_file('{0} לא נמצא ברשימת הבילדים.'.format(name), themeit=CONFIG.THEME3)
             return
 
         match = re.compile(
@@ -167,29 +167,29 @@ class BuildMenu:
                 
             directory.add_file(build, description=description, fanart=fanart, icon=icon, themeit=CONFIG.THEME4)
             directory.add_separator()
-            directory.add_dir('Save Data Menu', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
-            directory.add_file('Build Information', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
+            directory.add_dir('תפריט שמירת מידע', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME3)
+            directory.add_file('מידע על הבילד', {'mode': 'buildinfo', 'name': name}, description=description, fanart=fanart,
                                icon=icon, themeit=CONFIG.THEME3)
                                
             if previewcheck:
-                directory.add_file('View Video Preview', {'mode': 'buildpreview', 'name': name}, description=description, fanart=fanart,
+                directory.add_file('תצוגת וידאו מקדימה', {'mode': 'buildpreview', 'name': name}, description=description, fanart=fanart,
                                    icon=icon, themeit=CONFIG.THEME3)
             
             if versioncheck:
                 directory.add_file(
-                    '[I]Build designed for Kodi v{0} (installed: v{1})[/I]'.format(str(kodi), str(CONFIG.KODIV)),
+                    '[I]הבילד נועד לקודי v{0} (installed: v{1})[/I]'.format(str(kodi), str(CONFIG.KODIV)),
                     fanart=fanart, icon=icon, themeit=CONFIG.THEME3)
                     
             directory.add_separator('INSTALL')
-            directory.add_file('Install', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
+            directory.add_file('התקן', {'mode': 'install', 'action': 'build', 'name': name}, description=description, fanart=fanart,
                                icon=icon, themeit=CONFIG.THEME1)
                                
             if guicheck:
-                directory.add_file('Apply guiFix', {'mode': 'install', 'action': 'gui', 'name': name}, description=description, fanart=fanart,
+                directory.add_file('החל תיקוני GUI', {'mode': 'install', 'action': 'gui', 'name': name}, description=description, fanart=fanart,
                                    icon=icon, themeit=CONFIG.THEME1)
                                    
             if themecheck:
-                directory.add_separator('THEMES', fanart=fanart, icon=icon)
+                directory.add_separator('ערכות נושא', fanart=fanart, icon=icon)
 
                 response = tools.open_url(themefile)
                 theme = response.text
@@ -234,32 +234,32 @@ class BuildMenu:
 
                 themes = self.theme_count(name, count=False)
 
-                msg = "[COLOR {0}]Build Name:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, name)
-                msg += "[COLOR {0}]Build Version:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, version)
+                msg = "[COLOR {0}]שם הבילד:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+                msg += "[COLOR {0}]גרסה:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, version)
                 if themes:
-                    msg += "[COLOR {0}]Build Theme(s):[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, ', '.join(themes))
-                msg += "[COLOR {0}]Kodi Version:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, kodi)
-                msg += "[COLOR {0}]Adult Content:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, adult)
-                msg += "[COLOR {0}]Description:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, description)
+                    msg += "[COLOR {0}]ערכת נושא:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, ', '.join(themes))
+                msg += "[COLOR {0}]גרסת קודי:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, kodi)
+                msg += "[COLOR {0}]תוכן למבוגרים:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, adult)
+                msg += "[COLOR {0}]תיאור:[/COLOR] [COLOR {1}]{2}[/COLOR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, description)
 
                 if extend:
-                    msg += "[COLOR {0}]Latest Update:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, created)
-                    msg += "[COLOR {0}]Extracted Size:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, tools.convert_size(int(float(extracted))))
-                    msg += "[COLOR {0}]Zip Size:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, tools.convert_size(int(float(zipsize))))
-                    msg += "[COLOR {0}]Skin Name:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, skin)
-                    msg += "[COLOR {0}]Programs:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, programs)
-                    msg += "[COLOR {0}]Video:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, video)
-                    msg += "[COLOR {0}]Music:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, music)
-                    msg += "[COLOR {0}]Pictures:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, picture)
-                    msg += "[COLOR {0}]Repositories:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, repos)
-                    msg += "[COLOR {0}]Scripts:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, scripts)
-                    msg += "[COLOR {0}]Binaries:[/COLOR] [COLOR {1}]{2}[/COLOR]".format(CONFIG.COLOR2, CONFIG.COLOR1, binaries)
+                    msg += "[COLOR {0}]עדכון אחרון:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, created)
+                    msg += "[COLOR {0}]גודל לאחר חילוץ:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, tools.convert_size(int(float(extracted))))
+                    msg += "[COLOR {0}]גודל הZIP:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, tools.convert_size(int(float(zipsize))))
+                    msg += "[COLOR {0}]שם הסקין:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, skin)
+                    msg += "[COLOR {0}]תוכנות:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, programs)
+                    msg += "[COLOR {0}]וידאו:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, video)
+                    msg += "[COLOR {0}]מוזיקה:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, music)
+                    msg += "[COLOR {0}]תמונות:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, picture)
+                    msg += "[COLOR {0}]מקורות:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, repos)
+                    msg += "[COLOR {0}]סקריפטים:[/COLOR] [COLOR {1}]{2}[/COLOR][CR][CR]".format(CONFIG.COLOR2, CONFIG.COLOR1, scripts)
+                    msg += "[COLOR {0}]בינארים:[/COLOR] [COLOR {1}]{2}[/COLOR]".format(CONFIG.COLOR2, CONFIG.COLOR1, binaries)
 
-                window.show_text_box("Viewing Build Info: {0}".format(name), msg)
+                window.show_text_box("מציג מידע על הבילד: {0}".format(name), msg)
             else:
-                logging.log("Invalid Build Name!")
+                logging.log("שם הבילד שגוי!")
         else:
-            logging.log("Build text file not working: {0}".format(CONFIG.BUILDFILE))
+            logging.log("קובץ הטקסט לבילדים אינו עובד: {0}".format(CONFIG.BUILDFILE))
 
     def build_video(self, name):
         from resources.libs import check
@@ -270,23 +270,23 @@ class BuildMenu:
         response = tools.open_url(CONFIG.BUILDFILE, check=True)
         
         if response:
-            videofile = check.check_build(name, 'preview')
+            videofile = check.check_build(name, 'תצוגה מקדימה')
             if tools.open_url(videofile, check=True):
                 yt.play_video(videofile)
             else:
-                logging.log("[{0}]Unable to find url for video preview".format(name))
+                logging.log("[{0}]לא ניתן למצוא קישו לתצוגה המקדימה".format(name))
         else:
-            logging.log("Build text file not working: {0}".format(CONFIG.BUILDFILE))
+            logging.log("קובץ הטקסט לבילדים אינו עובד: {0}".format(CONFIG.BUILDFILE))
 
     def create_install_menu(self, name):
         menu_items = []
 
         buildname = quote_plus(name)
         menu_items.append((CONFIG.THEME2.format(name), 'RunAddon({0}, ?mode=viewbuild&name={1})'.format(CONFIG.ADDON_ID, buildname)))
-        menu_items.append((CONFIG.THEME3.format('Fresh Install'), 'RunPlugin(plugin://{0}/?mode=install&name={1}&url=fresh)'.format(CONFIG.ADDON_ID, buildname)))
-        menu_items.append((CONFIG.THEME3.format('Normal Install'), 'RunPlugin(plugin://{0}/?mode=install&name={1}&url=normal)'.format(CONFIG.ADDON_ID, buildname)))
-        menu_items.append((CONFIG.THEME3.format('Apply guiFix'), 'RunPlugin(plugin://{0}/?mode=install&name={1}&url=gui)'.format(CONFIG.ADDON_ID, buildname)))
-        menu_items.append((CONFIG.THEME3.format('Build Information'), 'RunPlugin(plugin://{0}/?mode=buildinfo&name={1})'.format(CONFIG.ADDON_ID, buildname)))
-        menu_items.append((CONFIG.THEME2.format('{0} Settings'.format(CONFIG.ADDONTITLE)), 'RunPlugin(plugin://{0}/?mode=settings)'.format(CONFIG.ADDON_ID)))
+        menu_items.append((CONFIG.THEME3.format('התקנה נקייה'), 'RunPlugin(plugin://{0}/?mode=install&name={1}&url=fresh)'.format(CONFIG.ADDON_ID, buildname)))
+        menu_items.append((CONFIG.THEME3.format('התקנה רגילה'), 'RunPlugin(plugin://{0}/?mode=install&name={1}&url=normal)'.format(CONFIG.ADDON_ID, buildname)))
+        menu_items.append((CONFIG.THEME3.format('החל תיקוני GUI'), 'RunPlugin(plugin://{0}/?mode=install&name={1}&url=gui)'.format(CONFIG.ADDON_ID, buildname)))
+        menu_items.append((CONFIG.THEME3.format('מידע על הבילד'), 'RunPlugin(plugin://{0}/?mode=buildinfo&name={1})'.format(CONFIG.ADDON_ID, buildname)))
+        menu_items.append((CONFIG.THEME2.format('{0} הגדרות'.format(CONFIG.ADDONTITLE)), 'RunPlugin(plugin://{0}/?mode=settings)'.format(CONFIG.ADDON_ID)))
 
         return menu_items
