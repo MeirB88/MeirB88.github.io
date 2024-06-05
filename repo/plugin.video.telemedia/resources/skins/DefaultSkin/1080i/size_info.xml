@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <coordinates>
+        <left>220</left>
+        <top>55</top>
+    </coordinates>
+    <controls>
+        <control type="group">
+
+            <control type="image">
+                <left>0</left>
+                <top>250</top>
+                <width>1480</width>
+                <height>420</height>
+                <texture colordiffuse="black">Background/loguploader-dialog-bg.png</texture>
+            </control>
+            <control type="image" id="107">
+                <left>20</left>
+                <top>266</top>
+                <width>290</width>
+                <height>400</height>
+            </control>
+            <control type="image" id="101">
+                <left>10</left>
+                <top>10</top>
+                <width>1680</width>
+                <height>950</height>
+            </control>
+            <control type="label" id="102">
+                <posx>20</posx>
+                <posy>270</posy>
+                <width>1660</width>
+                <height>60</height>
+                <font>font16_bold</font>
+                <label></label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <!-- <visible>Skin.String(headertexttype)</visible> -->
+            </control>
+            <control type="textbox" id="1022">
+               <left>680</left>
+                <top>350</top>
+                <width>660</width>
+                <height>160</height>
+                <font>font16_bold</font>
+                <label></label>
+                <align>right</align>
+                <aligny>right</aligny>
+                <!-- <visible>Skin.String(headertexttype)</visible> -->
+            </control>
+            <control type="image" id="103">
+                <posx>-720</posx>
+                <posy>5</posy>
+                <width>1660</width>
+                <height>160</height>
+                <aspectratio aligny="center" align="center">keep</aspectratio>
+                <visible>Skin.String(headerimagetype)</visible>
+            </control>
+            <control type="image" id="109">
+                <posx>-700</posx>
+                <posy>15</posy>
+                <width>1660</width>
+                <height>90</height>
+                <aspectratio>keep</aspectratio>
+                <visible>Skin.String(headerimagetype)</visible>
+            </control>
+            <control type="label" id="104">
+               <left>480</left>
+                <top>500</top>
+                <width>860</width>
+                <height>160</height>
+                <font>font16_bold</font>
+                <align>right</align>
+                <aligny>top</aligny>
+                <colordiffuse>FFFF00FF</colordiffuse>
+                <pagecontrol>105</pagecontrol>
+            </control>
+<!--             <control type="scrollbar" id="105">
+                <left>1660</left>
+                <top>90</top>
+                <width>30</width>
+                <height>790</height>
+                <subtype>text</subtype>
+                <visible>true</visible>
+                <texturesliderbackground>Button/scrollbar-V-background.png</texturesliderbackground>
+                <texturesliderbar>Button/scrollbar-V.png</texturesliderbar>
+                <texturesliderbarfocus colordiffuse="FF12B2E7">Button/scrollbar-V-focus.png</texturesliderbarfocus>
+                <orientation>vertical</orientation>
+                <showonepage>true</showonepage>
+                <onup>201</onup>
+                <ondown>201</ondown>
+                <onleft>201</onleft>
+                <onright>201</onright>
+            </control> -->
+        </control>
+        <control type="group">
+		    <left>10</left>
+			<top>-300</top>
+            <control type="button" id="200">
+                <left>1050</left>
+                <top>890</top>
+                <width>300</width>
+                <height>60</height>
+                <textcolor>FFF0F0F0</textcolor>
+                <textoffsetx>20</textoffsetx>
+                <label>סגור</label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
+                <texturenofocus>Button/testbuttonnf.png</texturenofocus>
+                <onleft>201</onleft>
+                <onright>202</onright>
+                <onup>105</onup>
+                <ondown>105</ondown>
+            </control>
+            <control type="button" id="201">
+                <left>710</left>
+                <top>890</top>
+                <width>300</width>
+                <height>60</height>
+                
+                <textcolor>FFF0F0F0</textcolor>
+                <label>בחר מיקום הורדה</label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
+                <texturenofocus>Button/testbuttonnf.png</texturenofocus>
+                <onleft>202</onleft>
+                <onright>200</onright>
+                <onup>105</onup>
+                <ondown>105</ondown>
+            </control>
+            <control type="button" id="202">
+                <left>380</left>
+                <top>890</top>
+                <width>300</width>
+                <height>60</height>
+                <textcolor>FFF0F0F0</textcolor>
+                <textoffsetx>20</textoffsetx>
+                <label>נגן דרך הבוט</label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
+                <texturenofocus>Button/testbuttonnf.png</texturenofocus>
+                <onleft>200</onleft>
+                <onright>201</onright>
+                <onup>105</onup>
+                <ondown>105</ondown>
+            </control>
+
+        </control>
+    </controls>
+</window>

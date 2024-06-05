@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="MOD">
+	<setting id="extra_data" label="מידע נוסף לכל פריט" type="bool"  default="true" />
+	<setting id="new_time_window" label="חלון המשך צפייה חדשני" type="bool"  default="true" />
+	<setting id="directory_mod" label="אפשר בחירת מיקום הורדה של הקבצים לכונן SSD בלבד!" type="bool" default="false" />
+	<setting id="movie_download_directory" visible="eq(-1,true)" type="folder" label="מיקום הורדה - יש להפעיל מחדש את הקודי לאחר השינוי!!!" default=""/>
+	<setting id="next_sync" type="text" label="פרקים שיצאו" enable="false" visible="false" default=""/>
+    
+    <setting id="turbo_mod2" label="ניגון סופר מהיר - לבעלי אינטרנט מהיר" type="bool" visible="false" default="true" />
+    <setting id="super_bot" label="נגן דרך Anonymous bot" type="bool" default="false" />
+	
+	<setting id="vip_login2" label="חיבור VIP" type="bool" visible="false" default="false" />
+	<setting id="netflix_mod" label="מצב נטפליקס" type="bool" default="false" />
+	<setting id="sh_one_click" label="32112" type="bool" visible="eq(-1,true)" default="false" />
+	<setting id="skip_intro" label="דלג על הקדימון בסדרות" type="bool" default="false" />
+	<setting id="default.skip" type="slider" label="מספר שניות דילוג לסדרות חדשות כברירת מחדל" visible="eq(-1,true)" default="30" range="10,120" option="int" />
+	<!-- <setting id="container_refresh" label="רענן מידע על תוכן שנצפה בסיום הניגון" type="bool" default="false" /> -->
+	<setting id="save_time"  type="number"  label="מס' שעות לשמירת מקורות בזכרון" visible="true" default="72"/>
+	<setting id="show_movie" type="bool" label="הצג חלון מידע על סרטים חדשים" default="true"  />
+	<setting id="show_ep2" type="bool" label="הצג חלון מידע על פרקים חדשים" default="false"  />
+	<setting id="notify" type="bool" label="" default="true" visible="false" />
+	<setting id="noteid" type="text" label="התראה אחרונה" default="" visible="false"/>
+	<setting id="free_space" label="בדיקת זיכרון פנוי לפני ניגון" type="bool" default="true" />
+	<setting id="autojoin" label="הוסף קבוצות אוטומטית לחשבון שלי" type="bool" default="false" />
+	<setting id="new_source" type="bool" label="השתמש בתצוגת מקורות חדשה"  default="true" />
+	<setting id="new_play_window2" label="השתמש בחלון רקע פנארט חדשני" type="bool"  default="false" />
+	<setting id="get_notify" label="הצג הודעות מה חדש על הבילד" type="bool" default="true" />
+	<setting id="get_notify_movies" label="הצג הודעות על סרטים חדשים" type="bool" default="true" />
+	<setting id="left_ep" label="תצוגת מעקב סדרות מיושרת לשמאל" type="bool" default="false" />
+	<setting id="which_day" type="enum" label="בחר מתי לעדכן תוכן מדובבים" values="Daily|Always|TWODAYS|3 Days|Weekly" default="4"/>
+	<setting id="next_update" type="text" label="עדכון הבא בתאריך:" enable="false"  default=""/>
+	<setting id="movie_date" type="text" label="תאריך אחרון על תוכן חדש" visible="false" default=""/>
+
+	</category >
+	<category label="סנכרון">
+	
+	<setting id="sync_mod" label="סנכרון טלמדיה" type="bool" default="false" />
+	<setting id="firebase" type="text"  label="הכנס מזהה ID" visible="eq(-1,true)" default=""/>
+	<setting id="sync_trakt" type="bool"  label="סנכרן מעקב סדרות" visible="eq(-2,true)" default="true"/>
+	<setting id="sync_movie" type="bool" label="סנכרן המשך צפייה" visible="eq(-3,true)" default="true"/>
+	<setting id="sync_search" type="bool"  label="סנכרן היסטוריית חיפוש" visible="eq(-4,true)" default="true"/>
+	<setting id="sync_time" type="bool"  label="סנכרן נקודת צפייה אחרונה בין מכשירים" visible="eq(-5,true)" default="true"/>
+	<setting id="skip_intro_s" label="סנכרן מידע על דילוג קדימון בסדרות" type="bool" default="true" />
+	<setting id="time_ep" label="סנכרן מידע על תזמון של הפרק הבא" type="bool" default="true" />
+	<setting label="סנכרן עכשיו" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=183&url=www)"/>
+		</category >
+	<!--Account-->
+
+	<category label="32060">
+		<!--Login-->
+		<setting label="32001" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=5&url=www)"/>
+		<!--LogOut-->
+		<setting label="32002" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=4&url=www)"/>
+		
+		<setting id="poptele" label="הצג התראות לגבי החשבון" type="bool" default="false" />
+		<setting id="2numb" label="הפעל מספר חלופי" type="bool" default="false" />
+		
+		<!--Upload kodi log-->
+		<setting label="32100" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=41&url=www)"/>
+		<!--Backup Telemedia-->
+		<setting label="32116" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=43&url=www)"/>
+		
+		<!--Backup Telemedia-->
+		<setting label="set bot id" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=44&url=www&name=backup)"/>
+		
+		<setting id="bot_id" type="text" label="bot_id" default="772555074" />
+		
+		<!--Login when kodi starts-->
+		<setting id="autologin" label="32003" type="bool" default="false" />
+		
+		<!--Clean Kodi-->
+		<setting label="32130" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=48&url=www)"/>
+		
+	</category >
+
+	<category label="איכות ">
+		<!--Auto quality in google drive-->
+		<setting id="auto_q" label="32013" type="bool" default="true" />
+		<setting id="order_by" type="enum" label="32095" lvalues="32096|32097"  visible="true" default="0" />
+		<setting id="4K" label="הצג מקורות 4k" type="bool"  default="true" />
+		<setting id="1080p" label="הצג מקורות 1080p" type="bool"  default="true" />
+		<setting id="720p" label="הצג מקורות 720p" type="bool"  default="true" />
+		<setting id="480p" label="הצג מקורות 480p" type="bool"  default="true" />
+		<setting id="360p" label="הצג מקורות 360p" type="bool"  default="true" />
+		<setting id="240p" label="הצג מקורות 240p" type="bool"  default="true" />
+		
+	</category>
+	
+ 	<category label="הפרק הבא">
+		<setting id="nextup_episode" label="הפעל את הפרק הבא" type="bool"  default="true" />
+		<setting id="clean_view" label="מראה חלון נקי של הפרק הבא" type="bool"  default="true" />
+		<setting id="smart_next" label="הצג חלון לפי תזמון חכם (בלחיצה על הפרק הבא תשמר נקודת התזמון)" type="bool"  default="false" />
+		<setting id="play_nextup_wait" label="נגן אוטומטית אם אין בחירה" type="bool"  default="false" />
+		<setting id="window" label="הצג חלון מספר שניות לפני סוף הפרק" type="number" default="100" />
+	
+		<setting id="before_end2" label="הפעל את הפרק מספר שניות לפני סיום" type="number"  default="3" />
+		<setting id="keep_show" label="סגור את החלון בסיום הפרק" type="bool"  default="true" />
+	</category>
+ 	<category label="הסרט הבא">
+		<setting id="nextup_movie" label="הפעל את הסרט הבא" type="bool"  default="false" />
+		<setting id="play_nextup_wait" label="נגן אוטומטית אם אין בחירה" type="bool"  default="false" />
+		<setting id="movie_window" label="הראה המלצה לסרט מספר שניות לפני סיום " type="number" default="300" />
+
+	</category>
+
+	<category label="אימות חשבון Trakt">
+	<setting label="השתמש בחשבון Trakt" id="auto_trk" type="bool"  />
+	<setting id="trk_user" type="text" label="TRK user" visible="eq(-1,true)" default="" />
+	<setting id="trk_pass" type="text" option = "hidden" label="TRK password" visible="eq(-2,true)" default="" />
+	<setting id="time_to_save" label="סמן נצפה בטראקט אחרי % סדרות\סרטים" type="number" default="75" />
+	<!-- <setting id="save_time"  type="number"  label="32213" visible="true" default="72"/> -->
+	</category >
+	<category label="Apk installer">
+		<setting id="File_Manager"        type="enum"   label="File Explorer" values="Default (Nvidia Shield)|Custom" default="0" />
+		<setting id="Custom_Manager" type="action" label="Select File Explorer" default="" visible="eq(-1,1)" action="RunPlugin(plugin://plugin.video.telemedia?mode=190&url=www&name=backup)" />
+	</category >
+	<!--fast_play-->
+	<category label="32113">
+		<setting id="one_click" label="32111" type="bool" default="false" />
+		<!--show_sources after-->
+		<setting id="sh_one_click" label="32112" type="bool" visible="eq(-1,true)" default="false" />
+		<!-- <setting id="one_click2" label="ניגון מהיר בפרק הבא " type="bool" default="false" /> -->
+	</category >
+	<!--addons update-->
+	<category label="32120">
+	
+	    <!-- <setting id="mylocalrepo" label="השתמש בריפו משלי" type="bool" default="false" /> -->
+		<setting id="auto_update" label="32122" type="bool" default="true" />
+		<setting label="32121" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=44&url=www&name=auto)"/>
+		<setting id="update_chat_id" type="text" label="32123" default="" />
+		
+	</category >
+	<!--Content-->
+	<category label="תת תפריט">
+		<!-- <setting id="cast" label="32248" type="bool"  default="true" /> -->
+		<!-- <setting id="s3d_scrape" label="32178" type="bool"  default="true" /> -->
+		<!-- <setting id="play_trailer" label="32167" type="bool"  default="true" /> -->
+		<!-- <setting id="settings_content" label="32168" type="bool"  default="true" /> -->
+		<!-- <setting id="queue_item" label="32169" type="bool"  default="true" /> -->
+		<setting id="trakt_manager" label="ניהול טראקט" type="bool"  default="true" />
+		<setting id="trakt_watched" label="נצפה-טראקט" type="bool"  default="true" />
+		<setting id="trakt_unwatched" label="לא נצפה-טראקט" type="bool"  default="true" />
+		<!-- <setting id="openinfo" label="Openinfo" type="bool"  default="true" /> -->
+		<setting id="remove_resume_time" label="הסר נקודת ניגון" type="bool"  default="true" />
+		<setting id="browse_series" label="פתח סידרה" type="bool"  default="true" />
+		<setting id="remove_resume_point" label="הסר נקודת ניגון" type="bool"  default="true" />
+		<!-- <setting id="clear_Cache" label="32176" type="bool"  default="true" /> -->
+		<!-- <setting id="set_view_type" label="32177" type="bool"  default="true" /> -->
+		
+	</category>
+	<category label="32007">
+		<setting id="showdb" label="הצג מד התקדמות בעולם הילדים" type="bool" default="false" />
+		<setting id="num_p"  type="number"  label="מספר עמודים לדף" visible="true" default="1"/>
+		<setting id="num_vip"  type="number"  label="מספר עמודים לדף בקטגוריה VIP" visible="true" default="50"/>
+		<setting id="order_networks" type="enum" label="סדר סדרות ברשתות השונות" values="פופלריות|הכי חדש|הכי הרבה הצבעות"  default="0" />
+	<setting id="collection_size"  type="number"  label="כמות לעמוד באוספי הסרטים"  default="100"/>
+		<!--Remove group name from files-->
+		<setting id="remove_title" label="32004" type="bool" default="true" />
+		<!--Get notification-->
+
+		<!--Show login Code-->
+		<setting id="show_login" label="32006" type="bool" default="false" />
+		<!--One click play-->
+
+		
+		<!--Display Files-->
+		<setting id="disp_f" label="32008" type="bool" default="true" />
+		<!--Display files option-->
+		<setting id="files_display_type" type="enum" label="32102" lvalues="32103|32104"  visible="eq(-1,true)" default="1" />
+		<setting id="episode_api" type="text" label="פרקים שיצאו" enable="false" visible="false" default="DESKTOP-64D9ATG"/>
+		<setting id="season_api" type="text" label="פרקים שיצאו" enable="false" visible="false" default="DESKTOP-ON9JTRP"/>
+		<!--Display Videos-->
+		<setting id="disp_v" label="32009" type="bool" default="true" />
+		<!--Display files option-->
+		<setting id="video_display_type" type="enum" label="32102" lvalues="32103|32104"  visible="eq(-1,true)" default="1" />
+		
+		<!--Display Links-->
+		<setting id="disp_l" label="32010" type="bool" default="true" />
+		<!--Display Audio-->
+		<setting id="disp_a2" label="32011" type="bool" default="false" />
+		<!--use repo groups-->
+		
+		<setting id="repo" label="32012" type="bool" default="true" />
+		<setting label="32083" type="lsep" visible="eq(-1,true)"/>
+		<!--use apk groups-->
+		
+		<setting id="install_apk" label="32078" type="bool" default="true" />
+		<setting label="32084" type="lsep" visible="eq(-1,true)"/>
+		<!--use files groups-->
+		
+		<setting id="download_files" label="32086" type="bool" default="true" />
+		<setting id="remote_path" type="folder" label="32087" visible="eq(-1,true)" />
+		<setting label="32085" type="lsep" visible="eq(-2,true)"/>
+		<!--Auto quality in google drive-->
+<!-- 		<setting id="auto_q" label="32013" type="bool" default="false" />
+		<setting id="order_by" type="enum" label="32095" lvalues="32096|32097"  visible="true" default="1" /> -->
+		
+	</category >
+	<!--Filter-->
+	<category label="32107">
+		<setting id="filter_watched" label="32108" type="bool" default="false" />
+		<setting id="filter_watched_time"  type="number"  label="32109"  visible="eq(-1,true)"  default="90"/>
+		<setting id="dup_links" label="32110" type="bool" default="true" />
+		<setting id="fix_link" label="סנן מקורות לא קשורים" type="bool" default="false" />
+
+		<setting label="32115" type="lsep" />
+		<setting id="filter_text" type="text" label="32114" default="" />
+		<setting id="filter_size"  type="number"  label="32117"    default="20"/>
+		<!-- <setting id="filter_sizelimit"  type="number"  label="32138"    default="1500"/> -->
+	</category >
+	<!--Buffer-->
+	<category label="32014">
+		
+		<!--Buffer size-->
+		<setting id="buffer_size_new4"  type="number"  label="32015"    default="8"/>
+		<setting id="buffer_size"  type="number"  label="32015" visible="false"  default="4000000"/>
+		<!--Wait for play time (sec)-->
+		<setting id="wait_size"  type="number"  label="32016"  default="300"/>
+
+		<!--chunk_size (sec)-->
+		<setting id="chunk_size_new4"  type="number"  label="32098"  default="5000"/>
+		<!--chunk_file_size (sec)-->
+		<setting id="chunk_size_file"  type="number"  label="32118"  default="4"/>
+		
+		<!--chunk_size (sec)-->
+		<setting id="advance_buffer" label="32099" type="bool" default="false" />
+		<!--port (sec)-->
+		<setting id="port"  type="number"  label="32077"  visible="false" default="5118"/>
+		
+		<setting id="next_player_option" label="32119" type="bool" default="true" />
+			<setting id="get_pin" label="הצג קוד" type="bool" default="false" />
+		
+
+		
+	</category >
+	<!--Clear-->
+	<category label="32017">
+	
+		<!--Clear cache-->
+		<setting label="32018" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=17&url=www)"/>
+		<!--Clear All-->
+		<!-- <setting label="32019" option="close" type="action" action="RunPlugin(plugin://plugin.video.telemedia?mode=21&url=www)"/> -->
+	</category >
+	<!--debug-->
+	<category label="32061">
+	    <setting id="show_debug2" type="bool" label="show_debug" default="false" />
+		<setting id="debug" label="debug" type="bool" default="false" />
+		<setting id="p_mod" label="debugw" type="bool" visible="false" default="false" />
+		<setting id="full_debug" label="full event debug" type="bool" default="false" />
+		<setting id="test" type="text" label="test" default="" />
+		<setting id="dp" label="הצג מד התקדמות" type="bool" default="false" />
+	</category >
+</settings>

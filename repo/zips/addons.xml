@@ -1,5 +1,23 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="repository.Fishenzon" name="Fishenzon repo" version="1.0.2" provider-name="Fishenzon">
+<addons><addon id="plugin.video.telemedia" name="Telemedia Mod" version="3.2.8" provider-name="Pavel Durov">
+  <requires>
+	<import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+  
+    <summary lang="he">Telegram media for kodi,\n Thanks to "Aliaksei Levin" without him none of this would have been possiable</summary>
+    <description lang="he">Telegram media for kodi</description>
+    <platform>all</platform>
+	<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon><addon id="repository.Fishenzon" name="Fishenzon repo" version="1.0.2" provider-name="Fishenzon">
 	<extension point="xbmc.addon.repository" name="Fishenzon repo">
 		<info compressed="false">https://raw.githubusercontent.com/fishenzon/repo/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/fishenzon/repo/master/addons.xml.md5</checksum>
@@ -18,7 +36,7 @@
 		<description>Fishenzon Repo</description>
 		<platform>all</platform>
 	</extension>
-</addon><addon id="repository.MBTV" name="MBTV Repo" version="1.0.0" provider-name="MeirB88">
+</addon><addon id="repository.MBTV" name="MBTV Repo" version="1.0.1" provider-name="MeirB88">
     <extension point="xbmc.addon.repository" name="MBTV Repo">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/MeirB88/MeirB88.github.io/master/repo/zips/addons.xml</info>

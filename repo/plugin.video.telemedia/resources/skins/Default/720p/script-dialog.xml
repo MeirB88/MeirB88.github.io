@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="9999">
+	<defaultcontrol always="true">9001</defaultcontrol>
+			<animation type="WindowOpen" reversible="false">
+				<effect type="fade" start="0" end="100" time="400" />
+				<effect type="slide" start="0,-181" end="0,0" time="400" />
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="fade" start="100" end="0" time="100" />
+				<effect type="slide" start="0,0" end="0,-181" time="100" />
+			</animation>
+	<controls>
+<!--  				<control type="image">
+			<posx>0</posx>
+			<posy>390</posy>
+					<width>230</width>
+					<height>155</height>
+					<texture>bg-fade.png</texture>
+					<colordiffuse>black</colordiffuse>
+					<aspectratio>stretch</aspectratio>
+				</control> -->
+ 				<control type="image">
+<!-- 			<posx>0</posx>
+			<posy>390</posy> -->
+					<width>612</width>
+					<height>42</height>
+					<texture>bg-fade.png</texture>
+					<colordiffuse>black</colordiffuse>
+					<aspectratio>stretch</aspectratio>
+				</control>
+		<control type="grouplist" id="9001">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>800</width>
+			<height>150</height>
+			<align>left</align>
+			<!-- <itemgap>15</itemgap> -->
+			<orientation>horizontal</orientation>
+
+			<control type="button" id="201">
+				<description>Later Button</description>
+				<width>200</width>
+				<height>40</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label></label>
+				<font>font25_title</font>
+				<textoffsetx>15</textoffsetx>
+				<textcolor>ddffffff</textcolor>
+				<focusedcolor>eeffffff</focusedcolor>
+				<selectedcolor>ddffffff</selectedcolor>
+				<shadowcolor>22000000</shadowcolor>
+				<aligny>center</aligny>
+				<align>center</align>
+				<texturefocus border="10" colordiffuse="ff00b7eb">listselect_fo.png</texturefocus>
+				<texturenofocus border="10" colordiffuse="FF212121">listselect_fo.png</texturenofocus>
+				<alttexturefocus border="10" colordiffuse="ff00b7eb">listselect_fo.png</alttexturefocus>
+				<alttexturenofocus border="10" colordiffuse="FF212121">listselect_fo.png</alttexturenofocus>
+				<pulseonselect>no</pulseonselect>
+			</control>
+			<control type="button" id="202">
+				<!-- <top>50</top> -->
+				<description>Never Button</description>
+				<width>200</width>
+				<height>40</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>הכנס תזמון ידני</label>
+
+				<font>font25_title</font>
+				<textoffsetx>15</textoffsetx>
+				<textcolor>ddffffff</textcolor>
+				<focusedcolor>eeffffff</focusedcolor>
+				<selectedcolor>ddffffff</selectedcolor>
+				<shadowcolor>22000000</shadowcolor>
+				<aligny>center</aligny>
+				<align>center</align>
+				<texturefocus border="10" colordiffuse="ff00b7eb">listselect_fo.png</texturefocus>
+				<texturenofocus border="10" colordiffuse="FF212121">listselect_fo.png</texturenofocus>
+				<alttexturefocus border="10" colordiffuse="ff00b7eb">listselect_fo.png</alttexturefocus>
+				<alttexturenofocus border="10" colordiffuse="FF212121">listselect_fo.png</alttexturenofocus>
+				<pulseonselect>no</pulseonselect>
+			</control>
+			<control type="button" id="210">
+				<!-- <top>100</top> -->
+				<description>Never Button</description>
+				<width>200</width>
+				<height>40</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>הסתר התראה זו</label>
+ <visible>!Window.IsVisible(DialogNumeric.xml)</visible>
+				<font>font25_title</font>
+				<textoffsetx>15</textoffsetx>
+				<textcolor>ddffffff</textcolor>
+				<focusedcolor>eeffffff</focusedcolor>
+				<selectedcolor>ddffffff</selectedcolor>
+				<shadowcolor>22000000</shadowcolor>
+				<aligny>center</aligny>
+				<align>center</align>
+				<texturefocus border="10" colordiffuse="ff00b7eb">listselect_fo.png</texturefocus>
+				<texturenofocus border="10" colordiffuse="FF212121">listselect_fo.png</texturenofocus>
+				<alttexturefocus border="10" colordiffuse="ff00b7eb">listselect_fo.png</alttexturefocus>
+				<alttexturenofocus border="10" colordiffuse="FF212121">listselect_fo.png</alttexturenofocus>
+				<pulseonselect>no</pulseonselect>
+			</control>
+                <control type="label">
+				 <visible>Window.IsVisible(DialogNumeric.xml)</visible>
+                    <left>100</left>
+                    <top>0</top>
+                    <height>48</height> 
+					<width>200</width>
+				<aligny>center</aligny>
+				<align>center</align>
+                    <textcolor>LineLabel</textcolor> 
+                    <label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+                </control>
+		</control>
+	</controls>
+</window>

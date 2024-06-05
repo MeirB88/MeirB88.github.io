@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <coordinates>
+        <left>370</left>
+        <top>325</top>
+    </coordinates>
+    <controls>
+        <control type="group">
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1210</width>
+                <height>500</height>
+                <texture border="2">Background/ContentPanel.png</texture>
+            </control>
+            <control type="image" id="101">
+                <left>10</left>
+                <top>10</top>
+                <width>1180</width>
+                <height>480</height>
+            </control>
+            <control type="label" id="102">
+                <description>header label</description>
+                <posx>160</posx>
+                <posy>20</posy>
+                <width>860</width>
+                <height>40</height>
+                <label></label>
+                <align>center</align>
+                <aligny>center</aligny>
+            </control>
+            <control type="textbox" id="103">
+                <left>0</left>
+                <top>70</top>
+                <width>1180</width>
+                <height>380</height>
+                <align>right</align>
+                <aligny>top</aligny>
+            </control>
+        </control>
+        <control type="group">
+            <control type="button" id="201">
+                <left>450</left>
+                <top>410</top>
+                <width>310</width>
+                <height>60</height>
+                <!-- <font>font12</font> -->
+                <textcolor>FFF0F0F0</textcolor>
+                <label>למעבר להתקנה</label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
+                <texturenofocus>Button/testbuttonnf.png</texturenofocus>
+                <onleft>202</onleft>
+                <onright>202</onright>
+            </control>
+            <control type="button" id="202">
+                <left>570</left>
+                <top>390</top>
+                <width>310</width>
+                <height>60</height>
+                <font>font12</font>
+                <textcolor>FFF0F0F0</textcolor>
+                <textoffsetx>20</textoffsetx>
+                <label>ביטול</label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
+                <texturenofocus>Button/testbuttonnf.png</texturenofocus>
+                <onleft>201</onleft>
+                <onright>201</onright>
+            </control>
+        </control>
+    </controls>
+</window>
