@@ -62,14 +62,14 @@ def wipe():
     
     progress_dialog = xbmcgui.DialogProgress()
     
-    skin.skin_to_default('Fresh Install')
+    skin.skin_to_default('התקנה מחדש')
     
     update.addon_updates('set')
     xbmcPath = os.path.abspath(CONFIG.HOME)
-    progress_dialog.create(CONFIG.ADDONTITLE, "[COLOR {0}]Calculating files and folders".format(CONFIG.COLOR2) + '\n' + '\n' + 'Please Wait![/COLOR]')
+    progress_dialog.create(CONFIG.ADDONTITLE, "[COLOR {0}]מחשב קבצים ותיקיות".format(CONFIG.COLOR2) + '\n' + '\n' + 'נא להמתין![/COLOR]')
     total_files = sum([len(files) for r, d, files in os.walk(xbmcPath)])
     del_file = 0
-    progress_dialog.update(0, "[COLOR {0}]Gathering Excludes list.[/COLOR]".format(CONFIG.COLOR2))
+    progress_dialog.update(0, "[COLOR {0}]אוסף רשימת אי הכללות.[/COLOR]".format(CONFIG.COLOR2))
     if CONFIG.KEEPREPOS == 'true':
         repos = glob.glob(os.path.join(CONFIG.ADDONS, 'repo*/'))
         for item in repos:
@@ -103,7 +103,7 @@ def wipe():
     for item in CONFIG.DEPENDENCIES:
         exclude_dirs.append(item)
 
-    progress_dialog.update(0, "[COLOR {0}]Clearing out files and folders:".format(CONFIG.COLOR2))
+    progress_dialog.update(0, "[COLOR {0}]מנקה קבצים ותיקיות:".format(CONFIG.COLOR2))
     latestAddonDB = db.latest_db('Addons')
     for root, dirs, files in os.walk(xbmcPath, topdown=True):
         dirs[:] = [d for d in dirs if d not in exclude_dirs]
@@ -112,52 +112,52 @@ def wipe():
             fold = root.replace('/', '\\').split('\\')
             x = len(fold)-1
             if name == 'sources.xml' and fold[-1] == 'userdata' and CONFIG.KEEPSOURCES == 'true':
-                logging.log("Keep sources.xml: {0}".format(os.path.join(root, name)))
+                logging.log("שמור sources.xml: {0}".format(os.path.join(root, name)))
             elif name == 'favourites.xml' and fold[-1] == 'userdata' and CONFIG.KEEPFAVS == 'true':
-                logging.log("Keep favourites.xml: {0}".format(os.path.join(root, name)))
+                logging.log("שמור favourites.xml: {0}".format(os.path.join(root, name)))
             elif name == 'profiles.xml' and fold[-1] == 'userdata' and CONFIG.KEEPPROFILES == 'true':
-                logging.log("Keep profiles.xml: {0}".format(os.path.join(root, name)))
+                logging.log("שמור profiles.xml: {0}".format(os.path.join(root, name)))
             elif name == 'playercorefactory.xml' and fold[-1] == 'userdata' and CONFIG.KEEPPLAYERCORE == 'true':
-                logging.log("Keep playercorefactory.xml: {0}".format(os.path.join(root, name)))
+                logging.log("שמור playercorefactory.xml: {0}".format(os.path.join(root, name)))
             elif name == 'guisettings.xml' and fold[-1] == 'userdata' and CONFIG.KEEPGUISETTINGS == 'true':
-                logging.log("Keep guisettings.xml: {0}".format(os.path.join(root, name)))
+                logging.log("שמור guisettings.xml: {0}".format(os.path.join(root, name)))
             elif name == 'advancedsettings.xml' and fold[-1] == 'userdata' and CONFIG.KEEPADVANCED == 'true':
-                logging.log("Keep advancedsettings.xml: {0}".format(os.path.join(root, name)))
+                logging.log("שמור advancedsettings.xml: {0}".format(os.path.join(root, name)))
             elif name in CONFIG.LOGFILES:
-                logging.log("Keep Log File: {0}".format(name))
+                logging.log("שמור קובץ לוג: {0}".format(name))
             elif name.endswith('.db'):
                 try:
                     if name == latestAddonDB:
-                        logging.log("Ignoring {0} on Kodi {1}".format(name, tools.kodi_version()))
+                        logging.log("התעלם מ-{0} על Kodi {1}".format(name, tools.kodi_version()))
                     else:
                         os.remove(os.path.join(root, name))
                 except Exception as e:
                     if not name.startswith('Textures13'):
-                        logging.log('Failed to delete, Purging DB')
+                        logging.log('נכשל למחוק, מנקה בסיס נתונים')
                         logging.log("-> {0}".format(str(e)))
                         db.purge_db_file(os.path.join(root, name))
             else:
-                progress_dialog.update(int(tools.percentage(del_file, total_files)), '\n' + '[COLOR {0}]File: [/COLOR][COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name))
+                progress_dialog.update(int(tools.percentage(del_file, total_files)), '\n' + '[COLOR {0}]קובץ: [/COLOR][COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name))
                 try:
                     os.remove(os.path.join(root, name))
                 except Exception as e:
-                    logging.log("Error removing {0}".format(os.path.join(root, name)))
+                    logging.log("שגיאה בהסרת {0}".format(os.path.join(root, name)))
                     logging.log("-> / {0}".format(str(e)))
         if progress_dialog.iscanceled():
             progress_dialog.close()
             logging.log_notify(CONFIG.ADDONTITLE,
-                               "[COLOR {0}]Fresh Start Cancelled[/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]ההתקנה מחדש בוטלה[/COLOR]".format(CONFIG.COLOR2))
             return False
     for root, dirs, files in os.walk(xbmcPath, topdown=True):
         dirs[:] = [d for d in dirs if d not in exclude_dirs]
         for name in dirs:
-            progress_dialog.update(100, '\n' + 'Cleaning Up Empty Folder: [COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, name))
+            progress_dialog.update(100, '\n' + 'מנקה תיקיות ריקות: [COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, name))
             if name not in ["Database", "userdata", "temp", "addons", "addon_data"]:
                 shutil.rmtree(os.path.join(root, name), ignore_errors=True, onerror=None)
         if progress_dialog.iscanceled():
             progress_dialog.close()
             logging.log_notify(CONFIG.ADDONTITLE,
-                               "[COLOR {0}]Fresh Start Cancelled[/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]ההתקנה מחדש בוטלה[/COLOR]".format(CONFIG.COLOR2))
             return False
             
     progress_dialog.close()
@@ -191,19 +191,19 @@ def fresh_start(install=None, over=False):
 
     elif install == 'restore':
         yes_pressed = dialog.yesno(CONFIG.ADDONTITLE,
-                                       "[COLOR {0}]Do you wish to restore your".format(CONFIG.COLOR2)
-                                       +'\n'+"Kodi configuration to default settings"
-                                       +'\n'+"Before installing the local backup?[/COLOR]",
-                                       nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',
-                                       yeslabel='[B][COLOR springgreen]Continue[/COLOR][/B]')
+                                   "[COLOR {0}]האם ברצונך לשחזר את".format(CONFIG.COLOR2)
+                                   +'\n'+"קובץ ההגדרות של Kodi"
+                                   +'\n'+"לפני התקנת הגיבוי המקומי?[/COLOR]",
+                                   nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]',
+                                   yeslabel='[B][COLOR springgreen]המשך[/COLOR][/B]')
     elif install:
-        yes_pressed = dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]Do you wish to restore your".format(CONFIG.COLOR2)
-                                       +'\n'+"Kodi configuration to default settings"
-                                       +'\n'+"Before installing [COLOR {0}]{1}[/COLOR]?".format(CONFIG.COLOR1, install),
-                                       nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',
-                                       yeslabel='[B][COLOR springgreen]Continue[/COLOR][/B]')
+        yes_pressed = dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]האם ברצונך לשחזר את".format(CONFIG.COLOR2)
+                                   +'\n'+"קובץ ההגדרות של Kodi"
+                                   +'\n'+"לפני התקנת [COLOR {0}]{1}[/COLOR]?".format(CONFIG.COLOR1, install),
+                                   nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]',
+                                   yeslabel='[B][COLOR springgreen]המשך[/COLOR][/B]')
     else:
-        yes_pressed = dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]Do you wish to restore your".format(CONFIG.COLOR2) +' \n' + "Kodi configuration to default settings?[/COLOR]", nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]', yeslabel='[B][COLOR springgreen]Continue[/COLOR][/B]')
+        yes_pressed = dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]האם ברצונך לשחזר את".format(CONFIG.COLOR2) +' \n' + "קובץ ההגדרות של Kodi?[/COLOR]", nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]', yeslabel='[B][COLOR springgreen]המשך[/COLOR][/B]')
     if yes_pressed:
         wipe()
         
@@ -216,14 +216,14 @@ def fresh_start(install=None, over=False):
 
             Wizard().build('normal', install, over=True)
         else:
-            dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]To save changes you now need to force close Kodi, Press OK to force close Kodi[/COLOR]".format(CONFIG.COLOR2))
+            dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]כדי לשמור שינויים, כעת עליך לסגור את Kodi בכפייה, לחץ אישור כדי לסגור את Kodi בכפייה[/COLOR]".format(CONFIG.COLOR2))
             from resources.libs import update
             update.addon_updates('reset')
             tools.kill_kodi(over=True)
     else:
         if not install == 'restore':
             logging.log_notify(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]Fresh Install: Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+                               '[COLOR {0}]התקנה מחדש: בוטלה![/COLOR]'.format(CONFIG.COLOR2))
             xbmc.executebuiltin('Container.Refresh()')
 
 
@@ -274,33 +274,33 @@ def install_apk(name, url):
         redownload = True
         yes = True
         if os.path.exists(lib):
-            redownload = dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {}]{}[/COLOR] already exists. Would you like to redownload it?'.format(CONFIG.COLOR1, apk),
-                               yeslabel="[B]Redownload[/B]",
-                               nolabel="[B]Install[/B]")
+            redownload = dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {}]{}[/COLOR] כבר קיים. האם תרצה להוריד אותו מחדש?'.format(CONFIG.COLOR1, apk),
+                               yeslabel="[B]הורד מחדש[/B]",
+                               nolabel="[B]התקן[/B]")
             yes = False
         else:
             yes = dialog.yesno(CONFIG.ADDONTITLE,
-                                   "[COLOR {0}]Would you like to download and install: ".format(CONFIG.COLOR2)
-                                   +'\n'+"[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
-                                   yeslabel="[B][COLOR springgreen]Download[/COLOR][/B]",
-                                   nolabel="[B][COLOR red]Cancel[/COLOR][/B]")
+                               "[COLOR {0}]האם תרצה להוריד ולהתקין: ".format(CONFIG.COLOR2)
+                               +'\n'+"[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
+                               yeslabel="[B][COLOR springgreen]הורד[/COLOR][/B]",
+                               nolabel="[B][COLOR red]בטל[/COLOR][/B]")
                                    
             if not yes:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]ERROR: Install Cancelled[/COLOR]'.format(CONFIG.COLOR2))
+                                   '[COLOR {0}]שגיאה: התקנה בוטלה[/COLOR]'.format(CONFIG.COLOR2))
                 return
         
         if yes or redownload:
             response = tools.open_url(url, check=True)
             if not response:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   '[COLOR {0}]APK Installer: Invalid Apk Url![/COLOR]'.format(CONFIG.COLOR2))
+                                   '[COLOR {0}]מתקין APK: כתובת Apk לא חוקית![/COLOR]'.format(CONFIG.COLOR2))
                 return
                 
             progress_dialog.create(CONFIG.ADDONTITLE,
-                          '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, apk)
-                          +'\n'+''
-                          +'\n'+'Please Wait')
+                                   '[COLOR {0}][B]מוריד:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, apk)
+                                   +'\n'+'' 
+                                   +'\n'+'נא להמתין')
             
             try:
                 os.remove(lib)
@@ -310,10 +310,10 @@ def install_apk(name, url):
             xbmc.sleep(100)
             progress_dialog.close()
                 
-        dialog.ok(CONFIG.ADDONTITLE, '[COLOR {}]{}[/COLOR] downloaded to [COLOR {}]{}[/COLOR]. If installation doesn\'t start by itself, navigate to that location to install the APK.'.format(CONFIG.COLOR1, apk, CONFIG.COLOR1, path))
+        dialog.ok(CONFIG.ADDONTITLE, '[COLOR {}]{}[/COLOR] הורד ל-[COLOR {}]{}[/COLOR]. אם ההתקנה לא מתחילה מעצמה, נווט למיקום זה כדי להתקין את ה-APK.'.format(CONFIG.COLOR1, apk, CONFIG.COLOR1, path))
         
-        logging.log('Opening {} with {}'.format(lib, use_manager), level=xbmc.LOGINFO)
+        logging.log('פותח {} עם {}'.format(lib, use_manager), level=xbmc.LOGINFO)
         xbmc.executebuiltin('StartAndroidActivity({},,,"content://{}")'.format(use_manager, lib))
     else:
         logging.log_notify(CONFIG.ADDONTITLE,
-                           '[COLOR {0}]ERROR: None Android Device[/COLOR]'.format(CONFIG.COLOR2))
+                           '[COLOR {0}]שגיאה: מכשיר לא אנדרואיד[/COLOR]'.format(CONFIG.COLOR2))

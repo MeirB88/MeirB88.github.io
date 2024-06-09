@@ -326,15 +326,14 @@ def debrid_it(do, who):
                 except:
                     pass
             else:
-                logging.log('[Debrid Info] {0}({1}) is not installed'.format(DEBRIDID[log]['name'], DEBRIDID[log]['plugin']), level=xbmc.LOGERROR)
+                logging.log('[מידע על Debrid] {0}({1}) אינו מותקן'.format(DEBRIDID[log]['name'], DEBRIDID[log]['plugin']), level=xbmc.LOGERROR)
         CONFIG.set_setting('debridnextsave', tools.get_date(days=3, formatted=True))
     else:
         if DEBRIDID[who]:
             if os.path.exists(DEBRIDID[who]['path']):
                 update_debrid(do, who)
         else:
-            logging.log('[Debrid Info] Invalid Entry: {0}'.format(who), level=xbmc.LOGERROR)
-
+            logging.log('[מידע על Debrid] ערך לא חוקי: {0}'.format(who), level=xbmc.LOGERROR)
 
 def clear_saved(who, over=False):
     if who == 'all':
@@ -345,13 +344,12 @@ def clear_saved(who, over=False):
         if os.path.exists(file):
             os.remove(file)
             logging.log_notify('[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, DEBRIDID[who]['name']),
-                               '[COLOR {0}]Debrid Info: Removed![/COLOR]'.format(CONFIG.COLOR2),
+                               '[COLOR {0}]מידע על Debrid: הוסר![/COLOR]'.format(CONFIG.COLOR2),
                                2000,
                                DEBRIDID[who]['icon'])
         CONFIG.set_setting(DEBRIDID[who]['saved'], '')
     if not over:
         xbmc.executebuiltin('Container.Refresh()')
-
 
 def update_debrid(do, who):
     file = DEBRIDID[who]['file']
@@ -383,11 +381,11 @@ def update_debrid(do, who):
                 user = addonid.getSetting(default)
                 CONFIG.set_setting(saved, user)
                 
-                logging.log('Debrid Info Saved for {0}'.format(name), level=xbmc.LOGINFO)
+                logging.log('מידע על Debrid נשמר עבור {0}'.format(name), level=xbmc.LOGINFO)
             except Exception as e:
-                logging.log("[Debrid Info] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+                logging.log("[מידע על Debrid] לא ניתן לעדכן {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
-            logging.log('Debrid Info Not Registered for {0}'.format(name))
+            logging.log('מידע על Debrid לא רשום עבור {0}'.format(name))
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
@@ -401,13 +399,13 @@ def update_debrid(do, who):
                 
                 user = addonid.getSetting(default)
                 CONFIG.set_setting(saved, user)
-                logging.log('Debrid Info Restored for {0}'.format(name), level=xbmc.LOGINFO)
+                logging.log('מידע על Debrid שוחזר עבור {0}'.format(name), level=xbmc.LOGINFO)
             except Exception as e:
-                logging.log("[Debrid Info] Unable to Restore {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+                logging.log("[מידע על Debrid] לא ניתן לשחזר {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
-            logging.log('Debrid Info Not Found for {0}'.format(name))
+            logging.log('מידע על Debrid לא נמצא עבור {0}'.format(name))
     elif do == 'clearaddon':
-        logging.log('{0} SETTINGS: {1}'.format(name, settings))
+        logging.log('{0} הגדרות: {1}'.format(name, settings))
         if os.path.exists(settings):
             try:
                 tree = ElementTree.parse(settings)
@@ -415,19 +413,18 @@ def update_debrid(do, who):
                 
                 for setting in root.findall('setting'):
                     if setting.attrib['id'] in data:
-                        logging.log('Removing Setting: {0}'.format(setting.attrib))
+                        logging.log('הסרת הגדרה: {0}'.format(setting.attrib))
                         root.remove(setting)
                             
                 tree.write(settings)
                 
                 logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
-                                   '[COLOR {0}]Addon Data: Cleared![/COLOR]'.format(CONFIG.COLOR2),
+                                   '[COLOR {0}]נתוני התוסף: נוקו![/COLOR]'.format(CONFIG.COLOR2),
                                    2000,
                                    icon)
             except Exception as e:
-                logging.log("[Debrid Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+                logging.log("[מידע על Debrid] לא ניתן לנקות את התוסף {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
     xbmc.executebuiltin('Container.Refresh()')
-
 
 def auto_update(who):
     if who == 'all':
@@ -447,15 +444,14 @@ def auto_update(who):
                 dialog = xbmcgui.Dialog()
 
                 if dialog.yesno(CONFIG.ADDONTITLE,
-                                    "Would you like to save the [COLOR {0}]Debrid Info[/COLOR] for [COLOR {1}]{2}[/COLOR]?".format(CONFIG.COLOR2, CONFIG.COLOR1, n)
-                                    +'\n'+"Addon: [COLOR springgreen][B]{0}[/B][/COLOR]".format(u)
-                                    +'\n'+"Saved:[/COLOR] [COLOR red][B]{0}[/B][/COLOR]".format(su) if not su == '' else 'Saved:[/COLOR] [COLOR red][B]None[/B][/COLOR]',
-                                    yeslabel="[B][COLOR springreen]Save Debrid[/COLOR][/B]",
-                                    nolabel="[B][COLOR red]No, Cancel[/COLOR][/B]"):
+                                    "האם ברצונך לשמור את [COLOR {0}]המידע על Debrid[/COLOR] עבור [COLOR {1}]{2}[/COLOR]?".format(CONFIG.COLOR2, CONFIG.COLOR1, n)
+                                    +'\n'+"תוסף: [COLOR springgreen][B]{0}[/B][/COLOR]".format(u)
+                                    +'\n'+"נשמר:[/COLOR] [COLOR red][B]{0}[/B][/COLOR]".format(su) if not su == '' else 'נשמר:[/COLOR] [COLOR red][B]אף אחד[/B][/COLOR]',
+                                    yeslabel="[B][COLOR springreen]שמור Debrid[/COLOR][/B]",
+                                    nolabel="[B][COLOR red]לא, בטל[/COLOR][/B]"):
                     debrid_it('update', who)
             else:
                 debrid_it('update', who)
-
 
 def import_list(who):
     if who == 'all':
@@ -481,8 +477,7 @@ def import_list(who):
                 addonid.setSetting(id, value)
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
-                       '[COLOR {0}]Debrid Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
-
+                       '[COLOR {0}]מידע על Debrid: יובא![/COLOR]'.format(CONFIG.COLOR2))
 
 def activate_debrid(who):
     if DEBRIDID[who]:
@@ -497,7 +492,7 @@ def activate_debrid(who):
             dialog = xbmcgui.Dialog()
 
             dialog.ok(CONFIG.ADDONTITLE,
-                          '{0} is not currently installed.'.format(DEBRIDID[who]['name']))
+                          '{0} אינו מותקן כרגע.'.format(DEBRIDID[who]['name']))
     else:
         xbmc.executebuiltin('Container.Refresh()')
         return

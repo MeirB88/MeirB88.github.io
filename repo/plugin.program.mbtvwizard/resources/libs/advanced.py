@@ -35,22 +35,22 @@ def view_current():
 
 def remove_current():
     dialog = xbmcgui.Dialog()
-    ok = dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]Are you sure you want to remove the current advancedsettings.xml?[/COLOR]".format(CONFIG.COLOR2),
-                                           yeslabel="[B][COLOR springgreen]Yes[/COLOR][/B]",
-                                           nolabel="[B][COLOR red]No[/COLOR][/B]")
+    ok = dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]האם אתה בטוח שברצונך להסיר את קובץ advancedsettings.xml הנוכחי?[/COLOR]".format(CONFIG.COLOR2),
+                                           yeslabel="[B][COLOR springgreen]כן[/COLOR][/B]",
+                                           nolabel="[B][COLOR red]לא[/COLOR][/B]")
 
     if ok:
         if os.path.exists(CONFIG.ADVANCED):
             tools.remove_file(CONFIG.ADVANCED)
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, CONFIG.ADDONTITLE),
-                               "[COLOR {0}]advancedsettings.xml removed[/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]advancedsettings.xml הוסר[/COLOR]".format(CONFIG.COLOR2))
             xbmc.executebuiltin('Container.Refresh()')
         else:
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, CONFIG.ADDONTITLE),
-                               "[COLOR {0}]advancedsettings.xml not found[/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]advancedsettings.xml לא נמצא[/COLOR]".format(CONFIG.COLOR2))
     else:
         logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, CONFIG.ADDONTITLE),
-                               "[COLOR {0}]advancedsettings.xml not removed[/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]advancedsettings.xml לא הוסר[/COLOR]".format(CONFIG.COLOR2))
 
 
 def _write_setting(category, tag, value):
@@ -75,7 +75,7 @@ def _write_setting(category, tag, value):
 
     tree = ElementTree.ElementTree(root)
 
-    logging.log('Writing {0} - {1}: {2} to advancedsettings.xml'.format(category, tag, value), level=xbmc.LOGDEBUG)
+    logging.log('כותב {0} - {1}: {2} ל-advancedsettings.xml'.format(category, tag, value), level=xbmc.LOGDEBUG)
     tree.write(CONFIG.ADVANCED)
 
     xbmc.executebuiltin('Container.Refresh()')
@@ -88,15 +88,15 @@ class AdvancedMenu:
         self.tags = {}
 
     def show_menu(self, url=None):
-        directory.add_dir('Quick Configure advancedsettings.xml',
+        directory.add_dir('הגדרות מהירות לקובץ advancedsettings.xml',
                                {'mode': 'advanced_settings', 'action': 'quick_configure'}, icon=CONFIG.ICONMAINT,
                                themeit=CONFIG.THEME3)
 
         if os.path.exists(CONFIG.ADVANCED):
-            directory.add_file('View Current advancedsettings.xml',
+            directory.add_file('צפה בקובץ advancedsettings.xml הנוכחי',
                                {'mode': 'advanced_settings', 'action': 'view_current'}, icon=CONFIG.ICONMAINT,
                                themeit=CONFIG.THEME3)
-            directory.add_file('Remove Current advancedsettings.xml',
+            directory.add_file('הסר את קובץ advancedsettings.xml הנוכחי',
                                {'mode': 'advanced_settings', 'action': 'remove_current'}, icon=CONFIG.ICONMAINT,
                                themeit=CONFIG.THEME3)
         
@@ -112,8 +112,8 @@ class AdvancedMenu:
             TEMPADVANCEDFILE = tools.read_from_file(local_file)
         else:
             TEMPADVANCEDFILE = None
-            logging.log("[Advanced Settings] No Presets Available")
-        
+            logging.log("[Advanced Settings] אין פריסטים זמינים")
+
         if TEMPADVANCEDFILE:
             import json
 
@@ -123,7 +123,7 @@ class AdvancedMenu:
                 advanced_json = json.loads(TEMPADVANCEDFILE)
             except:
                 advanced_json = None
-                logging.log("[Advanced Settings] ERROR: Invalid Format for {0}.".format(TEMPADVANCEDFILE))
+                logging.log("[Advanced Settings] שגיאה: פורמט לא חוקי עבור {0}.".format(TEMPADVANCEDFILE))
                 
             if advanced_json:
                 presets = advanced_json['presets']
@@ -137,10 +137,10 @@ class AdvancedMenu:
                         description = preset.get('description', '')
 
                         if not name:
-                            logging.log('[Advanced Settings] Missing tag \'name\'', level=xbmc.LOGDEBUG)
+                            logging.log('[Advanced Settings] חסר תגית \'name\'', level=xbmc.LOGDEBUG)
                             continue
                         if not preseturl:
-                            logging.log('[Advanced Settings] Missing tag \'url\'', level=xbmc.LOGDEBUG)
+                            logging.log('[Advanced Settings] חסר תגית \'url\'', level=xbmc.LOGDEBUG)
                             continue
                         
                         if section:
@@ -152,17 +152,14 @@ class AdvancedMenu:
                                                 'url': preseturl},
                                                description=description, icon=icon, fanart=fanart, themeit=CONFIG.THEME2)
         else:
-            logging.log("[Advanced Settings] URL not working: {0}".format(CONFIG.ADVANCEDFILE))
+            logging.log("[Advanced Settings] URL לא פעיל: {0}".format(CONFIG.ADVANCEDFILE))
 
     def quick_configure(self):
-        directory.add_file('Changes will not be reflected until Kodi is restarted.', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-        directory.add_file('Click here to restart Kodi.', {'mode': 'forceclose'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-        directory.add_file('More categories coming soon :)', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-        directory.add_separator(middle='CATEGORIES')
-        # directory.add_dir('Troubleshooting', {'mode': 'advanced_settings', 'action': 'show_section', 'tags': 'loglevel|jsonrpc'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-        # directory.add_dir('Playback', {'mode': 'advanced_settings', 'action': 'show_section', 'tags': 'skiploopfilter|video|audio|edl|pvr|epg|forcedswaptime'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-        # directory.add_dir('Video Library', {'mode': 'advanced_settings', 'action': 'show_section', 'tags': 'videoextensions|discstubextensions|languagecodes|moviestacking|folderstacking|cleandatetime|cleanstrings|tvshowmatching|tvmultipartmatching'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-        directory.add_dir('Network and Cache', {'mode': 'advanced_settings', 'action': 'show_section', 'tags': 'cache|network'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+        directory.add_file('השינויים לא ייכנסו לתוקף עד להפעלה מחדש של קודי.', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+        directory.add_file('לחץ כאן להפעלה מחדש של קודי.', {'mode': 'forceclose'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+        directory.add_file('קטגוריות נוספות יתווספו בקרוב :)', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+        directory.add_separator(middle='קטגוריות')
+        directory.add_dir('רשת ומטמון', {'mode': 'advanced_settings', 'action': 'show_section', 'tags': 'cache|network'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
 
     def show_section(self, tags):
         from xml.etree import ElementTree
@@ -188,7 +185,7 @@ class AdvancedMenu:
                 self.tags[name] = values
 
         if len(self.tags) == 0:
-            directory.add_file('No settings for this category exist in your current advancedsettings.xml file.', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+            directory.add_file('אין הגדרות עבור קטגוריה זו בקובץ advancedsettings.xml הנוכחי.', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
             directory.add_separator()
             
         for category in self.tags:
@@ -219,17 +216,17 @@ class AdvancedMenu:
         value = None
         
         if tag == 'buffermode':
-            values = ['Buffer all internet filesystems',
-                      'Buffer all filesystems',
-                      'Only buffer true internet filesystems',
-                      'No buffer',
-                      'All network filesystems']
+            values = ['הפוך מטמון לכל מערכות הקבצים באינטרנט',
+                      'הפוך מטמון לכל מערכות הקבצים',
+                      'הפוך מטמון רק למערכות קבצים אמיתיות באינטרנט',
+                      'ללא מטמון',
+                      'כל מערכות הקבצים ברשת']
                       
             items = []
             for i in range(len(values)):
                 items.append(xbmcgui.ListItem(label=str(i), label2=values[i]))
                       
-            value = self.dialog.select('Choose a Value', items, preselect=int(current), useDetails=True)
+            value = self.dialog.select('בחר ערך', items, preselect=int(current), useDetails=True)
         elif tag == 'memorysize':
             free_memory = tools.get_info_label('System.Memory(free)')
             free_converted = tools.convert_size(int(float(free_memory[:-2])) * 1024 * 1024)
@@ -237,18 +234,18 @@ class AdvancedMenu:
             recommended = int(float(free_memory[:-2]) / 3) * 1024 * 1024
             recommended_converted = tools.convert_size(int(float(free_memory[:-2]) / 3) * 1024 * 1024)
         
-            value = tools.get_keyboard(default='{0}'.format(recommended), heading='Memory Size in Bytes\n(Recommended: {0} = {1})'.format(recommended_converted, recommended))
+            value = tools.get_keyboard(default='{0}'.format(recommended), heading='גודל זיכרון בבתים\n(מומלץ: {0} = {1})'.format(recommended_converted, recommended))
         elif tag == 'readfactor':
-            value = tools.get_keyboard(default='{0}'.format(current), heading='Fill Rate of Cache\n(High numbers will cause heavy bandwidth use!)')
+            value = tools.get_keyboard(default='{0}'.format(current), heading='קצב מילוי המטמון\n(ערכים גבוהים יגרמו לשימוש כבד ברוחב הפס!)')
             
         return value
             
     def _network(self, tag, current):
-        msgs = {'curlclienttimeout': 'Timeout in seconds for libcurl (http/ftp) connections',
-                'curllowspeedtime': 'Time in seconds for libcurl to consider a connection lowspeed',
-                'curlretries': 'Amount of retries for certain failed libcurl operations (e.g. timeout)',
-                'httpproxyusername': 'Username for Basic Proxy Authentication',
-                'httpproxypassword': 'Password for Basic Proxy Authentication'}
+        msgs = {'curlclienttimeout': 'זמן קצוב בשניות לחיבורי libcurl (http/ftp)',
+                'curllowspeedtime': 'זמן קצוב בשניות עבור libcurl להחשיב חיבור כמהירות נמוכה',
+                'curlretries': 'מספר הניסיונות לפעולות libcurl מסוימות שנכשלו (למשל זמן קצוב)',
+                'httpproxyusername': 'שם משתמש לאימות פרוקסי בסיסי',
+                'httpproxypassword': 'סיסמה לאימות פרוקסי בסיסי'}
         
         value = tools.get_keyboard(default='{0}'.format(current), heading=msgs[tag])
             
@@ -260,27 +257,27 @@ class AdvancedMenu:
         if response:
             if os.path.exists(CONFIG.ADVANCED):
                 choice = self.dialog.yesno(CONFIG.ADDONTITLE,
-                                           "[COLOR {0}]Would you like to overwrite your current Advanced Settings with [COLOR {1}]{2}[/COLOR]?[/COLOR]".format(
+                                           "[COLOR {0}]האם ברצונך להחליף את ההגדרות המתקדמות הנוכחיות עם [COLOR {1}]{2}[/COLOR]?[/COLOR]".format(
                                                CONFIG.COLOR2, CONFIG.COLOR1, name),
-                                           yeslabel="[B][COLOR springgreen]Overwrite[/COLOR][/B]",
-                                           nolabel="[B][COLOR red]Cancel[/COLOR][/B]")
+                                           yeslabel="[B][COLOR springgreen]החלף[/COLOR][/B]",
+                                           nolabel="[B][COLOR red]בטל[/COLOR][/B]")
             else:
                 choice = self.dialog.yesno(CONFIG.ADDONTITLE,
-                                           "[COLOR {0}]Would you like to download and install [COLOR {1}]{2}[/COLOR]?[/COLOR]".format(
+                                           "[COLOR {0}]האם ברצונך להוריד ולהתקין [COLOR {1}]{2}[/COLOR]?[/COLOR]".format(
                                                CONFIG.COLOR2, CONFIG.COLOR1, name),
-                                           yeslabel="[B][COLOR springgreen]Install[/COLOR][/B]",
-                                           nolabel="[B][COLOR red]Cancel[/COLOR][/B]")
+                                           yeslabel="[B][COLOR springgreen]התקן[/COLOR][/B]",
+                                           nolabel="[B][COLOR red]בטל[/COLOR][/B]")
 
             if choice == 1:
                 tools.write_to_file(CONFIG.ADVANCED, response.text)
-                tools.kill_kodi(msg='[COLOR {0}]The new advancedsettings.xml preset has been successfully written, but changes won\'t take effect until you close Kodi.[/COLOR]'.format(
+                tools.kill_kodi(msg='[COLOR {0}]פריסט החדש לקובץ advancedsettings.xml נכתב בהצלחה, אך השינויים לא ייכנסו לתוקף עד שתסגור את Kodi.[/COLOR]'.format(
                                    CONFIG.COLOR2))
             else:
-                logging.log("[Advanced Settings] install canceled")
+                logging.log("[Advanced Settings] ההתקנה בוטלה")
                 logging.log_notify('[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.ADDONTITLE),
-                                   "[COLOR {0}]Write Cancelled![/COLOR]".format(CONFIG.COLOR2))
+                                   "[COLOR {0}]כתיבה בוטלה![/COLOR]".format(CONFIG.COLOR2))
                 return
         else:
-            logging.log("[Advanced Settings] URL not working: {0}".format(url))
+            logging.log("[Advanced Settings] URL לא פעיל: {0}".format(url))
             logging.log_notify('[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.ADDONTITLE),
-                               "[COLOR {0}]URL Not Working[/COLOR]".format(CONFIG.COLOR2))
+                               "[COLOR {0}]URL לא פעיל[/COLOR]".format(CONFIG.COLOR2))

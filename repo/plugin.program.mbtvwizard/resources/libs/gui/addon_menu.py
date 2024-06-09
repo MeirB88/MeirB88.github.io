@@ -47,10 +47,10 @@ def install_from_kodi(plugin):
     visible_cond = 'Window.IsTopMost(yesnodialog)'
 
     if xbmc.getCondVisibility(installed_cond):
-        logging.log('Already installed ' + plugin, level=xbmc.LOGDEBUG)
+        logging.log('כבר מותקן ' + plugin, level=xbmc.LOGDEBUG)
         return True
 
-    logging.log('Installing ' + plugin, level=xbmc.LOGDEBUG)
+    logging.log('מתקין ' + plugin, level=xbmc.LOGDEBUG)
     xbmc.executebuiltin('InstallAddon({0})'.format(plugin))
 
     clicked = False
@@ -58,20 +58,20 @@ def install_from_kodi(plugin):
     timeout = 20
     while not xbmc.getCondVisibility(installed_cond):
         if time.time() >= start + timeout:
-            logging.log('Timed out installing', level=xbmc.LOGDEBUG)
+            logging.log('התקנה נכשלה', level=xbmc.LOGDEBUG)
             return False
 
         xbmc.sleep(500)
 
         # Assuming we only want to answer the one known "install" dialog
         if xbmc.getCondVisibility(visible_cond) and not clicked:
-            logging.log('Dialog to click open', level=xbmc.LOGDEBUG)
+            logging.log('תיבת דו-שיח פתוחה', level=xbmc.LOGDEBUG)
             xbmc.executebuiltin('SendClick(yesnodialog, 11)')
             clicked = True
         else:
-            logging.log('...waiting', level=xbmc.LOGDEBUG)
+            logging.log('...ממתין', level=xbmc.LOGDEBUG)
 
-    logging.log('Installed {0}!'.format(plugin), level=xbmc.LOGDEBUG)
+    logging.log('מותקן {0}!'.format(plugin), level=xbmc.LOGDEBUG)
     return True
 
 
@@ -169,7 +169,7 @@ class AddonMenu:
                                 try:
                                     add = tools.get_addon_info(plugin, 'path')
                                     if os.path.exists(add):
-                                        addonname = "[COLOR springgreen][Installed][/COLOR] {0}".format(addonname)
+                                        addonname = "[COLOR springgreen][מותקן][/COLOR] {0}".format(addonname)
                                 except:
                                     pass
 
@@ -179,13 +179,13 @@ class AddonMenu:
                                                    icon=icon, fanart=fanart, themeit=CONFIG.THEME2)
                 else:
                     if not addons:
-                        directory.add_file('Text File not formatted correctly!', themeit=CONFIG.THEME3)
+                        directory.add_file('קובץ טקסט לא מעוצב נכון!', themeit=CONFIG.THEME3)
                         logging.log("[Addon Menu] ERROR: Invalid Format.")
                     elif len(addons) == 0:
-                        directory.add_file("No addons added to this menu yet!", themeit=CONFIG.THEME2)
+                        directory.add_file("לא נוספו הרחבות לתפריט זה עדיין!", themeit=CONFIG.THEME2)
         else:
             logging.log("[Addon Menu] ERROR: URL for Addon list not working.")
-            directory.add_file('Url for txt file not valid', themeit=CONFIG.THEME3)
+            directory.add_file('כתובת לקובץ טקסט לא חוקית', themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.ADDONFILE), themeit=CONFIG.THEME3)
 
     def install_dependency(self, plugin):
@@ -214,8 +214,8 @@ class AddonMenu:
         response = tools.open_url(url, check=True)
 
         if not response:
-            logging.log_notify("[COLOR {0}]Addon Installer[/COLOR]".format(CONFIG.COLOR1),
-                               '[COLOR {0}]{1}:[/COLOR] [COLOR {2}]Invalid Zip Url![/COLOR]'.format(CONFIG.COLOR1,
+            logging.log_notify("[COLOR {0}]מתקין הרחבות[/COLOR]".format(CONFIG.COLOR1),
+                               '[COLOR {0}]{1}:[/COLOR] [COLOR {2}]כתובת ZIP לא חוקית![/COLOR]'.format(CONFIG.COLOR1,
                                                                                                     plugin,
                                                                                                     CONFIG.COLOR2))
             return
@@ -223,11 +223,12 @@ class AddonMenu:
         tools.ensure_folders(CONFIG.PACKAGES)
 
         self.progress_dialog.create(CONFIG.ADDONTITLE,
-                               '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2,
+                               '[COLOR {0}][B]מוריד:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2,
                                                                                                       CONFIG.COLOR1,
                                                                                                       plugin)
                                +'\n'+''
-                               +'\n'+'[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
+
+                               +'\n'+'[COLOR {0}]נא להמתין[/COLOR]'.format(CONFIG.COLOR2))
         urlsplits = url.split('/')
         lib = os.path.join(CONFIG.PACKAGES, urlsplits[-1])
 
@@ -237,15 +238,17 @@ class AddonMenu:
             pass
             
         Downloader().download(url, lib)
-        title = '[COLOR {0}][B]Installing:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1,
+        title = '[COLOR {0}][B]מתקין:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1,
                                                                                       plugin)
         self.progress_dialog.update(0, title
                                     +'\n'+''
-                                    +'\n'+'[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
+
+                                    +'\n'+'[COLOR {0}]נא להמתין[/COLOR]'.format(CONFIG.COLOR2))
         percent, errors, error = extract.all(lib, CONFIG.ADDONS, title=title)
         self.progress_dialog.update(0, title
                                     +'\n'+''
-                                    +'\n'+'[COLOR {0}]Installing Dependencies[/COLOR]'.format(CONFIG.COLOR2))
+
+                                    +'\n'+'[COLOR {0}]מתקין תלותים[/COLOR]'.format(CONFIG.COLOR2))
         installed(plugin)
         installlist = db.grab_addons(lib)
         logging.log(str(installlist))
@@ -270,9 +273,9 @@ class AddonMenu:
 
         if not over:        
             if xbmc.getCondVisibility('System.HasAddon({0})'.format(plugin)):
-                install = self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]{1}[/COLOR] already installed. Would you like to reinstall it?'.format(CONFIG.COLOR1, plugin))
+                install = self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]{1}[/COLOR] כבר מותקן. האם ברצונך להתקין מחדש?'.format(CONFIG.COLOR1, plugin))
             else:
-                install = self.dialog.yesno(CONFIG.ADDONTITLE, 'Would you like to install [COLOR {0}]{1}[/COLOR]?'.format(CONFIG.COLOR1, plugin))
+                install = self.dialog.yesno(CONFIG.ADDONTITLE, 'האם ברצונך להתקין [COLOR {0}]{1}[/COLOR]?'.format(CONFIG.COLOR1, plugin))
         else:
             install = True
             
@@ -288,7 +291,7 @@ class AddonMenu:
             repo_id = urls[1]
         
             if not xbmc.getCondVisibility('System.HasAddon({0})'.format(repo_id)):
-                logging.log("Repository not installed, installing it")
+                logging.log("המאגר לא מותקן, מתקין אותו")
 
                 from xml.etree import ElementTree
                 root = ElementTree.fromstring(repositoryxml_response.text.encode('ascii', 'backslashreplace'))
@@ -311,15 +314,15 @@ class AddonMenu:
                         return True
                 else:
                     logging.log(
-                        "[Addon Installer] Repository not installed: Unable to grab url! ({0})".format(urls[1]))
+                        "[מתקין הרחבות] המאגר לא מותקן: לא ניתן להשיג את כתובת ה-URL! ({0})".format(urls[1]))
             else:
-                logging.log("Repository installed, installing addon")
+                logging.log("המאגר מותקן, מתקין הרחבה")
                 install = install_from_kodi(plugin)
                 if install:
                     xbmc.executebuiltin('Container.Refresh()')
                     return True
         elif url_response:
-            logging.log("No repository, installing addon")
+            logging.log("אין מאגר, מתקין הרחבה")
             self.install_addon_from_url(plugin, urls[0])
 
             if os.path.exists(os.path.join(CONFIG.ADDONS, plugin)):
@@ -341,7 +344,7 @@ class AddonMenu:
                 self.install_addon_from_url(plugin, url)
                 xbmc.executebuiltin('Container.Refresh()')
             else:
-                logging.log("no match")
+                logging.log("לא נמצא")
                 return False
     
     def install_addon_pack(self, name, url):
@@ -356,17 +359,18 @@ class AddonMenu:
         response = tools.open_url(url, check=True)
 
         if not response:
-            logging.log_notify("[COLOR {0}]Addon Installer[/COLOR]".format(CONFIG.COLOR1),
-                               '[COLOR {0}]{1}:[/COLOR] [COLOR {2}]Invalid Zip Url![/COLOR]'.format(CONFIG.COLOR1, name, CONFIG.COLOR2))
+            logging.log_notify("[COLOR {0}]מתקין הרחבות[/COLOR]".format(CONFIG.COLOR1),
+                               '[COLOR {0}]{1}:[/COLOR] [COLOR {2}]כתובת ZIP לא חוקית![/COLOR]'.format(CONFIG.COLOR1, name, CONFIG.COLOR2))
             return
 
         if not os.path.exists(CONFIG.PACKAGES):
             os.makedirs(CONFIG.PACKAGES)
         
         progress_dialog.create(CONFIG.ADDONTITLE,
-                      '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+                      '[COLOR {0}][B]מוריד:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
                       +'\n'+''
-                      +'\n'+'[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
+
+                      +'\n'+'[COLOR {0}]נא להמתין[/COLOR]'.format(CONFIG.COLOR2))
         urlsplits = url.split('/')
         lib = xbmc.makeLegalFilename(os.path.join(CONFIG.PACKAGES, urlsplits[-1]))
         try:
@@ -374,16 +378,17 @@ class AddonMenu:
         except:
             pass
         Downloader().download(url, lib)
-        title = '[COLOR {0}][B]Installing:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+        title = '[COLOR {0}][B]מתקין:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
         progress_dialog.update(0, title
                                 +'\n'+''
-                                +'\n'+'[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
+
+                                +'\n'+'[COLOR {0}]נא להמתין[/COLOR]'.format(CONFIG.COLOR2))
         percent, errors, error = extract.all(lib, CONFIG.ADDONS, title=title)
         installed = db.grab_addons(lib)
         db.addon_database(installed, 1, True)
         progress_dialog.close()
-        logging.log_notify("[COLOR {0}]Addon Installer[/COLOR]".format(CONFIG.COLOR1),
-                           '[COLOR {0}]{1}: Installed![/COLOR]'.format(CONFIG.COLOR2, name))
+        logging.log_notify("[COLOR {0}]מתקין הרחבות[/COLOR]".format(CONFIG.COLOR1),
+                           '[COLOR {0}]{1}: הותקן![/COLOR]'.format(CONFIG.COLOR2, name))
         xbmc.executebuiltin('UpdateAddonRepos()')
         xbmc.executebuiltin('UpdateLocalAddons()')
         xbmc.executebuiltin('Container.Refresh()')
@@ -402,17 +407,18 @@ class AddonMenu:
         response = tools.open_url(url, check=False)
 
         if not response:
-            logging.log_notify("[COLOR {0}]Addon Installer[/COLOR]".format(CONFIG.COLOR1),
-                               '[COLOR {0}]{1}:[/COLOR] [COLOR {2}]Invalid Zip Url![/COLOR]'.format(CONFIG.COLOR1, name, CONFIG.COLOR2))
+            logging.log_notify("[COLOR {0}]מתקין הרחבות[/COLOR]".format(CONFIG.COLOR1),
+                               '[COLOR {0}]{1}:[/COLOR] [COLOR {2}]כתובת ZIP לא חוקית![/COLOR]'.format(CONFIG.COLOR1, name, CONFIG.COLOR2))
             return
 
         if not os.path.exists(CONFIG.PACKAGES):
             os.makedirs(CONFIG.PACKAGES)
         
         progress_dialog.create(CONFIG.ADDONTITLE,
-                      '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+                      '[COLOR {0}][B]מוריד:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
                       +'\n'+''
-                      +'\n'+'[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
+
+                      +'\n'+'[COLOR {0}]נא להמתין[/COLOR]'.format(CONFIG.COLOR2))
 
         urlsplits = url.split('/')
         lib = xbmc.makeLegalFilename(os.path.join(CONFIG.PACKAGES, urlsplits[-1]))
@@ -421,21 +427,22 @@ class AddonMenu:
         except:
             pass
         Downloader().download(url, lib)
-        title = '[COLOR {0}][B]Installing:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+        title = '[COLOR {0}][B]מתקין:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
         progress_dialog.update(0, title
                                     +'\n'+''
-                                    +'\n'+'[COLOR {0}]Please Wait[/COLOR]'.format(CONFIG.COLOR2))
+
+                                    +'\n'+'[COLOR {0}]נא להמתין[/COLOR]'.format(CONFIG.COLOR2))
         percent, errors, error = extract.all(lib, CONFIG.HOME, title=title)
         installed = db.grab_addons(lib)
         db.addon_database(installed, 1, True)
         progress_dialog.close()
-        logging.log_notify("[COLOR {0}]Addon Installer[/COLOR]".format(CONFIG.COLOR1),
-                           '[COLOR {0}]{1}: Installed![/COLOR]'.format(CONFIG.COLOR2, name))
+        logging.log_notify("[COLOR {0}]מתקין הרחבות[/COLOR]".format(CONFIG.COLOR1),
+                           '[COLOR {0}]{1}: הותקן![/COLOR]'.format(CONFIG.COLOR2, name))
         xbmc.executebuiltin('UpdateAddonRepos()')
         xbmc.executebuiltin('UpdateLocalAddons()')
         for item in installed:
             if item.startswith('skin.') and not item == 'skin.shortcuts':
                 if not CONFIG.BUILDNAME == '' and CONFIG.DEFAULTIGNORE == 'true':
                     CONFIG.set_setting('defaultskinignore', 'true')
-                skin.switch_to_skin(item, 'Skin Installer')
+                skin.switch_to_skin(item, 'מתקין סקין')
         xbmc.executebuiltin('Container.Refresh()')

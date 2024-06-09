@@ -33,19 +33,19 @@ from resources.libs.common import tools
 from resources.libs.common.config import CONFIG
 
 
-ACTION_PREVIOUS_MENU = 10  # ESC action
-ACTION_NAV_BACK = 92  # Backspace action
-ACTION_MOVE_LEFT = 1  # Left arrow key
-ACTION_MOVE_RIGHT = 2  # Right arrow key
-ACTION_MOVE_UP = 3  # Up arrow key
-ACTION_MOVE_DOWN = 4  # Down arrow key
-ACTION_MOUSE_WHEEL_UP = 104	 # Mouse wheel up
-ACTION_MOUSE_WHEEL_DOWN = 105  # Mouse wheel down
-ACTION_MOVE_MOUSE = 107  # Down arrow key
-ACTION_SELECT_ITEM = 7  # Number Pad Enter
-ACTION_BACKSPACE = 110  # ?
-ACTION_MOUSE_LEFT_CLICK = 100
-ACTION_MOUSE_LONG_CLICK = 108
+ACTION_PREVIOUS_MENU = 10  # פעולה לחזרה לתפריט הקודם (ESC)
+ACTION_NAV_BACK = 92  # פעולה לחזרה אחורה (Backspace)
+ACTION_MOVE_LEFT = 1  # פעולה להזזה שמאלה (חץ שמאלה)
+ACTION_MOVE_RIGHT = 2  # פעולה להזזה ימינה (חץ ימינה)
+ACTION_MOVE_UP = 3  # פעולה להזזה למעלה (חץ למעלה)
+ACTION_MOVE_DOWN = 4  # פעולה להזזה למטה (חץ למטה)
+ACTION_MOUSE_WHEEL_UP = 104	 # פעולה לגלילת עכבר למעלה
+ACTION_MOUSE_WHEEL_DOWN = 105  # פעולה לגלילת עכבר למטה
+ACTION_MOVE_MOUSE = 107  # פעולה להזזת העכבר
+ACTION_SELECT_ITEM = 7  # פעולה לבחירת פריט (Enter של לוח המספרים)
+ACTION_BACKSPACE = 110  # פעולה לחזרה אחורה (?)
+ACTION_MOUSE_LEFT_CLICK = 100  # פעולה ללחיצת עכבר שמאלית
+ACTION_MOUSE_LONG_CLICK = 108  # פעולה ללחיצה ממושכת בעכבר
 
 BACK_ACTIONS = [ACTION_PREVIOUS_MENU, ACTION_NAV_BACK, ACTION_BACKSPACE]
 
@@ -56,7 +56,7 @@ def highlight_text(msg):
     for item in matches:
         string = '-->Python callback/script returned the following error<--{0}-->End of Python script error report<--'.format(item)
         msg = msg.replace(string, '[COLOR red]{0}[/COLOR]'.format(string))
-    msg = msg.replace('WARNING', '[COLOR yellow]WARNING[/COLOR]').replace('ERROR', '[COLOR red]ERROR[/COLOR]').replace('[NL]', '\n').replace(': EXCEPTION Thrown (PythonToCppException) :', '[COLOR red]: EXCEPTION Thrown (PythonToCppException) :[/COLOR]')
+    msg = msg.replace('WARNING', '[COLOR yellow]אזהרה[/COLOR]').replace('ERROR', '[COLOR red]שגיאה[/COLOR]').replace('[NL]', '\n').replace(': EXCEPTION Thrown (PythonToCppException) :', '[COLOR red]: חריגות נזרקה (PythonToCppException) :[/COLOR]')
     msg = msg.replace('\\\\', '\\').replace(CONFIG.HOME, '')
     return msg
 
@@ -79,16 +79,16 @@ def get_artwork(file):
 
 def while_window(window, active=False, count=0, counter=15):
     windowopen = xbmc.getCondVisibility('Window.IsActive({0})'.format(window))
-    logging.log("{0} is {1}".format(window, windowopen))
+    logging.log("{0} פתוח: {1}".format(window, windowopen))
     while not windowopen and count < counter:
-        logging.log("{0} is {1}({2})".format(window, windowopen, count))
+        logging.log("{0} פתוח: {1}({2})".format(window, windowopen, count))
         windowopen = xbmc.getCondVisibility('Window.IsActive({0})'.format(window))
         count += 1
         xbmc.sleep(500)
 
     while windowopen:
         active = True
-        logging.log("{0} is {1}".format(window, windowopen))
+        logging.log("{0} פתוח: {1}".format(window, windowopen))
         windowopen = xbmc.getCondVisibility('Window.IsActive({0})'.format(window))
         xbmc.sleep(250)
         
@@ -207,7 +207,7 @@ def show_apk_warning(apk):
             xbmc.sleep(400)
             self.close()
 
-    xbmc.executebuiltin('Skin.SetString(apkinstaller, Now that {0} has been downloaded[CR]Click install on the next window!)'.format(apk))
+    xbmc.executebuiltin('Skin.SetString(apkinstaller, עכשיו כאשר {0} הורד[CR]לחץ התקן בחלון הבא!)'.format(apk))
     popup = APKInstaller('APK.xml', CONFIG.ADDON_PATH, 'Default', close_time=34)
     popup.doModal()
     del popup
@@ -314,7 +314,7 @@ def show_build_prompt():
 
         def __init__(self, *args, **kwargs):
             self.title = CONFIG.THEME3.format(CONFIG.ADDONTITLE)
-            self.msg = "Currently no build installed from {0}.\n\nSelect 'Build Menu' to install a Community Build from us or 'Ignore' to never see this message again.\n\nThank you for choosing {1}.".format(CONFIG.ADDONTITLE, CONFIG.ADDONTITLE)
+            self.msg = "כרגע אין התקנה פעילה מ-{0}.\n\nבחר 'תפריט התקנות' להתקין תבנית קהילה מאיתנו או 'התעלם' כדי לא לראות הודעה זו שוב.\n\nתודה שבחרת {1}.".format(CONFIG.ADDONTITLE, CONFIG.ADDONTITLE)
             self.msg = CONFIG.THEME2.format(self.msg)
 
         def onInit(self):
@@ -376,8 +376,8 @@ def show_update_window(name='Testing Window', current='1.0', new='1.1', icon=CON
             self.new = kwargs['new']
             self.icon = kwargs['icon']
             self.fanart = kwargs['fanart']
-            self.msgupdate = "Update avaliable for installed build:\n[COLOR {0}]{1}[/COLOR]\n\nCurrent Version: v[COLOR {2}]{3}[/COLOR]\nLatest Version: v[COLOR {4}]{5}[/COLOR]\n\n[COLOR {6}]*Recommened: Fresh install[/COLOR]".format(CONFIG.COLOR1, self.name, CONFIG.COLOR1, self.current, CONFIG.COLOR1, self.new, CONFIG.COLOR1)
-            self.msgcurrent = "Running latest version of installed build:\n[COLOR {0}]{1}[/COLOR]\n\nCurrent Version: v[COLOR {2}]{3}[/COLOR]\nLatest Version: v[COLOR {4}]{5}[/COLOR]\n\n[COLOR {6}]*Recommended: Fresh install[/COLOR]".format(CONFIG.COLOR1, self.name, CONFIG.COLOR1, self.current, CONFIG.COLOR1, self.new, CONFIG.COLOR1)
+            self.msgupdate = "עדכון זמין להתקנה פעילה:\n[COLOR {0}]{1}[/COLOR]\n\nגרסה נוכחית: v[COLOR {2}]{3}[/COLOR]\nגרסה חדשה: v[COLOR {4}]{5}[/COLOR]\n\n[COLOR {6}]*מומלץ: התקנה חדשה[/COLOR]".format(CONFIG.COLOR1, self.name, CONFIG.COLOR1, self.current, CONFIG.COLOR1, self.new, CONFIG.COLOR1)
+            self.msgcurrent = "גרסה עדכנית להתקנה פעילה:\n[COLOR {0}]{1}[/COLOR]\n\nגרסה נוכחית: v[COLOR {2}]{3}[/COLOR]\nגרסה חדשה: v[COLOR {4}]{5}[/COLOR]\n\n[COLOR {6}]*מומלץ: התקנה חדשה[/COLOR]".format(CONFIG.COLOR1, self.name, CONFIG.COLOR1, self.current, CONFIG.COLOR1, self.new, CONFIG.COLOR1)
 
         def onInit(self):
             self.imagefanart = 101
@@ -429,17 +429,17 @@ def show_update_window(name='Testing Window', current='1.0', new='1.1', icon=CON
     # update = UpdateWindow("build_update_prompt.xml", CONFIG.ADDON_PATH, 'Default', name=name, current=current, new=new, icon=icon, fanart=fanart)
     # update.doModal()
     # del update
-    msgcurrent = 'Running latest version of installed build: '
-    msgupdate = 'Update available for installed build: '
+    msgcurrent = 'גרסה עדכנית להתקנה פעילה: '
+    msgupdate = 'עדכון זמין להתקנה פעילה: '
     build_name = '[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, name)
-    current_version = 'Current Version: v[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, current)
-    latest_version = 'Latest Version: v[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, new)
+    current_version = 'גרסה נוכחית: v[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, current)
+    latest_version = 'גרסה חדשה: v[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, new)
     
     final_msg = '{0}{1}\n{2}\n{3}\n'.format(msgcurrent if current >= new else msgupdate,
                                         build_name, current_version, latest_version)
     
     install = xbmcgui.Dialog().yesno(CONFIG.ADDONTITLE, final_msg,
-                                     yeslabel='Install', nolabel='Ignore')
+                                     yeslabel='התקנה', nolabel='התעלם')
     if install:
         from resources.libs.wizard import Wizard
         Wizard().build(CONFIG.BUILDNAME)    
@@ -502,13 +502,13 @@ def show_notification(msg, test=False):
         def do_remind(self):
             if not test:
                 CONFIG.set_setting('notedismiss', 'false')
-            logging.log('[Notifications] Notification {0} Remind Me Later'.format(CONFIG.get_setting('noteid')))
+            logging.log('[Notifications] התראה {0} נדחתה'.format(CONFIG.get_setting('noteid')))
             self.close()
 
         def do_dismiss(self):
             if not test:
                 CONFIG.set_setting('notedismiss', 'true')
-            logging.log('[Notifications] Notification {0} Dismissed'.format(CONFIG.get_setting('noteid')))
+            logging.log('[Notifications] התראה {0} בוטלה'.format(CONFIG.get_setting('noteid')))
             self.close()
 
         def onAction(self, action):
@@ -528,7 +528,7 @@ def show_notification(msg, test=False):
     del notify
 
 
-def show_log_viewer(window_title="Viewing Log File", window_msg=None, log_file=None, ext_buttons=False):
+def show_log_viewer(window_title="צפייה בקובץ יומן", window_msg=None, log_file=None, ext_buttons=False):
     class LogViewer(xbmcgui.WindowXMLDialog):
         def __init__(self, *args, **kwargs):
             self.log_file = kwargs['log_file']
@@ -576,8 +576,8 @@ def show_log_viewer(window_title="Viewing Log File", window_msg=None, log_file=N
                     filename = logging.grab_log(file=True, wizard=True)
                 
                 if not newmsg:
-                    self.setProperty('message.title', "Error Viewing Log File")
-                    self.setProperty('message.logmsg', "File does not exist or could not be read.")
+                    self.setProperty('message.title', "שגיאה בצפייה בקובץ היומן")
+                    self.setProperty('message.logmsg', "הקובץ לא קיים או לא ניתן לקריאה.")
                 else:
                     self.logmsg = newmsg
                     self.logfile = os.path.basename(filename)

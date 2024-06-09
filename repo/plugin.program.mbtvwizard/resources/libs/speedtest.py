@@ -389,7 +389,7 @@ def get_best_server(servers):
 def ctrl_c():
     global shutdown_event
     shutdown_event.set()
-    raise SystemExit('\nCancelling...')
+    raise SystemExit('\nמבטל...')
 
 
 def version():
@@ -402,11 +402,11 @@ def speedtest(list=False, mini=None, server=None, share=True, simple=False, src=
     global line1, line2, line3
 
     dp = xbmcgui.DialogProgress()
-    line1 = '[COLOR {0}]Starting test..[/COLOR]'.format(CONFIG.COLOR2)
-    dp.create('{0}: [COLOR {1}]Speed Test[/COLOR]'.format(CONFIG.ADDONTITLE, CONFIG.COLOR1), line1)
+    line1 = '[COLOR {0}]מתחיל בדיקה...[/COLOR]'.format(CONFIG.COLOR2)
+    dp.create('{0}: [COLOR {1}]בדיקת מהירות[/COLOR]'.format(CONFIG.ADDONTITLE, CONFIG.COLOR1), line1)
     dp.update(0)
     logging.log('Retrieving speedtest.net configuration...', level=xbmc.LOGDEBUG)
-    line2 = '[COLOR {0}]Retrieving speedtest.net configuration...[/COLOR]'.format(CONFIG.COLOR2)
+    line2 = '[COLOR {0}]משיג תצורת speedtest.net...[/COLOR]'.format(CONFIG.COLOR2)
     dp.update(2, line1, line2)
     try:
         config = get_config()
@@ -415,25 +415,25 @@ def speedtest(list=False, mini=None, server=None, share=True, simple=False, src=
         sys.exit(1)
 
     logging.log('Retrieving speedtest.net server list...', level=xbmc.LOGDEBUG)
-    line3 = '[COLOR {0}]Retrieving speedtest.net server list...[/COLOR]'.format(CONFIG.COLOR2)
+    line3 = '[COLOR {0}]משיג רשימת שרתים של speedtest.net...[/COLOR]'.format(CONFIG.COLOR2)
     dp.update(4, line1, line2, line3)
 
     servers = closest_servers(config['client'])
 
     logging.log('Testing from %(isp)s (%(ip)s)...' % config['client'], level=xbmc.LOGDEBUG)
-    line1 = '[COLOR ' + CONFIG.COLOR2 + ']Testing From:[/COLOR] [COLOR ' \
+    line1 = '[COLOR ' + CONFIG.COLOR2 + ']נבדק מ:[/COLOR] [COLOR ' \
         + CONFIG.COLOR1 + ']%(isp)s (%(ip)s)[/COLOR]' % config['client']
     dp.update(6, line1)
 
     logging.log('Selecting best server based on latency...', level=xbmc.LOGDEBUG)
-    line2 = '[COLOR {0}]Selecting best server based on latency...[/COLOR]'.format(CONFIG.COLOR2)
+    line2 = '[COLOR {0}]בחירת שרת הטוב ביותר על בסיס השהיה...[/COLOR]'.format(CONFIG.COLOR2)
     dp.update(8, '', line2)
     best = get_best_server(servers)
 
     logging.log('Hosted by %(sponsor)s (%(name)s) [%(d)0.2f km]: %(latency)s ms' % best)
 
     line2 = ('[COLOR ' + CONFIG.COLOR2
-             + ']Server location: %(name)s [%(d)0.2f km]: %(latency)s ms[/COLOR]' % best)
+             + ']מיקום שרת: %(name)s [%(d)0.2f km]: %(latency)s ms[/COLOR]' % best)
     dp.update(10, '', line2)
 
     sizes = [350, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000]
@@ -443,7 +443,7 @@ def speedtest(list=False, mini=None, server=None, share=True, simple=False, src=
             urls.append('{0}/random{1}x{2}.jpg'.format(os.path.dirname(best['url']), size, size))
 
     logging.log('Testing download speed', level=xbmc.LOGDEBUG)
-    line3 = '[COLOR {0}]Testing download speed...[/COLOR]'.format(CONFIG.COLOR2)
+    line3 = '[COLOR {0}]בודק מהירות הורדה...[/COLOR]'.format(CONFIG.COLOR2)
     dp.update(15, '', '', line3)
     dlspeed = download_speed(urls, simple)
 
@@ -455,9 +455,9 @@ def speedtest(list=False, mini=None, server=None, share=True, simple=False, src=
         for i in range(0, 25):
             sizes.append(size)
 
-    logging.log('[COLOR red]Testing upload speed[/COLOR]', level=xbmc.LOGDEBUG)
-    line2 = '[COLOR %s]Testing download speed:[/COLOR] [COLOR %s]%0.2f M%s/s[/COLOR]' % (CONFIG.COLOR2, CONFIG.COLOR1, dlspeed / 1000 / 1000 * units[1], units[0])
-    line3 = '[COLOR {0}]Testing upload speed...[/COLOR]'.format(CONFIG.COLOR2)
+    logging.log('Testing upload speed', level=xbmc.LOGDEBUG)
+    line2 = '[COLOR %s]בודק מהירות הורדה:[/COLOR] [COLOR %s]%0.2f M%s/s[/COLOR]' % (CONFIG.COLOR2, CONFIG.COLOR1, dlspeed / 1000 / 1000 * units[1], units[0])
+    line3 = '[COLOR {0}]בודק מהירות העלאה...[/COLOR]'.format(CONFIG.COLOR2)
     dp.update(65, '', line2, line3)
     ulspeed = upload_speed(best['url'], sizes, simple)
 
@@ -467,7 +467,7 @@ def speedtest(list=False, mini=None, server=None, share=True, simple=False, src=
     while ulspeed < 1:
 
         dp.update(65, '', '', '[COLOR ' + CONFIG.COLOR2
-                  + ']Testing upload speed... [Attempt [/COLOR]'
+                  + ']בודק מהירות העלאה... [ניסיון [/COLOR]'
                   + str(i) + ']')
         ulspeed = upload_speed(best['url'], sizes, simple)
         logging.log('Upload: %0.2f M%s/s' % (ulspeed / 1000 / 1000 * units[1], units[0]))
@@ -476,8 +476,8 @@ def speedtest(list=False, mini=None, server=None, share=True, simple=False, src=
             return uploadfail
 
     line1 = line2
-    line2 = '[COLOR %s]Testing upload speed:[/COLOR] [COLOR %s]%0.2f M%s/s[/COLOR]' % (CONFIG.COLOR2, CONFIG.COLOR1, ulspeed / 1000 / 1000 * units[1], units[0])
-    line3 = '[COLOR %s]Getting results...[/COLOR]' % CONFIG.COLOR2
+    line2 = '[COLOR %s]בודק מהירות העלאה:[/COLOR] [COLOR %s]%0.2f M%s/s[/COLOR]' % (CONFIG.COLOR2, CONFIG.COLOR1, ulspeed / 1000 / 1000 * units[1], units[0])
+    line3 = '[COLOR %s]מקבל תוצאות...[/COLOR]' % CONFIG.COLOR2
     dp.update(95, line1, line2, line3)
 
     if share:
@@ -596,7 +596,7 @@ def main():
     try:
         speedtest()
     except KeyboardInterrupt:
-        logging.log('\nCancelling...', level=xbmc.LOGDEBUG)
+        logging.log('\nמבטל...', level=xbmc.LOGDEBUG)
         dp = xbmcgui.DialogProgress()
         dp.close()
         sys.exit()

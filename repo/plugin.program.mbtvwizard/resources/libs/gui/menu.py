@@ -56,9 +56,9 @@ def check_for_fm():
     
     if fm == 0 and 'com.android.documentsui' not in apps:
         dialog = xbmcgui.Dialog()
-        choose = dialog.yesno(CONFIG.ADDONTITLE, 'It appears your device has no default file manager. Would you like to set one now?')
+        choose = dialog.yesno(CONFIG.ADDONTITLE, 'נראה כי המכשיר שלך אינו כולל מנהל קבצים ברירת מחדל. האם ברצונך להגדיר אחד כעת?')
         if not choose:
-            dialog.ok(CONFIG.ADDONTITLE, 'If an APK downloads, but doesn\'t open for installation, try changing your file manager in {}\'s "Install Settings".'.format(CONFIG.ADDONTITLE))
+            dialog.ok(CONFIG.ADDONTITLE, 'אם APK יורד אך לא נפתח להתקנה, נסה לשנות את מנהל הקבצים בהגדרות ההתקנה של {}.'.format(CONFIG.ADDONTITLE))
         else:
             from resources.libs import install
             install.choose_file_manager()
@@ -71,7 +71,7 @@ def apk_menu(url=None):
     from resources.libs.common import tools
 
     if check_for_fm():
-        directory.add_dir('Official Kodi APK\'s', {'mode': 'kodiapk'}, icon=CONFIG.ICONAPK, themeit=CONFIG.THEME1)
+        directory.add_dir('APK\'ים רשמיים של קודי', {'mode': 'kodiapk'}, icon=CONFIG.ICONAPK, themeit=CONFIG.THEME1)
         directory.add_separator()
 
     response = tools.open_url(CONFIG.APKFILE)
@@ -94,15 +94,15 @@ def apk_menu(url=None):
                         x += 1
                         directory.add_file(aname, {'mode': 'apkinstall', 'name': aname, 'url': url}, description=description, icon=icon, fanart=fanart, themeit=CONFIG.THEME2)
                     if x == 0:
-                        directory.add_file("No addons added to this menu yet!", themeit=CONFIG.THEME2)
+                        directory.add_file("לא נוספו עדיין הרחבות לתפריט זה!", themeit=CONFIG.THEME2)
             else:
-                logging.log("[APK Menu] ERROR: Invalid Format.", level=xbmc.LOGERROR)
+                logging.log("[APK Menu] שגיאה: פורמט לא חוקי.", level=xbmc.LOGERROR)
         else:
-            logging.log("[APK Menu] ERROR: URL for apk list not working.", level=xbmc.LOGERROR)
-            directory.add_file('Url for txt file not valid', themeit=CONFIG.THEME3)
+            logging.log("[APK Menu] שגיאה: כתובת URL לרשימת APK אינה עובדת.", level=xbmc.LOGERROR)
+            directory.add_file('כתובת לקובץ טקסט לא חוקית', themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.APKFILE), themeit=CONFIG.THEME3)
     else:
-        logging.log("[APK Menu] No APK list added.")
+        logging.log("[APK Menu] לא נוספה רשימת APK.")
 
 
 def youtube_menu(url=None):
@@ -125,22 +125,20 @@ def youtube_menu(url=None):
                     else:
                         directory.add_file(name, {'mode': 'viewVideo', 'url': url}, description=description, icon=icon, fanart=fanart, themeit=CONFIG.THEME2)
             else:
-                logging.log("[YouTube Menu] ERROR: Invalid Format.")
+                logging.log("[YouTube Menu] שגיאה: פורמט לא חוקי.")
         else:
-            logging.log("[YouTube Menu] ERROR: URL for YouTube list not working.")
-            directory.add_file('Url for txt file not valid', themeit=CONFIG.THEME3)
+            logging.log("[YouTube Menu] שגיאה: כתובת URL לרשימת YouTube אינה עובדת.")
+            directory.add_file('כתובת לקובץ טקסט לא חוקית', themeit=CONFIG.THEME3)
             directory.add_file('{0}'.format(CONFIG.YOUTUBEFILE), themeit=CONFIG.THEME3)
     else:
-        logging.log("[YouTube Menu] No YouTube list added.")
-
-#########################################NET TOOLS#############################################
+        logging.log("[YouTube Menu] לא נוספה רשימת YouTube.")
 
 
 def net_tools():
-    directory.add_dir('Speed Test', {'mode': 'speedtest'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME1)
+    directory.add_dir('בדיקת מהירות', {'mode': 'speedtest'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME1)
     if CONFIG.HIDESPACERS == 'No':
         directory.add_separator()
-    directory.add_dir('View IP Address & MAC Address', {'mode': 'viewIP'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
+    directory.add_dir('הצגת כתובת IP וכתובת MAC', {'mode': 'viewIP'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
 
 
 def view_ip():
@@ -148,28 +146,28 @@ def view_ip():
 
     mac, inter_ip, ip, city, state, country, isp = speedtest.net_info()
     directory.add_file('[COLOR {0}]MAC:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, mac), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Internal IP: [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, inter_ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]External IP:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]City:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, city), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]State:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, state), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Country:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, country), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]כתובת IP פנימית: [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, inter_ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]כתובת IP חיצונית:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]עיר:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, city), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]מדינה:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, state), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]ארץ:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, country), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
     directory.add_file('[COLOR {0}]ISP:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, isp), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
 
 
 def speed_test():
     from datetime import date
 
-    directory.add_file('Run Speed Test', {'mode': 'speedtest'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
+    directory.add_file('הרץ בדיקת מהירות', {'mode': 'speedtest'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
     if os.path.exists(CONFIG.SPEEDTEST):
         speedimg = glob.glob(os.path.join(CONFIG.SPEEDTEST, '*.png'))
         speedimg.sort(key=lambda f: os.path.getmtime(f), reverse=True)
         if len(speedimg) > 0:
-            directory.add_file('Clear Results', {'mode': 'clearspeedtest'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
-            directory.add_separator('Previous Runs', icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
+            directory.add_file('נקה תוצאות', {'mode': 'clearspeedtest'}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
+            directory.add_separator('ריצות קודמות', icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
             for item in speedimg:
                 created = date.fromtimestamp(os.path.getmtime(item)).strftime('%m/%d/%Y %H:%M:%S')
                 img = item.replace(os.path.join(CONFIG.SPEEDTEST, ''), '')
-                directory.add_file('[B]{0}[/B]: [I]Ran {1}[/I]'.format(img, created), {'mode': 'viewspeedtest', 'name': img}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
+                directory.add_file('[B]{0}[/B]: [I]הורץ {1}[/I]'.format(img, created), {'mode': 'viewspeedtest', 'name': img}, icon=CONFIG.ICONSPEED, themeit=CONFIG.THEME3)
 
 
 def clear_speed_test():
@@ -200,7 +198,7 @@ def run_speed_test():
         urlretrieve(found[0], dest)
         view_speed_test(urlsplits[-1])
     except Exception as e:
-        logging.log("[Speed Test] Error Running Speed Test: {0}".format(e), level=xbmc.LOGDEBUG)
+        logging.log("[Speed Test] שגיאה בהרצת בדיקת מהירות: {0}".format(e), level=xbmc.LOGDEBUG)
         pass
 
 
@@ -263,51 +261,51 @@ def system_info():
             elif not (prov[0]).find('image') == -1:
                 picture.append(foldername)
 
-    directory.add_file('[B]Media Center Info:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Name:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[0]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-    directory.add_file('[COLOR {0}]Version:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[1]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-    directory.add_file('[COLOR {0}]Platform:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, tools.platform().title()), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-    directory.add_file('[COLOR {0}]CPU Usage:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[2]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
-    directory.add_file('[COLOR {0}]Screen Mode:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[3]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+    directory.add_file('[B]מידע על מרכז המדיה:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]שם:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[0]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+    directory.add_file('[COLOR {0}]גרסה:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[1]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+    directory.add_file('[COLOR {0}]פלטפורמה:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, tools.platform().title()), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+    directory.add_file('[COLOR {0}]שימוש במעבד:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[2]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+    directory.add_file('[COLOR {0}]מצב מסך:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[3]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
 
-    directory.add_file('[B]Uptime:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Current Uptime:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[6]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Total Uptime:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[7]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[B]זמן עבודה רצוף:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]זמן עבודה רצוף נוכחי:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[6]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]זמן עבודה רצוף כללי:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, data[7]), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
 
-    directory.add_file('[B]Local Storage:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Used Storage:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, storage_used), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Free Storage:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, storage_free), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Total Storage:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, storage_total), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[B]אחסון מקומי:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]אחסון בשימוש:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, storage_used), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]אחסון פנוי:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, storage_free), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]אחסון כללי:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, storage_total), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
 
-    directory.add_file('[B]Ram Usage:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Used Memory:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ram_free), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Free Memory:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ram_used), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Total Memory:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ram_total), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[B]שימוש בזיכרון ראם:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]זיכרון בשימוש:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ram_free), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]זיכרון פנוי:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ram_used), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]זיכרון כללי:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ram_total), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
 
     mac, inter_ip, ip, city, state, country, isp = speedtest.net_info()
-    directory.add_file('[B]Network:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Mac:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, mac), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Internal IP: [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, inter_ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]External IP:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]City:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, city), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]State:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, state), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Country:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, country), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[B]רשת:[/B]', icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]MAC:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, mac), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]כתובת IP פנימית: [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, inter_ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]כתובת IP חיצונית:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, ip), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]עיר:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, city), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]מדינה:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, state), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]ארץ:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, country), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
     directory.add_file('[COLOR {0}]ISP:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, isp), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
 
     totalcount = len(picture) + len(music) + len(video) + len(programs) + len(scripts) + len(skins) + len(repos)
-    directory.add_file('[B]Addons([COLOR {0}]{1}[/COLOR]):[/B]'.format(CONFIG.COLOR1, totalcount), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Video Addons:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(video))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Program Addons:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(programs))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Music Addons:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(music))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Picture Addons:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(picture))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Repositories:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(repos))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Skins:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(skins))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
-    directory.add_file('[COLOR {0}]Scripts/Modules:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(scripts))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[B]הרחבות([COLOR {0}]{1}[/COLOR]):[/B]'.format(CONFIG.COLOR1, totalcount), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]הרחבות וידאו:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(video))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]הרחבות תוכנה:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(programs))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]הרחבות מוזיקה:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(music))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]הרחבות תמונות:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(picture))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]מאגרי הרחבות:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(repos))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]סקינים:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(skins))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
+    directory.add_file('[COLOR {0}]תוספים/מודולים:[/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR1, CONFIG.COLOR2, str(len(scripts))), icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME2)
 
 
 def save_menu():
-    on = '[COLOR springgreen]ON[/COLOR]'
-    off = '[COLOR red]OFF[/COLOR]'
+    on = '[COLOR springgreen]מופעל[/COLOR]'
+    off = '[COLOR red]כבוי[/COLOR]'
 
     trakt = 'true' if CONFIG.KEEPTRAKT == 'true' else 'false'
     debrid = 'true' if CONFIG.KEEPDEBRID == 'true' else 'false'
@@ -322,41 +320,41 @@ def save_menu():
     super = 'true' if CONFIG.KEEPSUPER == 'true' else 'false'
     whitelist = 'true' if CONFIG.KEEPWHITELIST == 'true' else 'false'
 
-    directory.add_dir('Keep Trakt Data', {'mode': 'trakt'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME1)
-    directory.add_dir('Keep Debrid', {'mode': 'realdebrid'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME1)
-    directory.add_dir('Keep Login Info', {'mode': 'login'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME1)
-    directory.add_file('Import Save Data', {'mode': 'managedata', 'name': 'import'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Export Save Data', {'mode': 'managedata', 'name': 'export'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('- Click to toggle settings -', themeit=CONFIG.THEME3)
-    directory.add_file('Save Trakt: {0}'.format(trakt.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keeptrakt'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME1)
-    directory.add_file('Save Debrid: {0}'.format(debrid.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepdebrid'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME1)
-    directory.add_file('Save Login Info: {0}'.format(login.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keeplogin'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME1)
-    directory.add_file('Keep \'Sources.xml\': {0}'.format(sources.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepsources'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep \'Profiles.xml\': {0}'.format(profiles.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepprofiles'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep \'playercorefactory.xml\': {0}'.format(playercore.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepplayercore'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep \'guisettings.xml\': {0}'.format(guisettings.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepguiseettings'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep \'Advancedsettings.xml\': {0}'.format(advanced.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepadvanced'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep \'Favourites.xml\': {0}'.format(favourites.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepfavourites'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep Super Favourites: {0}'.format(super.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepsuper'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep Installed Repo\'s: {0}'.format(repos.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keeprepos'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-    directory.add_file('Keep My \'WhiteList\': {0}'.format(whitelist.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepwhitelist'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_dir('שמור נתוני Trakt', {'mode': 'trakt'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME1)
+    directory.add_dir('שמור Debrid', {'mode': 'realdebrid'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME1)
+    directory.add_dir('שמור פרטי כניסה', {'mode': 'login'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME1)
+    directory.add_file('ייבוא נתונים שנשמרו', {'mode': 'managedata', 'name': 'import'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('ייצוא נתונים לשמירה', {'mode': 'managedata', 'name': 'export'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('- לחץ כדי לשנות הגדרות -', themeit=CONFIG.THEME3)
+    directory.add_file('שמור Trakt: {0}'.format(trakt.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keeptrakt'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME1)
+    directory.add_file('שמור Debrid: {0}'.format(debrid.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepdebrid'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME1)
+    directory.add_file('שמור פרטי כניסה: {0}'.format(login.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keeplogin'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'Sources.xml\': {0}'.format(sources.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepsources'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'Profiles.xml\': {0}'.format(profiles.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepprofiles'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'playercorefactory.xml\': {0}'.format(playercore.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepplayercore'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'guisettings.xml\': {0}'.format(guisettings.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepguiseettings'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'Advancedsettings.xml\': {0}'.format(advanced.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepadvanced'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'Favourites.xml\': {0}'.format(favourites.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepfavourites'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור Super Favourites: {0}'.format(super.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepsuper'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור מאגרי הרחבות מותקנים: {0}'.format(repos.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keeprepos'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+    directory.add_file('שמור \'WhiteList\' שלי: {0}'.format(whitelist.replace('true', on).replace('false', off)), {'mode': 'togglesetting', 'name': 'keepwhitelist'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
     if whitelist == 'true':
-        directory.add_file('Edit My Whitelist', {'mode': 'whitelist', 'name': 'edit'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-        directory.add_file('View My Whitelist', {'mode': 'whitelist', 'name': 'view'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-        directory.add_file('Clear My Whitelist', {'mode': 'whitelist', 'name': 'clear'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-        directory.add_file('Import My Whitelist', {'mode': 'whitelist', 'name': 'import'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
-        directory.add_file('Export My Whitelist', {'mode': 'whitelist', 'name': 'export'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+        directory.add_file('ערוך \'WhiteList\' שלי', {'mode': 'whitelist', 'name': 'edit'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+        directory.add_file('הצג \'WhiteList\' שלי', {'mode': 'whitelist', 'name': 'view'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+        directory.add_file('נקה \'WhiteList\' שלי', {'mode': 'whitelist', 'name': 'clear'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+        directory.add_file('ייבוא \'WhiteList\' שלי', {'mode': 'whitelist', 'name': 'import'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
+        directory.add_file('ייצוא \'WhiteList\' שלי', {'mode': 'whitelist', 'name': 'export'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
 
 
 def trakt_menu():
     from resources.libs import traktit
 
-    keep_trakt = '[COLOR springgreen]ON[/COLOR]' if CONFIG.KEEPTRAKT == 'true' else '[COLOR red]OFF[/COLOR]'
-    last = str(CONFIG.TRAKTSAVE) if not CONFIG.TRAKTSAVE == '' else 'Trakt hasn\'t been saved yet.'
-    directory.add_file('[I]Register FREE Account at https://www.trakt.tv/[/I]', icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
-    directory.add_file('Save Trakt Data: {0}'.format(keep_trakt), {'mode': 'togglesetting', 'name': 'keeptrakt'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    keep_trakt = '[COLOR springgreen]מופעל[/COLOR]' if CONFIG.KEEPTRAKT == 'true' else '[COLOR red]כבוי[/COLOR]'
+    last = str(CONFIG.TRAKTSAVE) if not CONFIG.TRAKTSAVE == '' else 'Trakt לא נשמר עדיין.'
+    directory.add_file('[I]הירשם לחשבון חינם בכתובת https://www.trakt.tv/[/I]', icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    directory.add_file('שמור נתוני Trakt: {0}'.format(keep_trakt), {'mode': 'togglesetting', 'name': 'keeptrakt'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
     if CONFIG.KEEPTRAKT == 'true':
-        directory.add_file('Last Save: {0}'.format(str(last)), icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+        directory.add_file('שמירה אחרונה: {0}'.format(str(last)), icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
     directory.add_separator(icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
 
     for trakt in traktit.ORDER:
@@ -371,41 +369,41 @@ def trakt_menu():
             fanart = traktit.TRAKTID[trakt]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
             menu = create_addon_data_menu('Trakt', trakt)
             menu2 = create_save_data_menu('Trakt', trakt)
-            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=trakt)'.format(CONFIG.ADDON_ID, trakt)))
+            menu.append((CONFIG.THEME2.format('{0} הגדרות'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=trakt)'.format(CONFIG.ADDON_ID, trakt)))
 
             directory.add_file('[+]-> {0}'.format(name), icon=icon, fanart=fanart, themeit=CONFIG.THEME3)
             if not os.path.exists(path):
-                directory.add_file('[COLOR red]Addon Data: Not Installed[/COLOR]', icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR red]נתוני הרחבה: לא מותקן[/COLOR]', icon=icon, fanart=fanart, menu=menu)
             elif not auser:
-                directory.add_file('[COLOR red]Addon Data: Not Registered[/COLOR]', {'mode': 'authtrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR red]נתוני הרחבה: לא רשום[/COLOR]', {'mode': 'authtrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu)
             else:
-                directory.add_file('[COLOR springgreen]Addon Data: {0}[/COLOR]'.format(auser), {'mode': 'authtrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR springgreen]נתוני הרחבה: {0}[/COLOR]'.format(auser), {'mode': 'authtrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu)
             if user == "":
                 if os.path.exists(file):
-                    directory.add_file('[COLOR red]Saved Data: Save File Found(Import Data)[/COLOR]', {'mode': 'importtrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu2)
+                    directory.add_file('[COLOR red]נתונים שנשמרו: קובץ שמירה נמצא (ייבוא נתונים)[/COLOR]', {'mode': 'importtrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu2)
                 else:
-                    directory.add_file('[COLOR red]Saved Data: Not Saved[/COLOR]', {'mode': 'savetrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu2)
+                    directory.add_file('[COLOR red]נתונים שנשמרו: לא נשמר[/COLOR]', {'mode': 'savetrakt', 'name': trakt}, icon=icon, fanart=fanart, menu=menu2)
             else:
-                directory.add_file('[COLOR springgreen]Saved Data: {0}[/COLOR]'.format(user), icon=icon, fanart=fanart, menu=menu2)
+                directory.add_file('[COLOR springgreen]נתונים שנשמרו: {0}[/COLOR]'.format(user), icon=icon, fanart=fanart, menu=menu2)
 
     directory.add_separator()
-    directory.add_file('Save All Trakt Data', {'mode': 'savetrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
-    directory.add_file('Recover All Saved Trakt Data', {'mode': 'restoretrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
-    directory.add_file('Import Trakt Data', {'mode': 'importtrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
-    directory.add_file('Clear All Addon Trakt Data', {'mode': 'addontrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
-    directory.add_file('Clear All Saved Trakt Data', {'mode': 'cleartrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    directory.add_file('שמור את כל נתוני Trakt', {'mode': 'savetrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    directory.add_file('שחזר את כל נתוני Trakt שנשמרו', {'mode': 'restoretrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    directory.add_file('ייבוא נתוני Trakt', {'mode': 'importtrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    directory.add_file('נקה את כל נתוני Trakt של ההרחבות', {'mode': 'addontrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
+    directory.add_file('נקה את כל נתוני Trakt שנשמרו', {'mode': 'cleartrakt', 'name': 'all'}, icon=CONFIG.ICONTRAKT, themeit=CONFIG.THEME3)
 
 
 def debrid_menu():
     from resources.libs import debridit
 
-    keep_debrid = '[COLOR springgreen]ON[/COLOR]' if CONFIG.KEEPDEBRID == 'true' else '[COLOR red]OFF[/COLOR]'
-    last = str(CONFIG.DEBRIDSAVE) if not CONFIG.DEBRIDSAVE == '' else 'Debrid authorizations haven\'t been saved yet.'
-    directory.add_file('[I]https://www.real-debrid.com/ is a PAID service.[/I]', icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
-    directory.add_file('[I]https://www.premiumize.me/ is a PAID service.[/I]', icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
-    directory.add_file('Save Debrid Data: {0}'.format(keep_debrid), {'mode': 'togglesetting', 'name': 'keepdebrid'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    keep_debrid = '[COLOR springgreen]מופעל[/COLOR]' if CONFIG.KEEPDEBRID == 'true' else '[COLOR red]כבוי[/COLOR]'
+    last = str(CONFIG.DEBRIDSAVE) if not CONFIG.DEBRIDSAVE == '' else 'אימותי Debrid לא נשמרו עדיין.'
+    directory.add_file('[I]https://www.real-debrid.com/ הוא שירות בתשלום.[/I]', icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('[I]https://www.premiumize.me/ הוא שירות בתשלום.[/I]', icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('שמור נתוני Debrid: {0}'.format(keep_debrid), {'mode': 'togglesetting', 'name': 'keepdebrid'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
     if CONFIG.KEEPDEBRID == 'true':
-        directory.add_file('Last Save: {0}'.format(str(last)), icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+        directory.add_file('שמירה אחרונה: {0}'.format(str(last)), icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
     directory.add_separator(icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
 
     for debrid in debridit.ORDER:
@@ -420,40 +418,40 @@ def debrid_menu():
             fanart = debridit.DEBRIDID[debrid]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
             menu = create_addon_data_menu('Debrid', debrid)
             menu2 = create_save_data_menu('Debrid', debrid)
-            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=debrid)'.format(CONFIG.ADDON_ID, debrid)))
+            menu.append((CONFIG.THEME2.format('{0} הגדרות'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=debrid)'.format(CONFIG.ADDON_ID, debrid)))
 
             directory.add_file('[+]-> {0}'.format(name), icon=icon, fanart=fanart, themeit=CONFIG.THEME3)
             if not os.path.exists(path):
-                directory.add_file('[COLOR red]Addon Data: Not Installed[/COLOR]', icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR red]נתוני הרחבה: לא מותקן[/COLOR]', icon=icon, fanart=fanart, menu=menu)
             elif not auser:
-                directory.add_file('[COLOR red]Addon Data: Not Registered[/COLOR]', {'mode': 'authdebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR red]נתוני הרחבה: לא רשום[/COLOR]', {'mode': 'authdebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu)
             else:
-                directory.add_file('[COLOR springgreen]Addon Data: {0}[/COLOR]'.format(auser), {'mode': 'authdebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR springgreen]נתוני הרחבה: {0}[/COLOR]'.format(auser), {'mode': 'authdebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu)
             if user == "":
                 if os.path.exists(file):
-                    directory.add_file('[COLOR red]Saved Data: Save File Found (Import Data)[/COLOR]', {'mode': 'importdebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu2)
+                    directory.add_file('[COLOR red]נתונים שנשמרו: קובץ שמירה נמצא (ייבוא נתונים)[/COLOR]', {'mode': 'importdebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu2)
                 else:
-                    directory.add_file('[COLOR red]Saved Data: Not Saved[/COLOR]', {'mode': 'savedebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu2)
+                    directory.add_file('[COLOR red]נתונים שנשמרו: לא נשמר[/COLOR]', {'mode': 'savedebrid', 'name': debrid}, icon=icon, fanart=fanart, menu=menu2)
             else:
-                directory.add_file('[COLOR springgreen]Saved Data: {0}[/COLOR]'.format(user), icon=icon, fanart=fanart, menu=menu2)
+                directory.add_file('[COLOR springgreen]נתונים שנשמרו: {0}[/COLOR]'.format(user), icon=icon, fanart=fanart, menu=menu2)
 
     directory.add_separator(themeit=CONFIG.THEME3)
-    directory.add_file('Save All Debrid Data', {'mode': 'savedebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
-    directory.add_file('Recover All Saved Debrid Data', {'mode': 'restoredebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
-    directory.add_file('Import Debrid Data', {'mode': 'importdebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
-    directory.add_file('Clear All Addon Debrid Data', {'mode': 'addondebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
-    directory.add_file('Clear All Saved Debrid Data', {'mode': 'cleardebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('שמור את כל נתוני Debrid', {'mode': 'savedebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('שחזר את כל נתוני Debrid שנשמרו', {'mode': 'restoredebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('ייבוא נתוני Debrid', {'mode': 'importdebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('נקה את כל נתוני Debrid של ההרחבות', {'mode': 'addondebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
+    directory.add_file('נקה את כל נתוני Debrid שנשמרו', {'mode': 'cleardebrid', 'name': 'all'}, icon=CONFIG.ICONDEBRID, themeit=CONFIG.THEME3)
 
 
 def login_menu():
     from resources.libs import loginit
 
-    keep_login = '[COLOR springgreen]ON[/COLOR]' if CONFIG.KEEPLOGIN == 'true' else '[COLOR red]OFF[/COLOR]'
-    last = str(CONFIG.LOGINSAVE) if not CONFIG.LOGINSAVE == '' else 'Login data hasn\'t been saved yet.'
-    directory.add_file('[I]Several of these addons are PAID services.[/I]', icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
-    directory.add_file('Save API Keys: {0}'.format(keep_login), {'mode': 'togglesetting', 'name': 'keeplogin'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    keep_login = '[COLOR springgreen]מופעל[/COLOR]' if CONFIG.KEEPLOGIN == 'true' else '[COLOR red]כבוי[/COLOR]'
+    last = str(CONFIG.LOGINSAVE) if not CONFIG.LOGINSAVE == '' else 'נתוני כניסה לא נשמרו עדיין.'
+    directory.add_file('[I]חלק מהתוספים האלו הם שירותים בתשלום.[/I]', icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    directory.add_file('שמור מפתחות API: {0}'.format(keep_login), {'mode': 'togglesetting', 'name': 'keeplogin'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
     if CONFIG.KEEPLOGIN == 'true':
-        directory.add_file('Last Save: {0}'.format(str(last)), icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+        directory.add_file('שמירה אחרונה: {0}'.format(str(last)), icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
     directory.add_separator(icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
 
     for login in loginit.ORDER:
@@ -468,29 +466,29 @@ def login_menu():
             fanart = loginit.LOGINID[login]['fanart'] if os.path.exists(path) else CONFIG.ADDON_FANART
             menu = create_addon_data_menu('Login', login)
             menu2 = create_save_data_menu('Login', login)
-            menu.append((CONFIG.THEME2.format('{0} Settings'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=login)'.format(CONFIG.ADDON_ID, login)))
+            menu.append((CONFIG.THEME2.format('{0} הגדרות'.format(name)), 'RunPlugin(plugin://{0}/?mode=opensettings&name={1}&url=login)'.format(CONFIG.ADDON_ID, login)))
 
             directory.add_file('[+]-> {0}'.format(name), icon=icon, fanart=fanart, themeit=CONFIG.THEME3)
             if not os.path.exists(path):
-                directory.add_file('[COLOR red]Addon Data: Not Installed[/COLOR]', icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR red]נתוני הרחבה: לא מותקן[/COLOR]', icon=icon, fanart=fanart, menu=menu)
             elif not auser:
-                directory.add_file('[COLOR red]Addon Data: Not Registered[/COLOR]', {'mode': 'authlogin', 'name': login}, icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR red]נתוני הרחבה: לא רשום[/COLOR]', {'mode': 'authlogin', 'name': login}, icon=icon, fanart=fanart, menu=menu)
             else:
-                directory.add_file('[COLOR springgreen]Addon Data: {0}[/COLOR]'.format(auser), {'mode': 'authlogin', 'name': login}, icon=icon, fanart=fanart, menu=menu)
+                directory.add_file('[COLOR springgreen]נתוני הרחבה: {0}[/COLOR]'.format(auser), {'mode': 'authlogin', 'name': login}, icon=icon, fanart=fanart, menu=menu)
             if user == "":
                 if os.path.exists(file):
-                    directory.add_file('[COLOR red]Saved Data: Save File Found (Import Data)[/COLOR]', {'mode': 'importlogin', 'name': login}, icon=icon, fanart=fanart, menu=menu2)
+                    directory.add_file('[COLOR red]נתונים שנשמרו: קובץ שמירה נמצא (ייבוא נתונים)[/COLOR]', {'mode': 'importlogin', 'name': login}, icon=icon, fanart=fanart, menu=menu2)
                 else:
-                    directory.add_file('[COLOR red]Saved Data: Not Saved[/COLOR]', {'mode': 'savelogin', 'name': login}, icon=icon, fanart=fanart, menu=menu2)
+                    directory.add_file('[COLOR red]נתונים שנשמרו: לא נשמר[/COLOR]', {'mode': 'savelogin', 'name': login}, icon=icon, fanart=fanart, menu=menu2)
             else:
-                directory.add_file('[COLOR springgreen]Saved Data: {0}[/COLOR]'.format(user), icon=icon, fanart=fanart, menu=menu2)
+                directory.add_file('[COLOR springgreen]נתונים שנשמרו: {0}[/COLOR]'.format(user), icon=icon, fanart=fanart, menu=menu2)
 
     directory.add_separator(themeit=CONFIG.THEME3)
-    directory.add_file('Save All Login Info', {'mode': 'savelogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
-    directory.add_file('Recover All Saved Login Info', {'mode': 'restorelogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
-    directory.add_file('Import Login Info', {'mode': 'importlogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
-    directory.add_file('Clear All Addon Login Info', {'mode': 'addonlogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
-    directory.add_file('Clear All Saved Login Info', {'mode': 'clearlogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    directory.add_file('שמור את כל פרטי הכניסה', {'mode': 'savelogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    directory.add_file('שחזר את כל פרטי הכניסה שנשמרו', {'mode': 'restorelogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    directory.add_file('ייבוא פרטי כניסה', {'mode': 'importlogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    directory.add_file('נקה את כל פרטי הכניסה של ההרחבות', {'mode': 'addonlogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
+    directory.add_file('נקה את כל פרטי הכניסה שנשמרו', {'mode': 'clearlogin', 'name': 'all'}, icon=CONFIG.ICONLOGIN, themeit=CONFIG.THEME3)
 
 
 def enable_addons(all=False):
@@ -518,19 +516,19 @@ def enable_addons(all=False):
             addonnames.append(addonname)
     if not all:
         if len(addonids) == 0:
-            directory.add_file("No Addons Found to Enable or Disable.", icon=CONFIG.ICONMAINT)
+            directory.add_file("לא נמצאו הרחבות להפעלה או השבתה.", icon=CONFIG.ICONMAINT)
         else:
-            directory.add_file("[I][B][COLOR red]!!Notice: Disabling Some Addons Can Cause Issues!![/COLOR][/B][/I]", icon=CONFIG.ICONMAINT)
-            directory.add_dir('Enable All Addons', {'mode': 'enableall'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
+            directory.add_file("[I][B][COLOR red]!!שים לב: השבתת הרחבות מסוימות עלולה לגרום לבעיות!![/COLOR][/B][/I]", icon=CONFIG.ICONMAINT)
+            directory.add_dir('הפעל את כל ההרחבות', {'mode': 'enableall'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME3)
             for i in range(0, len(addonids)):
                 folder = os.path.join(CONFIG.ADDONS, addonids[i])
                 icon = os.path.join(folder, 'icon.png') if os.path.exists(os.path.join(folder, 'icon.png')) else CONFIG.ADDON_ICON
                 fanart = os.path.join(folder, 'fanart.jpg') if os.path.exists(os.path.join(folder, 'fanart.jpg')) else CONFIG.ADDON_FANART
                 if tools.get_addon_info(addonids[i], 'name'):
-                    state = "[COLOR springgreen][Enabled][/COLOR]"
+                    state = "[COLOR springgreen][מופעל][/COLOR]"
                     goto = "false"
                 else:
-                    state = "[COLOR red][Disabled][/COLOR]"
+                    state = "[COLOR red][מושבת][/COLOR]"
                     goto = "true"
 
                 directory.add_file("{0} {1}".format(state, addonnames[i]), {'mode': 'toggleaddon', 'name': addonids[i], 'url': goto}, icon=icon, fanart=fanart)
@@ -543,10 +541,10 @@ def enable_addons(all=False):
 
 def remove_addon_data_menu():
     if os.path.exists(CONFIG.ADDON_DATA):
-        directory.add_file('[COLOR red][B][REMOVE][/B][/COLOR] All Addon_Data', {'mode': 'removedata', 'name': 'all'}, themeit=CONFIG.THEME2)
-        directory.add_file('[COLOR red][B][REMOVE][/B][/COLOR] All Addon_Data for Uninstalled Addons', {'mode': 'removedata', 'name': 'uninstalled'}, themeit=CONFIG.THEME2)
-        directory.add_file('[COLOR red][B][REMOVE][/B][/COLOR] All Empty Folders in Addon_Data', {'mode': 'removedata', 'name': 'empty'}, themeit=CONFIG.THEME2)
-        directory.add_file('[COLOR red][B][REMOVE][/B][/COLOR] {0} Addon_Data'.format(CONFIG.ADDONTITLE), {'mode': 'resetaddon'}, themeit=CONFIG.THEME2)
+        directory.add_file('[COLOR red][B][הסר][/B][/COLOR] את כל נתוני ההרחבות', {'mode': 'removedata', 'name': 'all'}, themeit=CONFIG.THEME2)
+        directory.add_file('[COLOR red][B][הסר][/B][/COLOR] את כל נתוני ההרחבות עבור הרחבות לא מותקנות', {'mode': 'removedata', 'name': 'uninstalled'}, themeit=CONFIG.THEME2)
+        directory.add_file('[COLOR red][B][הסר][/B][/COLOR] את כל התיקיות הריקות בתיקיית נתוני ההרחבות', {'mode': 'removedata', 'name': 'empty'}, themeit=CONFIG.THEME2)
+        directory.add_file('[COLOR red][B][הסר][/B][/COLOR] {0} נתוני הרחבות'.format(CONFIG.ADDONTITLE), {'mode': 'resetaddon'}, themeit=CONFIG.THEME2)
         directory.add_separator(themeit=CONFIG.THEME3)
         fold = glob.glob(os.path.join(CONFIG.ADDON_DATA, '*/'))
         for folder in sorted(fold, key = lambda x: x):
@@ -563,12 +561,12 @@ def remove_addon_data_menu():
             for rep in replace:
                 folderdisplay = folderdisplay.replace(rep, replace[rep])
             if foldername in CONFIG.EXCLUDES:
-                folderdisplay = '[COLOR springgreen][B][PROTECTED][/B][/COLOR] {0}'.format(folderdisplay)
+                folderdisplay = '[COLOR springgreen][B][מוגן][/B][/COLOR] {0}'.format(folderdisplay)
             else:
-                folderdisplay = '[COLOR red][B][REMOVE][/B][/COLOR] {0}'.format(folderdisplay)
+                folderdisplay = '[COLOR red][B][הסר][/B][/COLOR] {0}'.format(folderdisplay)
             directory.add_file(' {0}'.format(folderdisplay), {'mode': 'removedata', 'name': foldername}, icon=icon, fanart=fanart, themeit=CONFIG.THEME2)
     else:
-        directory.add_file('No Addon data folder found.', themeit=CONFIG.THEME3)
+        directory.add_file('לא נמצאה תיקיית נתוני הרחבות.', themeit=CONFIG.THEME3)
 
 
 def change_freq():
@@ -576,25 +574,20 @@ def change_freq():
 
     dialog = xbmcgui.Dialog()
 
-    change = dialog.select("[COLOR {0}]How often would you list to Auto Clean on Startup?[/COLOR]".format(CONFIG.COLOR2), CONFIG.CLEANFREQ)
+    change = dialog.select("[COLOR {0}]באיזו תדירות תרצה לבצע ניקוי אוטומטי בעת ההפעלה?[/COLOR]".format(CONFIG.COLOR2), CONFIG.CLEANFREQ)
     if not change == -1:
         CONFIG.set_setting('autocleanfreq', str(change))
-        logging.log_notify('[COLOR {0}]Auto Clean Up[/COLOR]'.format(CONFIG.COLOR1),
-                           '[COLOR {0}]Frequency Now {1}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.CLEANFREQ[change]))
+        logging.log_notify('[COLOR {0}]ניקוי אוטומטי[/COLOR]'.format(CONFIG.COLOR1),
+                           '[COLOR {0}]תדירות כעת {1}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.CLEANFREQ[change]))
 
 
 def developer():
-    directory.add_file('Create QR Code', {'mode': 'createqr'}, themeit=CONFIG.THEME1)
-    directory.add_file('Test Notifications', {'mode': 'testnotify'}, themeit=CONFIG.THEME1)
-    directory.add_file('Test Update', {'mode': 'testupdate'}, themeit=CONFIG.THEME1)
-    directory.add_file('Test Build Prompt', {'mode': 'testbuildprompt'}, themeit=CONFIG.THEME1)
-    directory.add_file('Test Save Data Settings', {'mode': 'testsavedata'}, themeit=CONFIG.THEME1)
-    directory.add_file('Test Binary Detection', {'mode': 'binarycheck'}, themeit=CONFIG.THEME1)
-
-
-###########################
-#      Misc Functions     #
-###########################
+    directory.add_file('צור קוד QR', {'mode': 'createqr'}, themeit=CONFIG.THEME1)
+    directory.add_file('בדוק התראות', {'mode': 'testnotify'}, themeit=CONFIG.THEME1)
+    directory.add_file('בדוק עדכון', {'mode': 'testupdate'}, themeit=CONFIG.THEME1)
+    directory.add_file('בדוק הנחיית עדכון', {'mode': 'testbuildprompt'}, themeit=CONFIG.THEME1)
+    directory.add_file('בדוק הגדרות שמירת נתונים', {'mode': 'testsavedata'}, themeit=CONFIG.THEME1)
+    directory.add_file('בדוק גילוי בינארי', {'mode': 'binarycheck'}, themeit=CONFIG.THEME1)
 
 
 def create_addon_data_menu(add='', name=''):
@@ -605,11 +598,11 @@ def create_addon_data_menu(add='', name=''):
     name2 = quote_plus(name.lower().replace(' ', ''))
     name = name.replace('url', 'URL Resolver')
     menu_items.append((CONFIG.THEME2.format(name.title()), ' '))
-    menu_items.append((CONFIG.THEME3.format('Save {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=save{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
-    menu_items.append((CONFIG.THEME3.format('Restore {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=restore{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
-    menu_items.append((CONFIG.THEME3.format('Clear {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=clear{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('שמור נתוני {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=save{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('שחזר נתוני {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=restore{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('נקה נתוני {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=clear{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
 
-    menu_items.append((CONFIG.THEME2.format('{0} Settings'.format(CONFIG.ADDONTITLE)), 'RunPlugin(plugin://{0}/?mode=settings)'.format(CONFIG.ADDON_ID)))
+    menu_items.append((CONFIG.THEME2.format('הגדרות {0}'.format(CONFIG.ADDONTITLE)), 'RunPlugin(plugin://{0}/?mode=settings)'.format(CONFIG.ADDON_ID)))
 
     return menu_items
 
@@ -622,12 +615,12 @@ def create_save_data_menu(add='', name=''):
     name2 = quote_plus(name.lower().replace(' ', ''))
     name = name.replace('url', 'URL Resolver')
     menu_items.append((CONFIG.THEME2.format(name.title()), ' '))
-    menu_items.append((CONFIG.THEME3.format('Register {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=auth{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
-    menu_items.append((CONFIG.THEME3.format('Save {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=save{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
-    menu_items.append((CONFIG.THEME3.format('Restore {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=restore{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
-    menu_items.append((CONFIG.THEME3.format('Import {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=import{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
-    menu_items.append((CONFIG.THEME3.format('Clear Addon {0} Data'.format(add3)), 'RunPlugin(plugin://{0}/?mode=addon{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('רשום {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=auth{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('שמור נתוני {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=save{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('שחזר נתוני {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=restore{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('ייבא נתוני {0}'.format(add3)), 'RunPlugin(plugin://{0}/?mode=import{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
+    menu_items.append((CONFIG.THEME3.format('נקה נתוני {0} של ההרחבה'.format(add3)), 'RunPlugin(plugin://{0}/?mode=addon{1}&name={2})'.format(CONFIG.ADDON_ID, add2, name2)))
 
-    menu_items.append((CONFIG.THEME2.format('{0} Settings'.format(CONFIG.ADDONTITLE)), 'RunPlugin(plugin://{0}/?mode=settings)'.format(CONFIG.ADDON_ID)))
+    menu_items.append((CONFIG.THEME2.format('הגדרות {0}'.format(CONFIG.ADDONTITLE)), 'RunPlugin(plugin://{0}/?mode=settings)'.format(CONFIG.ADDON_ID)))
 
     return menu_items

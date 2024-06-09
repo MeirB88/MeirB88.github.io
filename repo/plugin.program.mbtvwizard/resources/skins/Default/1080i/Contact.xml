@@ -20,7 +20,7 @@
                 <height>370</height>
             </control>
             <control type="label" id="102">
-                <description>header label</description>
+                <description>תווית כותרת</description>
                 <posx>60</posx>
                 <posy>35</posy>
                 <width>950</width>

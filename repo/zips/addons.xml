@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="plugin.program.mbtvwizard" name="MBTV Wizard" version="1.0.3" provider-name="MBTV">
+<addons><addon id="plugin.program.mbtvwizard" name="MBTV Wizard" version="1.0.4" provider-name="MBTV">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -66,7 +66,7 @@
 		<description>Fishenzon Repo</description>
 		<platform>all</platform>
 	</extension>
-</addon><addon id="repository.MBTV" name="MBTV Repo" version="1.0.6" provider-name="MeirB88">
+</addon><addon id="repository.MBTV" name="MBTV Repo" version="1.0.7" provider-name="MeirB88">
     <extension point="xbmc.addon.repository" name="MBTV Repo">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/MeirB88/MeirB88.github.io/master/repo/zips/addons.xml</info>

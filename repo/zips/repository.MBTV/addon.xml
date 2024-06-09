@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.MBTV" name="MBTV Repo" version="1.0.6" provider-name="MeirB88">
+<addon id="repository.MBTV" name="MBTV Repo" version="1.0.7" provider-name="MeirB88">
     <extension point="xbmc.addon.repository" name="MBTV Repo">
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/MeirB88/MeirB88.github.io/master/repo/zips/addons.xml</info>

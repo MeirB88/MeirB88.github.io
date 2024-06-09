@@ -135,7 +135,7 @@ def get_cache_size():
                     continue
                 totalsize += os.path.getsize(item)
         else:
-            logging.log("Clear Cache: Clear Video Cache Not Enabled")
+            logging.log("ניקוי מטמון: ניקוי מטמון וידאו לא מופעל")
 
     return totalsize
 
@@ -155,24 +155,24 @@ def clear_packages(over=None):
                     else:
                         dialog = xbmcgui.Dialog()
                     
-                        yes = dialog.yesno("[COLOR {0}]Delete Package Files[/COLOR]".format(CONFIG.COLOR2), "[COLOR {0}]{1}[/COLOR] files found / [COLOR {2}]{3}[/COLOR] in size.".format(CONFIG.COLOR1, str(file_count),CONFIG.COLOR1, size) + '\n' + "Do you want to delete them?", nolabel='[B][COLOR red]Don\'t Clear[/COLOR][/B]', yeslabel='[B][COLOR springgreen]Clear Packages[/COLOR][/B]')
+                        yes = dialog.yesno("[COLOR {0}]מחיקת קבצי חבילות[/COLOR]".format(CONFIG.COLOR2), "[COLOR {0}]{1}[/COLOR] קבצים נמצאו / [COLOR {2}]{3}[/COLOR] בגודל.".format(CONFIG.COLOR1, str(file_count),CONFIG.COLOR1, size) + '\n' + "האם ברצונך למחוק אותם?", nolabel='[B][COLOR red]אל תמחק[/COLOR][/B]', yeslabel='[B][COLOR springgreen]מחק חבילות[/COLOR][/B]')
                     if yes:
                         for f in files:
                             os.unlink(os.path.join(root, f))
                         for d in dirs:
                             shutil.rmtree(os.path.join(root, d))
                         logging.log_notify(CONFIG.ADDONTITLE,
-                                  '[COLOR {0}]Clear Packages: Success![/COLOR]'.format(CONFIG.COLOR2))
+                                  '[COLOR {0}]ניקוי חבילות: הצליח![/COLOR]'.format(CONFIG.COLOR2))
                 else:
                     logging.log_notify(CONFIG.ADDONTITLE,
-                              '[COLOR {0}]Clear Packages: None Found![/COLOR]'.format(CONFIG.COLOR2))
+                              '[COLOR {0}]ניקוי חבילות: לא נמצאו קבצים![/COLOR]'.format(CONFIG.COLOR2))
         except Exception as e:
             logging.log_notify(CONFIG.ADDONTITLE,
-                      '[COLOR {0}]Clear Packages: Error![/COLOR]'.format(CONFIG.COLOR2))
-            logging.log("Clear Packages Error: {0}".format(str(e)), level=xbmc.LOGERROR)
+                      '[COLOR {0}]ניקוי חבילות: שגיאה![/COLOR]'.format(CONFIG.COLOR2))
+            logging.log("שגיאת ניקוי חבילות: {0}".format(str(e)), level=xbmc.LOGERROR)
     else:
         logging.log_notify(CONFIG.ADDONTITLE,
-                  '[COLOR {0}]Clear Packages: None Found![/COLOR]'.format(CONFIG.COLOR2))
+                  '[COLOR {0}]ניקוי חבילות: לא נמצאו קבצים![/COLOR]'.format(CONFIG.COLOR2))
 
 
 def clear_packages_startup():
@@ -200,29 +200,29 @@ def clear_packages_startup():
                         try:
                             shutil.rmtree(file)
                         except Exception as e:
-                            logging.log("Failed to remove {0}: {1}".format(file, str(e), xbmc.LOGERROR))
+                            logging.log("כישלון בהסרת {0}: {1}".format(file, str(e), xbmc.LOGERROR))
             if file_count > 0:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                          '[COLOR {0}]Clear Packages: Success: {1}[/COLOR]'.format(CONFIG.COLOR2, tools.convert_size(cleanupsize)))
+                          '[COLOR {0}]ניקוי חבילות: הצלחה: {1}[/COLOR]'.format(CONFIG.COLOR2, tools.convert_size(cleanupsize)))
             else:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                          '[COLOR {0}]Clear Packages: None Found![/COLOR]'.format(CONFIG.COLOR2))
+                          '[COLOR {0}]ניקוי חבילות: לא נמצאו קבצים![/COLOR]'.format(CONFIG.COLOR2))
         except Exception as e:
             logging.log_notify(CONFIG.ADDONTITLE,
-                      '[COLOR {0}]Clear Packages: Error![/COLOR]'.format(CONFIG.COLOR2))
-            logging.log("Clear Packages Error: {0}".format(str(e)), level=xbmc.LOGERROR)
+                      '[COLOR {0}]ניקוי חבילות: שגיאה![/COLOR]'.format(CONFIG.COLOR2))
+            logging.log("שגיאת ניקוי חבילות: {0}".format(str(e)), level=xbmc.LOGERROR)
     else:
         logging.log_notify(CONFIG.ADDONTITLE,
-                  '[COLOR {0}]Clear Packages: None Found![/COLOR]'.format(CONFIG.COLOR2))
+                  '[COLOR {0}]ניקוי חבילות: לא נמצאו קבצים![/COLOR]'.format(CONFIG.COLOR2))
 
 
 def clear_archive():
     dialog = xbmcgui.Dialog()
 
     if dialog.yesno(CONFIG.ADDONTITLE,
-                        '[COLOR {0}]Would you like to clear the \'Archive_Cache\' folder?[/COLOR]'.format(CONFIG.COLOR2),
-                        nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',
-                        yeslabel='[B][COLOR springgreen]Yes Clear[/COLOR][/B]'):
+                        '[COLOR {0}]האם ברצונך לנקות את תיקיית \'Archive_Cache\'?[/COLOR]'.format(CONFIG.COLOR2),
+                        nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]',
+                        yeslabel='[B][COLOR springgreen]כן נקה[/COLOR][/B]'):
         if os.path.exists(CONFIG.ARCHIVE_CACHE):
             from resources.libs.common import tools
             tools.clean_house(CONFIG.ARCHIVE_CACHE)
@@ -233,9 +233,9 @@ def clear_function_cache(over=False):
 
     if not over:
         if dialog.yesno(CONFIG.ADDONTITLE,
-                            '[COLOR {0}]Would you like to clear resolver function caches?[/COLOR]'.format(CONFIG.COLOR2),
-                            nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',
-                            yeslabel='[B][COLOR springgreen]Clear Cache[/COLOR][/B]'):
+                            '[COLOR {0}]האם ברצונך לנקות את מטמוני הפונקציות של הפותרים?[/COLOR]'.format(CONFIG.COLOR2),
+                            nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]',
+                            yeslabel='[B][COLOR springgreen]נקה מטמון[/COLOR][/B]'):
             clear = True
     else:
         clear = True
@@ -304,20 +304,20 @@ def clear_cache(over=None):
                         if f not in CONFIG.LOGFILES:
                             try:
                                 os.unlink(os.path.join(root, f))
-                                logging.log("[Wiped] {0}".format(os.path.join(root, f)))
+                                logging.log("[נוקה] {0}".format(os.path.join(root, f)))
                                 delfiles += 1
                             except:
                                 pass
                         else:
-                            logging.log('Ignore Log File: {0}'.format(f))
+                            logging.log('התעלם מקובץ לוג: {0}'.format(f))
                     for d in dirs:
                         try:
                             shutil.rmtree(os.path.join(root, d))
                             delfiles += 1
-                            logging.log("[Success] cleared {0} files from {1}".format(str(file_count), os.path.join(item, d)),
+                            logging.log("[הצלחה] נוקו {0} קבצים מ-{1}".format(str(file_count), os.path.join(item, d)),
                                         level=xbmc.LOGINFO)
                         except:
-                            logging.log("[Failed] to wipe cache in: {0}".format(os.path.join(item, d)),
+                            logging.log("[כשל] לנקות מטמון ב-{0}".format(os.path.join(item, d)),
                                         level=xbmc.LOGINFO)
         else:
             for root, dirs, files in os.walk(item):
@@ -327,9 +327,9 @@ def clear_cache(over=None):
                         try:
                             shutil.rmtree(os.path.join(root, d))
                             delfiles += 1
-                            logging.log("[Success] wiped {0} ".format(os.path.join(root, d)))
+                            logging.log("[הצלחה] נוקו {0} ".format(os.path.join(root, d)))
                         except:
-                            logging.log("[Failed] to wipe cache in: {0}".format(os.path.join(item, d)))
+                            logging.log("[כשל] לנקות מטמון ב-{0}".format(os.path.join(item, d)))
 
     if CONFIG.INCLUDEVIDEO == 'true' and over is None:
         files = []
@@ -370,7 +370,7 @@ def clear_cache(over=None):
                         textdb = database.connect(item)
                         textexe = textdb.cursor()
                     except Exception as e:
-                        logging.log("DB Connection error: {0}".format(str(e)), level=xbmc.LOGERROR)
+                        logging.log("שגיאת חיבור לבסיס נתונים: {0}".format(str(e)), level=xbmc.LOGERROR)
                         continue
                     if 'Database' in item:
                         try:
@@ -378,9 +378,9 @@ def clear_cache(over=None):
                             textexe.execute("VACUUM")
                             textdb.commit()
                             textexe.close()
-                            logging.log("[Success] wiped {0}".format(item))
+                            logging.log("[הצלחה] נוקו {0}".format(item))
                         except Exception as e:
-                            logging.log("[Failed] wiped {0}: {1}".format(item, str(e)))
+                            logging.log("[כשל] נוקו {0}: {1}".format(item, str(e)))
                     else:
                         textexe.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
                         for table in textexe.fetchall():
@@ -388,17 +388,17 @@ def clear_cache(over=None):
                                 textexe.execute("DELETE FROM {0}".format(table[0]))
                                 textexe.execute("VACUUM")
                                 textdb.commit()
-                                logging.log("[Success] wiped {0} in {1}".format(table[0], item))
+                                logging.log("[הצלחה] נוקו {0} ב-{1}".format(table[0], item))
                             except Exception as e:
                                 try:
-                                    logging.log("[Failed] wiped {0} in {1}: {2}".format(table[0], item, str(e)))
+                                    logging.log("[כשל] נוקו {0} ב-{1}: {2}".format(table[0], item, str(e)))
                                 except:
                                     pass
                         textexe.close()
         else:
-            logging.log("Clear Cache: Clear Video Cache Not Enabled")
+            logging.log("ניקוי מטמון: ניקוי מטמון וידאו לא מופעל")
     logging.log_notify(CONFIG.ADDONTITLE,
-                       '[COLOR {0}]Clear Cache: Removed {1} Files[/COLOR]'.format(CONFIG.COLOR2, delfiles))
+                       '[COLOR {0}]ניקוי מטמון: הוסרו {1} קבצים[/COLOR]'.format(CONFIG.COLOR2, delfiles))
 
 
 def old_thumbs():
@@ -416,10 +416,10 @@ def old_thumbs():
             textdb = database.connect(dbfile, isolation_level=None)
             textexe = textdb.cursor()
         except Exception as e:
-            logging.log("DB Connection Error: {0}".format(str(e)), level=xbmc.LOGERROR)
+            logging.log("שגיאת חיבור לבסיס נתונים: {0}".format(str(e)), level=xbmc.LOGERROR)
             return False
     else:
-        logging.log('{0} not found.'.format(dbfile), level=xbmc.LOGERROR)
+        logging.log('{0} לא נמצא.'.format(dbfile), level=xbmc.LOGERROR)
         return False
     textexe.execute("SELECT idtexture FROM sizes WHERE usecount < ? AND lastusetime < ?", (use, str(week)))
     found = textexe.fetchall()
@@ -430,7 +430,7 @@ def old_thumbs():
         found2 = textexe.fetchall()
         for rows2 in found2:
             images.append(rows2[0])
-    logging.log("{0} total thumbs cleaned up.".format(str(len(images))))
+    logging.log("{0} תמונות מוקטנות נוקו.".format(str(len(images))))
     for id in ids:
         textexe.execute("DELETE FROM sizes WHERE idtexture = ?", (id, ))
         textexe.execute("DELETE FROM texture WHERE id = ?", (id, ))
@@ -448,10 +448,10 @@ def old_thumbs():
     removed = tools.convert_size(size)
     if len(images) > 0:
         logging.log_notify(CONFIG.ADDONTITLE,
-                           '[COLOR {0}]Clear Thumbs: {1} Files / {2} MB[/COLOR]!'.format(CONFIG.COLOR2, str(len(images)), removed))
+                           '[COLOR {0}]ניקוי תמונות מוקטנות: {1} קבצים / {2} MB[/COLOR]!'.format(CONFIG.COLOR2, str(len(images)), removed))
     else:
         logging.log_notify(CONFIG.ADDONTITLE,
-                           '[COLOR {0}]Clear Thumbs: None Found![/COLOR]'.format(CONFIG.COLOR2))
+                           '[COLOR {0}]ניקוי תמונות מוקטנות: לא נמצאו![/COLOR]'.format(CONFIG.COLOR2))
 
 
 def clear_crash():
@@ -462,31 +462,31 @@ def clear_crash():
         dialog = xbmcgui.Dialog()
 
         if dialog.yesno(CONFIG.ADDONTITLE,
-                            '[COLOR {0}]Would you like to delete the Crash logs?'.format(CONFIG.COLOR2)
-                            +'\n'+'[COLOR {0}]{1}[/COLOR] Files Found[/COLOR]'.format(CONFIG.COLOR1, len(files)),
-                            yeslabel="[B][COLOR springgreen]Remove Logs[/COLOR][/B]",
-                            nolabel="[B][COLOR red]Keep Logs[/COLOR][/B]"):
+                            '[COLOR {0}]האם ברצונך למחוק את קבצי הלוג של קריסות?'.format(CONFIG.COLOR2)
+                            +'\n'+'[COLOR {0}]{1}[/COLOR] קבצים נמצאו[/COLOR]'.format(CONFIG.COLOR1, len(files)),
+                            yeslabel="[B][COLOR springgreen]הסר לוגים[/COLOR][/B]",
+                            nolabel="[B][COLOR red]שמור לוגים[/COLOR][/B]"):
             for f in files:
                 os.remove(f)
-            logging.log_notify('[COLOR {0}]Clear Crash Logs[/COLOR]'.format(CONFIG.COLOR1),
-                               '[COLOR {0}]{1} Crash Logs Removed[/COLOR]'.format(CONFIG.COLOR2, len(files)))
+            logging.log_notify('[COLOR {0}]ניקוי לוגי קריסות[/COLOR]'.format(CONFIG.COLOR1),
+                               '[COLOR {0}]{1} לוגי קריסות הוסרו[/COLOR]'.format(CONFIG.COLOR2, len(files)))
         else:
             logging.log_notify(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]Clear Crash Logs Cancelled[/COLOR]'.format(CONFIG.COLOR2))
+                               '[COLOR {0}]ניקוי לוגי קריסות בוטל[/COLOR]'.format(CONFIG.COLOR2))
     else:
-        logging.log_notify('[COLOR {0}]Clear Crash Logs[/COLOR]'.format(CONFIG.COLOR1),
-                           '[COLOR {0}]No Crash Logs Found[/COLOR]'.format(CONFIG.COLOR2))
+        logging.log_notify('[COLOR {0}]ניקוי לוגי קריסות[/COLOR]'.format(CONFIG.COLOR1),
+                           '[COLOR {0}]לא נמצאו לוגי קריסות[/COLOR]'.format(CONFIG.COLOR2))
 
 
 def force_text():
     tools.clean_house(CONFIG.TEXTCACHE)
     logging.log_notify(CONFIG.ADDONTITLE,
-                       '[COLOR {0}]Text Files Flushed![/COLOR]'.format(CONFIG.COLOR2))
+                       '[COLOR {0}]קבצי טקסט נוקו![/COLOR]'.format(CONFIG.COLOR2))
 
 
 def toggle_cache(state):
     cachelist = ['includevideo', 'includeall', 'includeexodusredux', 'includegaia', 'includenumbers', 'includescrubs', 'includeseren', 'includethecrew', 'includevenom']
-    titlelist = ['Include Video Addons', 'Include All Addons', 'Include Exodus Redux', 'Include Gaia', 'Include NuMb3r5', 'Include Scrubs v2', 'Include Seren', 'Include THE CREW', 'Include Venom']
+    titlelist = ['כלול תוספי וידאו', 'כלול את כל התוספים', 'כלול את Exodus Redux', 'כלול את Gaia', 'כלול את NuMb3r5', 'כלול את Scrubs v2', 'כלול את Seren', 'כלול את THE CREW', 'כלול את Venom']
     if state in ['true', 'false']:
         for item in cachelist:
             CONFIG.set_setting(item, state)
@@ -497,10 +497,10 @@ def toggle_cache(state):
 
                 item = titlelist[cachelist.index(state)]
                 dialog.ok(CONFIG.ADDONTITLE,
-                              "[COLOR {0}]You will need to turn off [COLOR {1}]Include All Addons[/COLOR] to disable[/COLOR] [COLOR {2}]{3}[/COLOR]".format(CONFIG.COLOR2, CONFIG.COLOR1, CONFIG.COLOR1, item))
+                              "[COLOR {0}]עליך לכבות [COLOR {1}]כלול את כל התוספים[/COLOR] כדי להשבית[/COLOR] [COLOR {2}]{3}[/COLOR]".format(CONFIG.COLOR2, CONFIG.COLOR1, CONFIG.COLOR1, item))
             except:
-                logging.log_notify("[COLOR {0}]Toggle Cache[/COLOR]".format(CONFIG.COLOR1),
-                                   "[COLOR {0}]Invalid Add-on ID: {1}[/COLOR]".format(CONFIG.COLOR2, state))
+                logging.log_notify("[COLOR {0}]החלף מטמון[/COLOR]".format(CONFIG.COLOR1),
+                                   "[COLOR {0}]מזהה תוסף לא חוקי: {1}[/COLOR]".format(CONFIG.COLOR2, state))
         else:
             new = 'true' if CONFIG.get_setting(state) == 'false' else 'false'
             CONFIG.set_setting(state, new)
@@ -510,9 +510,9 @@ def total_clean():
     dialog = xbmcgui.Dialog()
 
     if dialog.yesno(CONFIG.ADDONTITLE,
-                        '[COLOR {0}]Would you like to clear cache, packages and thumbnails?[/COLOR]'.format(CONFIG.COLOR2),
-                        nolabel='[B][COLOR red]Cancel Process[/COLOR][/B]',
-                        yeslabel='[B][COLOR springgreen]Clean All[/COLOR][/B]'):
+                        '[COLOR {0}]האם ברצונך לנקות מטמון, חבילות ותמונות מוקטנות?[/COLOR]'.format(CONFIG.COLOR2),
+                        nolabel='[B][COLOR red]בטל תהליך[/COLOR][/B]',
+                        yeslabel='[B][COLOR springgreen]נקה הכל[/COLOR][/B]'):
         clear_archive()
         clear_cache()
         clear_function_cache(over=True)
@@ -533,17 +533,17 @@ def clear_thumbs(type=None):
     if type is not None:
         choice = 1
     else:
-        choice = dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]Would you like to delete the {1} and related thumbnail folders?'.format(CONFIG.COLOR2, latest) + '\n' + "They will repopulate on the next startup[/COLOR]", nolabel='[B][COLOR red]Don\'t Delete[/COLOR][/B]', yeslabel='[B][COLOR springgreen]Delete Thumbs[/COLOR][/B]')
+        choice = dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]האם ברצונך למחוק את {1} ותיקיות התמונות המוקטנות הקשורות?'.format(CONFIG.COLOR2, latest) + '\n' + "הן יתחדשו בהפעלה הבאה[/COLOR]", nolabel='[B][COLOR red]אל תמחק[/COLOR][/B]', yeslabel='[B][COLOR springgreen]מחק תמונות מוקטנות[/COLOR][/B]')
     if choice == 1:
         try:
             tools.remove_file(os.path.join(CONFIG.DATABASE, latest))
         except:
-            logging.log('Failed to delete, Purging DB.')
+            logging.log('נכשל למחוק, מנקה בסיס נתונים.')
             db.purge_db_file(latest)
         for i in thumb_locations:
             tools.remove_folder(i)
     else:
-        logging.log('Clear thumbnames cancelled')
+        logging.log('ניקוי תמונות מוקטנות בוטל')
 
     tools.redo_thumbs()
 
@@ -558,14 +558,14 @@ def remove_addon(addon, name, over=False, data=True):
         dialog = xbmcgui.Dialog()
         
         yes = dialog.yesno(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]Are you sure you want to delete the add-on:'.format(CONFIG.COLOR2)
-                               +'\n'+'Name: [COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, name)
-                               +'\n'+'ID: [COLOR {0}]{1}[/COLOR][/COLOR]'.format(CONFIG.COLOR1, addon),
-                               yeslabel='[B][COLOR springgreen]Remove Add-on[/COLOR][/B]',
-                               nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]')
+                               '[COLOR {0}]האם אתה בטוח שברצונך למחוק את התוסף:'.format(CONFIG.COLOR2)
+                               +'\n'+'שם: [COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, name)
+                               +'\n'+'מזהה: [COLOR {0}]{1}[/COLOR][/COLOR]'.format(CONFIG.COLOR1, addon),
+                               yeslabel='[B][COLOR springgreen]הסר תוסף[/COLOR][/B]',
+                               nolabel='[B][COLOR red]אל תסיר[/COLOR][/B]')
     if yes == 1:
         folder = os.path.join(CONFIG.ADDONS, addon)
-        logging.log("Removing Add-on: {0}".format(addon))
+        logging.log("מסיר תוסף: {0}".format(addon))
 
         from resources.libs.common import tools
         tools.clean_house(folder)
@@ -583,7 +583,7 @@ def remove_addon(addon, name, over=False, data=True):
         try:
             shutil.rmtree(folder)
         except Exception as e:
-            logging.log("Error removing {0}: {1}".format(addon, str(e)))
+            logging.log("שגיאה בהסרת {0}: {1}".format(addon, str(e)))
         
         if data:
             remove_addon_data(addon)
@@ -592,7 +592,7 @@ def remove_addon(addon, name, over=False, data=True):
             
     if not over:
         logging.log_notify(CONFIG.ADDONTITLE,
-                           "[COLOR {0}]{1} Removed[/COLOR]".format(CONFIG.COLOR2, name))
+                           "[COLOR {0}]{1} הוסר[/COLOR]".format(CONFIG.COLOR2, name))
 
 
 def remove_addon_data(addon):
@@ -600,18 +600,18 @@ def remove_addon_data(addon):
 
     if addon == 'all':  # clear ALL addon data
         if dialog.yesno(CONFIG.ADDONTITLE,
-                            '[COLOR {0}]Would you like to remove [COLOR {1}]ALL[/COLOR] addon data stored in your userdata folder?[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1),
-                            yeslabel='[B][COLOR springgreen]Remove Data[/COLOR][/B]',
-                            nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]'):
+                            '[COLOR {0}]האם ברצונך להסיר [COLOR {1}]כל[/COLOR] את נתוני התוסף המאוחסנים בתיקיית userdata שלך?[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1),
+                            yeslabel='[B][COLOR springgreen]הסר נתונים[/COLOR][/B]',
+                            nolabel='[B][COLOR red]אל תסיר[/COLOR][/B]'):
             tools.clean_house(CONFIG.ADDON_DATA)
         else:
-            logging.log_notify('[COLOR {0}]Remove Addon Data[/COLOR]'.format(CONFIG.COLOR1),
-                               '[COLOR {0}]Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+            logging.log_notify('[COLOR {0}]הסר נתוני תוסף[/COLOR]'.format(CONFIG.COLOR1),
+                               '[COLOR {0}]בוטל![/COLOR]'.format(CONFIG.COLOR2))
     elif addon == 'uninstalled':  # clear addon data for uninstalled addons
         if dialog.yesno(CONFIG.ADDONTITLE,
-                            '[COLOR {0}]Would you like to remove [COLOR {1}]ALL[/COLOR] addon data stored in your userdata folder for uninstalled addons?[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1),
-                            yeslabel='[B][COLOR springgreen]Remove Data[/COLOR][/B]',
-                            nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]'):
+                            '[COLOR {0}]האם ברצונך להסיר [COLOR {1}]כל[/COLOR] את נתוני התוסף המאוחסנים בתיקיית userdata שלך עבור תוספים שהוסרו?[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1),
+                            yeslabel='[B][COLOR springgreen]הסר נתונים[/COLOR][/B]',
+                            nolabel='[B][COLOR red]אל תסיר[/COLOR][/B]'):
                             
             total = 0
             
@@ -626,36 +626,36 @@ def remove_addon_data(addon):
                     total += 1
                     logging.log(folder)
                     shutil.rmtree(folder)
-            logging.log_notify('[COLOR {0}]Clean up Uninstalled[/COLOR]'.format(CONFIG.COLOR1),
-                               '[COLOR {0}]{1} Folders(s) Removed[/COLOR]'.format(CONFIG.COLOR2, total))
+            logging.log_notify('[COLOR {0}]ניקוי תוספים שהוסרו[/COLOR]'.format(CONFIG.COLOR1),
+                               '[COLOR {0}]{1} תיקיות הוסרו[/COLOR]'.format(CONFIG.COLOR2, total))
         else:
-            logging.log_notify('[COLOR {0}]Remove Add-on Data[/COLOR]'.format(CONFIG.COLOR1),
-                               '[COLOR {0}]Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+            logging.log_notify('[COLOR {0}]הסר נתוני תוסף[/COLOR]'.format(CONFIG.COLOR1),
+                               '[COLOR {0}]בוטל![/COLOR]'.format(CONFIG.COLOR2))
     elif addon == 'empty':  # clear empty folders from addon_data
         if dialog.yesno(CONFIG.ADDONTITLE,
-                            '[COLOR {0}]Would you like to remove [COLOR {1}]ALL[/COLOR] empty addon data folders in your userdata folder?[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1),
-                            yeslabel='[B][COLOR springgreen]Remove Data[/COLOR][/B]',
-                            nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]'):
+                            '[COLOR {0}]האם ברצונך להסיר [COLOR {1}]כל[/COLOR] את התיקיות הריקות של נתוני התוסף בתיקיית userdata שלך?[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1),
+                            yeslabel='[B][COLOR springgreen]הסר נתונים[/COLOR][/B]',
+                            nolabel='[B][COLOR red]אל תסיר[/COLOR][/B]'):
             total = tools.empty_folder(CONFIG.ADDON_DATA)
-            logging.log_notify('[COLOR {0}]Remove Empty Folders[/COLOR]'.format(CONFIG.COLOR1),
-                               '[COLOR {0}]{1} Folders(s) Removed[/COLOR]'.format(CONFIG.COLOR2, total))
+            logging.log_notify('[COLOR {0}]הסר תיקיות ריקות[/COLOR]'.format(CONFIG.COLOR1),
+                               '[COLOR {0}]{1} תיקיות הוסרו[/COLOR]'.format(CONFIG.COLOR2, total))
         else:
-            logging.log_notify('[COLOR {0}]Remove Empty Folders[/COLOR]'.format(CONFIG.COLOR1),
-                               '[COLOR {0}]Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+            logging.log_notify('[COLOR {0}]הסר תיקיות ריקות[/COLOR]'.format(CONFIG.COLOR1),
+                               '[COLOR {0}]בוטל![/COLOR]'.format(CONFIG.COLOR2))
     else:  # clear addon data for a specific addon
         addon_data = os.path.join(CONFIG.ADDON_DATA, addon)
         if addon in CONFIG.EXCLUDES:
-            logging.log_notify("[COLOR {0}]Protected Plugin[/COLOR]".format(CONFIG.COLOR1),
-                               "[COLOR {0}]Not allowed to remove add-on data[/COLOR]".format(CONFIG.COLOR2))
+            logging.log_notify("[COLOR {0}]תוסף מוגן[/COLOR]".format(CONFIG.COLOR1),
+                               "[COLOR {0}]לא ניתן להסיר את נתוני התוסף[/COLOR]".format(CONFIG.COLOR2))
         elif os.path.exists(addon_data):
-            if dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]Would you also like to remove the add-on data for:[/COLOR]'.format(CONFIG.COLOR2) + '\n' + '[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, addon), yeslabel='[B][COLOR springgreen]Remove Data[/COLOR][/B]', nolabel='[B][COLOR red]Don\'t Remove[/COLOR][/B]'):
+            if dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]האם ברצונך להסיר גם את נתוני התוסף עבור:[/COLOR]'.format(CONFIG.COLOR2) + '\n' + '[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, addon), yeslabel='[B][COLOR springgreen]הסר נתונים[/COLOR][/B]', nolabel='[B][COLOR red]אל תסיר[/COLOR][/B]'):
                 tools.clean_house(addon_data)
                 try:
                     shutil.rmtree(addon_data)
                 except:
-                    logging.log("Error deleting: {0}".format(addon_data))
+                    logging.log("שגיאה במחיקת: {0}".format(addon_data))
             else:
-                logging.log('Add-on data for {0} was not removed'.format(addon))
+                logging.log('נתוני התוסף עבור {0} לא הוסרו'.format(addon))
     xbmc.executebuiltin('Container.Refresh()')
 
     
@@ -697,9 +697,9 @@ def remove_addon_menu():
                 
     if len(addonnames) == 0:
         logging.log_notify(CONFIG.ADDONTITLE,
-                           "[COLOR {0}]No Addons To Remove[/COLOR]".format(CONFIG.COLOR2))
+                           "[COLOR {0}]אין תוספים להסיר[/COLOR]".format(CONFIG.COLOR2))
         return
-    selected = dialog.multiselect("{0}: Select the addons you wish to remove.".format(CONFIG.ADDONTITLE), addonnames)
+    selected = dialog.multiselect("{0}: בחר את התוספים שברצונך להסיר.".format(CONFIG.ADDONTITLE), addonnames)
     if not selected:
         return
     if len(selected) > 0:
@@ -709,7 +709,7 @@ def remove_addon_menu():
 
         xbmc.sleep(500)
 
-        dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]To save changes you now need to force close Kodi, Press OK to force close Kodi[/COLOR]".format(CONFIG.COLOR2))
+        dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]כדי לשמור את השינויים, עליך לסגור את Kodi בכפייה, לחץ אישור כדי לסגור את Kodi בכפייה[/COLOR]".format(CONFIG.COLOR2))
         
         update.addon_updates('reset')
         tools.kill_kodi(over=True)

@@ -201,10 +201,10 @@ def purge_db():
                 DB.append(found)
                 dir = found.replace('\\', '/').split('/')
                 display.append('({0}) {1}'.format(dir[len(dir)-2], dir[len(dir)-1]))
-    choice = dialog.multiselect("[COLOR {0}]Select DB File to Purge[/COLOR]".format(CONFIG.COLOR2), display)
+    choice = dialog.multiselect("[COLOR {0}]בחר קובץ DB לנקות[/COLOR]".format(CONFIG.COLOR2), display)
     if choice is None or len(choice) == 0:
-        logging.log_notify("[COLOR {0}]Purge Database[/COLOR]".format(CONFIG.COLOR1),
-                           "[COLOR {0}]Cancelled[/COLOR]".format(CONFIG.COLOR2))
+        logging.log_notify("[COLOR {0}]ניקוי בסיס נתונים[/COLOR]".format(CONFIG.COLOR1),
+                           "[COLOR {0}]בוטל[/COLOR]".format(CONFIG.COLOR2))
     else:
         for purge in choice:
             purge_db_file(DB[purge])
@@ -235,7 +235,7 @@ def kodi_17_fix():
     if len(disabledAddons) > 0:
         addon_database(disabledAddons, 1, True)
         logging.log_notify(CONFIG.ADDONTITLE,
-                           "[COLOR {0}]Enabling Addons Complete![/COLOR]".format(CONFIG.COLOR2))
+                           "[COLOR {0}]הפעלה של תוספים הושלמה![/COLOR]".format(CONFIG.COLOR2))
     update.force_update()
     xbmc.executebuiltin("ReloadSkin()")
 
@@ -274,8 +274,8 @@ def toggle_addon(id, value, over=None):
         
         v = 'Enabling' if value == 'true' else 'Disabling'
         dialog.ok(CONFIG.ADDONTITLE,
-                      "[COLOR {0}]Error {1} [COLOR {2}]{3}[/COLOR]".format(CONFIG.COLOR2, v, CONFIG.COLOR1, id) + '\n' +
-                      "Check to make sure the add-on list is up to date and try again.[/COLOR]")
+                      "[COLOR {0}]שגיאה {1} [COLOR {2}]{3}[/COLOR]".format(CONFIG.COLOR2, v, CONFIG.COLOR1, id) + '\n' +
+                      "בדוק שהרשימה מעודכנת ונסה שוב.[/COLOR]")
 
 
 def toggle_dependency(name, dp=None):
@@ -289,7 +289,7 @@ def toggle_dependency(name, dp=None):
                 dependspath = os.path.join(CONFIG.ADDONS, depends)
                 if dp is not None:
                     dp.update("",
-                              "Checking Dependency [COLOR yellow]{0}[/COLOR] for [COLOR yellow]{1}[/COLOR]".format(depends, name),
+                              "בודק תלות [COLOR yellow]{0}[/COLOR] עבור [COLOR yellow]{1}[/COLOR]".format(depends, name),
                               "")
                 if os.path.exists(dependspath):
                     toggle_addon(name, 'true')
@@ -318,7 +318,7 @@ def toggle_dependency(name, dp=None):
 #             logging.log("[Toggle Adult] {0} {1}".format(goto, item))
 #     if len(found) > 0:
 #         if gui.DIALOG.yesno(CONFIG.ADDONTITLE,
-#                             "[COLOR {0}]Would you like to view a list of the add-ons that where {1}?[/COLOR]".format(CONFIG.COLOR2, goto.replace('ing', 'ed')),
+#                             "[COLOR {0}]Would you like to view a list of the add-ons that where {1}?[/COLOR]".format(CONFIG.COLOR2, goto.replace('ing', 'ed')).
 #                             yeslabel="[B][COLOR springgreen]View List[/COLOR][/B]",
 #                             nolabel="[B][COLOR red]Cancel[/COLOR][/B]"):
 #             editlist = '[CR]'.join(found)
@@ -463,7 +463,7 @@ def find_binary_addons(addon='all'):
     from xml.etree import ElementTree
     
     dialog = xbmcgui.Dialog()
-    logging.log('Checking {} for platform-dependence...'.format(addon), level=xbmc.LOGDEBUG)
+    logging.log('בודק {0} עבור תלות בפלטפורמה...'.format(addon), level=xbmc.LOGDEBUG)
     
     if addon == 'all':
         addonfolders = glob.iglob(os.path.join(CONFIG.ADDONS, '*/'))
@@ -501,7 +501,7 @@ def find_binary_addons(addon='all'):
                         except:
                             pass
         
-        dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]Found [COLOR {1}]{2}[/COLOR] platform-specific addons installed:[/COLOR]".format(CONFIG.COLOR2, CONFIG.COLOR1, len(addonnames)), "[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, addonnames))
+        dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]נמצאו [COLOR {1}]{2}[/COLOR] תוספים התלויים בפלטפורמה המותקנים:[/COLOR]".format(CONFIG.COLOR2, CONFIG.COLOR1, len(addonnames)), "[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, addonnames))
         
         return addonids, addonnames
     else:
@@ -513,7 +513,7 @@ def find_binary_addons(addon='all'):
         xml = os.path.join(CONFIG.ADDONS, addon, 'addon.xml')
         
         if os.path.exists(xml):
-            logging.log('Checking {0}'.format(xml), level=xbmc.LOGINFO)
+            logging.log('בודק {0}'.format(xml), level=xbmc.LOGINFO)
             root = ElementTree.parse(xml).getroot()
             addonid = root.get('id')
             addonname = root.get('name')

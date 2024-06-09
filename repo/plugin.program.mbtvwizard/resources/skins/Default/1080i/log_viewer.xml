@@ -7,7 +7,7 @@
     </coordinates>
     
     <controls>
-        <!-- Background -->
+        <!-- רקע -->
         <control type="image">
             <texture>Background/white.png</texture>
             <colordiffuse>FF181818</colordiffuse>
@@ -15,7 +15,7 @@
     
         <control type="group">
             
-            <!-- Header -->
+            <!-- כותרת -->
             <control type="group">
                 <width>1920</width>
                 <height>80</height>
@@ -25,7 +25,7 @@
                     <colordiffuse>$INFO[Window().Property(texture.color1)]</colordiffuse>
                 </control>
                 
-                <!-- Label -->
+                <!-- תווית -->
                 <control type="label" id="101">
                     <align>center</align>
                     <aligny>center</aligny>
@@ -33,7 +33,7 @@
                 </control>
             </control>
             
-            <!-- Side Buttons -->
+            <!-- כפתורי צד -->
             <control type="grouplist" id="104">
                 <onright>103</onright>
                 <top>96</top>
@@ -50,7 +50,7 @@
                     <focusedcolor>$INFO[Window().Property(texture.color2)]</focusedcolor>
                     <texturefocus colordiffuse="$INFO[Window().Property(texture.color1)]">Background/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF282828">Background/white.png</texturenofocus>
-                    <label>Upload Log</label>
+                    <label>העלה לוג</label>
                 </control>
                 
                 <control type="button" id="202">
@@ -60,7 +60,7 @@
                     <focusedcolor>$INFO[Window().Property(texture.color2)]</focusedcolor>
                     <texturefocus colordiffuse="$INFO[Window().Property(texture.color1)]">Background/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF282828">Background/white.png</texturenofocus>
-                    <label>Kodi Log</label>
+                    <label>לוג קודי</label>
                     <visible>String.IsEqual(Window().Property(message.buttons), true)</visible>
                 </control>
                 
@@ -71,7 +71,7 @@
                     <focusedcolor>$INFO[Window().Property(texture.color2)]</focusedcolor>
                     <texturefocus colordiffuse="$INFO[Window().Property(texture.color1)]">Background/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF282828">Background/white.png</texturenofocus>
-                    <label>Old Log</label>
+                    <label>לוג ישן</label>
                     <visible>String.IsEqual(Window().Property(message.buttons), true)</visible>
                 </control>
                 
@@ -82,7 +82,7 @@
                     <focusedcolor>$INFO[Window().Property(texture.color2)]</focusedcolor>
                     <texturefocus colordiffuse="$INFO[Window().Property(texture.color1)]">Background/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF282828">Background/white.png</texturenofocus>
-                    <label>Wizard Log</label>
+                    <label>לוג קוסם</label>
                     <visible>String.IsEqual(Window().Property(message.buttons), true)</visible>
                 </control>
                 
@@ -93,11 +93,11 @@
                     <focusedcolor>$INFO[Window().Property(texture.color2)]</focusedcolor>
                     <texturefocus colordiffuse="$INFO[Window().Property(texture.color1)]">Background/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF282828">Background/white.png</texturenofocus>
-                    <label>Close</label>
+                    <label>סגור</label>
                 </control>
             </control>
             
-            <!-- Text Box -->
+            <!-- תיבת טקסט -->
             <control type="textbox" id="102">
                 <left>272</left>
                 <top>96</top>
@@ -108,7 +108,7 @@
                 <label>[COLOR white]$INFO[Window().Property(message.logmsg)][/COLOR]</label>
             </control>
             
-            <!-- Scrollbar -->
+            <!-- סרגל גלילה -->
             <control type="scrollbar" id="103">
                 <left>1872</left>
                 <top>96</top>

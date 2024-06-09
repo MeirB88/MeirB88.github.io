@@ -31,7 +31,7 @@ class MainMenu:
         from resources.libs.common import tools
 
         errors = int(logging.error_checking(count=True))
-        errorsfound = str(errors) + ' Error(s) Found' if errors > 0 else 'None Found'
+        errorsfound = str(errors) + ' שגיאה(ות) נמצאה(ו)' if errors > 0 else 'לא נמצאו'
 
         if CONFIG.AUTOUPDATE == 'Yes':
             response = tools.open_url(CONFIG.BUILDFILE, check=True)
@@ -41,7 +41,7 @@ class MainMenu:
                 if ver:
                     if ver > CONFIG.ADDON_VERSION:
                         directory.add_file(
-                            '{0} [v{1}] [COLOR red][B][UPDATE v{2}][/B][/COLOR]'.format(CONFIG.ADDONTITLE,
+                            '{0} [v{1}] [COLOR red][B][עדכון v{2}][/B][/COLOR]'.format(CONFIG.ADDONTITLE,
                                                                                         CONFIG.ADDON_VERSION, ver),
                             {'mode': 'wizardupdate'}, themeit=CONFIG.THEME2)
                     else:
@@ -56,16 +56,16 @@ class MainMenu:
             version = check.check_build(CONFIG.BUILDNAME, 'version')
             build = '{0} (v{1})'.format(CONFIG.BUILDNAME, CONFIG.BUILDVERSION)
             if version > CONFIG.BUILDVERSION:
-                build = '{0} [COLOR red][B][UPDATE v{1}][/B][/COLOR]'.format(build, version)
+                build = '{0} [COLOR red][B][עדכון v{1}][/B][/COLOR]'.format(build, version)
             directory.add_dir(build, {'mode': 'viewbuild', 'name': CONFIG.BUILDNAME}, themeit=CONFIG.THEME4)
 
             from resources.libs.gui.build_menu import BuildMenu
             themefile = BuildMenu().theme_count(CONFIG.BUILDNAME)
             if themefile:
-                directory.add_file('None' if CONFIG.BUILDTHEME == "" else CONFIG.BUILDTHEME, {'mode': 'theme', 'name': CONFIG.BUILDNAME},
+                directory.add_file('אף אחד' if CONFIG.BUILDTHEME == "" else CONFIG.BUILDTHEME, {'mode': 'theme', 'name': CONFIG.BUILDNAME},
                                    themeit=CONFIG.THEME5)
         else:
-            directory.add_dir('None', {'mode': 'builds'}, themeit=CONFIG.THEME4)
+            directory.add_dir('אף אחד', {'mode': 'builds'}, themeit=CONFIG.THEME4)
         directory.add_separator()
         directory.add_dir('בילדים', {'mode': 'builds'}, icon=CONFIG.ICONBUILDS, themeit=CONFIG.THEME1)
         directory.add_dir('תחזוקה', {'mode': 'maint'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
@@ -77,14 +77,14 @@ class MainMenu:
             directory.add_dir(CONFIG.YOUTUBETITLE, {'mode': 'youtube'}, icon=CONFIG.ICONYOUTUBE, themeit=CONFIG.THEME1)
         directory.add_dir('שמירת מידע', {'mode': 'savedata'}, icon=CONFIG.ICONSAVE, themeit=CONFIG.THEME1)
         if CONFIG.HIDECONTACT == 'No':
-            directory.add_file('Contact', {'mode': 'contact'}, icon=CONFIG.ICONCONTACT, themeit=CONFIG.THEME1)
+            directory.add_file('צור קשר', {'mode': 'contact'}, icon=CONFIG.ICONCONTACT, themeit=CONFIG.THEME1)
         directory.add_separator()
-        directory.add_file('העלה קובץ לוג', {'mode': 'uploadlog'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
-        directory.add_file('הראה שגיאות בלוג: {0}'.format(errorsfound), {'mode': 'viewerrorlog'}, icon=CONFIG.ICONMAINT,
+        directory.add_file('העלה קובץ יומן', {'mode': 'uploadlog'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
+        directory.add_file('הראה שגיאות ביומן: {0}'.format(errorsfound), {'mode': 'viewerrorlog'}, icon=CONFIG.ICONMAINT,
                            themeit=CONFIG.THEME1)
         if errors > 0:
-            directory.add_file('View Last Error In Log', {'mode': 'viewerrorlast'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
+            directory.add_file('הראה שגיאה אחרונה ביומן', {'mode': 'viewerrorlast'}, icon=CONFIG.ICONMAINT, themeit=CONFIG.THEME1)
         directory.add_separator()
-        directory.add_file('Settings', {'mode': 'settings', 'name': CONFIG.ADDON_ID}, icon=CONFIG.ICONSETTINGS, themeit=CONFIG.THEME1)
+        directory.add_file('הגדרות', {'mode': 'settings', 'name': CONFIG.ADDON_ID}, icon=CONFIG.ICONSETTINGS, themeit=CONFIG.THEME1)
         if CONFIG.DEVELOPER == 'true':
-            directory.add_dir('Developer Menu', {'mode': 'developer'}, icon=CONFIG.ADDON_ICON, themeit=CONFIG.THEME1)
+            directory.add_dir('תפריט מפתחים', {'mode': 'developer'}, icon=CONFIG.ADDON_ICON, themeit=CONFIG.THEME1)

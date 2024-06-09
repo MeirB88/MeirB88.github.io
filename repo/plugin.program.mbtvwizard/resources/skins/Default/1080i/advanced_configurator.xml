@@ -8,7 +8,7 @@
     
     <controls>
 
-        <!-- Background -->
+        <!-- רקע -->
         <control type="image">
             <texture>Background/white.png</texture>
             <colordiffuse>FF181818</colordiffuse>
@@ -16,7 +16,7 @@
     
         <control type="group">
             
-            <!-- Header -->
+            <!-- כותרת -->
             <control type="group">
                 <width>1920</width>
                 <height>80</height>
@@ -26,7 +26,7 @@
                     <colordiffuse>$INFO[Window().Property(texture.color1)]</colordiffuse>
                 </control>
                 
-                <!-- Label -->
+                <!-- תווית -->
                 <control type="label" id="101">
                     <align>center</align>
                     <aligny>center</aligny>
@@ -34,7 +34,7 @@
                 </control>
             </control>
             
-            <!-- Side Buttons -->
+            <!-- כפתורי צד -->
             <control type="grouplist" id="104">
                 <onright>105</onright>
                 <top>96</top>
@@ -51,47 +51,47 @@
                     <focusedcolor>$INFO[Window().Property(texture.color2)]</focusedcolor>
                     <texturefocus colordiffuse="$INFO[Window().Property(texture.color1)]">Background/white.png</texturefocus>
                     <texturenofocus colordiffuse="FF282828">Background/white.png</texturenofocus>
-                    <label>Close</label>
+                    <label>סגור</label>
                 </control>
             </control>
             
-            <!-- Center Panel -->
+            <!-- פאנל מרכזי -->
             <control type="group">
                 <left>256</left>
                 <top>96</top>
 
-                <!-- Buffer Mode -->
+                <!-- מצב זיכרון מטמון -->
                 <control type="group">
                     <width>240</width>
                     <height>80</height>
                     <onleft>104</onleft>
 
                     <control type="label">
-                            <label>Buffer Mode</label>
+                            <label>מצב זיכרון מטמון</label>
                     </control>
 
                     <control type="radiobutton" id="105">
                         <left>8</left>
                         <top>16</top>
-                        <label>Buffer all</label>
+                        <label>מטמון הכל</label>
                     </control>
 
                     <control type="radiobutton" id="105">
                         <left>48</left>
                         <top>56</top>
-                        <label>Buffer some</label>
+                        <label>מטמון חלק</label>
                     </control>
 
                     <control type="radiobutton" id="105">
                         <left>88</left>
                         <top>96</top>
-                        <label>Buffer the rest</label>
+                        <label>מטמון את השאר</label>
                     </control>
 
                     <control type="radiobutton" id="105">
                         <left>128</left>
                         <top>136</top>
-                        <label>Buffer everything</label>
+                        <label>מטמון הכל</label>
                     </control>
                 </control>
             </control>

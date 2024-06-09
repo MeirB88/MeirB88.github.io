@@ -76,7 +76,7 @@ def Clean(text):
 
 def PlayVideo(id, forcePlayer=False):
     import sys
-    dp.create("Loading video",'','Please Wait','')
+    dp.create("טוען וידאו",'','נא להמתין','')
 
     video, links = GetVideoInformation(id)
 
@@ -148,7 +148,7 @@ def GetVideoTitle(html):
     try:    return Clean(re.compile('<meta name="title" content="(.+?)">').search(html).groups(1)[0])
     except: pass
 
-    return 'YouTube Video'
+    return 'סרטון יוטיוב'
 
     
 def Scrape(html):

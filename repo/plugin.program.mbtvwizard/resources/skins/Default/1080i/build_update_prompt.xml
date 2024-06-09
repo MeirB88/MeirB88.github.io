@@ -23,7 +23,7 @@
                 <colordiffuse>$INFO[Window().Property(dialog.imagediffuse)]</colordiffuse>
             </control>
             <control type="label" id="102">
-                <description>header label</description>
+                <description>תווית כותרת</description>
                 <posx>20</posx>
                 <posy>20</posy>
                 <width>970</width>
@@ -59,7 +59,7 @@
                 <height>60</height>
                 <font>font12</font>
                 <textcolor>FFF0F0F0</textcolor>
-                <label>Fresh Install</label>
+                <label>התקנה חדשה</label>
                 <align>center</align>
                 <aligny>center</aligny>
                 <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
@@ -74,7 +74,7 @@
                 <height>60</height>
                 <font>font12</font>
                 <textcolor>FFF0F0F0</textcolor>
-                <label>Normal Install</label>
+                <label>התקנה רגילה</label>
                 <align>center</align>
                 <aligny>center</aligny>
                 <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>
@@ -90,7 +90,7 @@
                 <font>font12</font>
                 <textcolor>FFF0F0F0</textcolor>
                 <textoffsetx>20</textoffsetx>
-                <label>Delay Update</label>
+                <label>דחיית עדכון</label>
                 <align>center</align>
                 <aligny>center</aligny>
                 <texturefocus colordiffuse="FF12B2E7">Button/testbuttonfo.png</texturefocus>

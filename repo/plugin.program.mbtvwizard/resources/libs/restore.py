@@ -45,9 +45,7 @@ def binaries():
 
         logging.log("[Binary Detection] Reinstalling Eligible Binary Addons")
         dialog.ok(CONFIG.ADDONTITLE,
-                  '[COLOR {0}]The restored build contains platform-specific addons, which will now be '
-                  'automatically installed. A number of dialogs may pop up during this process. Cancelling them '
-                  'may cause the restored build to function incorrectly.[/COLOR]'.format(
+                  '[COLOR {0}]הגיבוי המשוחזר מכיל תוספים ייחודיים לפלטפורמה, אשר יותקנו אוטומטית כעת. מספר דיאלוגים עשויים להופיע בתהליך זה. ביטול עשוי לגרום לפעולה לא תקינה של הגיבוי המשוחזר.[/COLOR]'.format(
                       CONFIG.COLOR2))
     else:
         logging.log("[Binary Detection] No Eligible Binary Addons to Reinstall")
@@ -72,11 +70,11 @@ def binaries():
             fail.append(addonid)
 
     if not fail:
-        dialog.ok(CONFIG.ADDONTITLE, 'The selected addons were all installed successfully.')
+        dialog.ok(CONFIG.ADDONTITLE, 'כל התוספים שנבחרו הותקנו בהצלחה.')
         os.remove(binarytxt)
         return True
     else:
-        dialog.ok(CONFIG.ADDONTITLE, 'The following addons failed to install:\n{0}'.format(', '.join(fail)))
+        dialog.ok(CONFIG.ADDONTITLE, 'התוספים הבאים לא הצליחו להתקין:\n{0}'.format(', '.join(fail)))
         return False
 
 
@@ -91,9 +89,9 @@ class Restore:
     def _prompt_for_wipe(self):
         # Should we wipe first?
         wipe = self.dialog.yesno(CONFIG.ADDONTITLE,
-                                 "[COLOR {0}]Do you wish to restore your".format(CONFIG.COLOR2) + '\n' + "Kodi configuration to default settings" + '\n' + "Before installing the {0} backup?[/COLOR]".format('local' if not self.external else 'external'),
-                                 nolabel='[B][COLOR red]No[/COLOR][/B]',
-                                 yeslabel='[B][COLOR springgreen]Yes[/COLOR][/B]')
+                                 "[COLOR {0}]האם ברצונך לשחזר את".format(CONFIG.COLOR2) + '\n' + "הגדרות ברירת המחדל של קודי" + '\n' + "לפני התקנת הגיבוי {0}?[/COLOR]".format('מקומי' if not self.external else 'חיצוני'),
+                                 nolabel='[B][COLOR red]לא[/COLOR][/B]',
+                                 yeslabel='[B][COLOR springgreen]כן[/COLOR][/B]')
 
         if wipe:
             from resources.libs import install
@@ -113,10 +111,10 @@ class Restore:
             except zipfile.BadZipFile as e:
                 from resources.libs.common import logging
                 logging.log(e, level=xbmc.LOGERROR)
-                self.progress_dialog.update(0, '[COLOR {0}]Unable to read zip file from current location.'.format(CONFIG.COLOR2) + '\n' + 'Copying file to packages')
+                self.progress_dialog.update(0, '[COLOR {0}]לא ניתן לקרוא את קובץ ה-ZIP מהמיקום הנוכחי.'.format(CONFIG.COLOR2) + '\n' + 'מעתיק את הקובץ לחבילות')
                 xbmcvfs.copy(file, packages)
                 file = xbmcvfs.translatePath(packages)
-                self.progress_dialog.update(0, '\n' + 'Copying file to packages: Complete')
+                self.progress_dialog.update(0, '\n' + 'מעתיק את הקובץ לחבילות: הושלם')
                 zipfile.ZipFile(file, 'r', allowZip64=True)
         else:
             from resources.libs.downloader import Downloader
@@ -124,7 +122,7 @@ class Restore:
 
         self._prompt_for_wipe()
 
-        self.progress_dialog.update(0, 'Installing External Backup' + '\n' + 'Please Wait')
+        self.progress_dialog.update(0, 'מתקין גיבוי חיצוני' + '\נ' + 'נא להמתין')
         percent, errors, error = extract.all(file, loc)
         self._view_errors(percent, errors, error, file)
 
@@ -141,31 +139,31 @@ class Restore:
         db.force_check_updates(over=True)
 
         tools.kill_kodi(
-            msg='[COLOR {0}]To save changes, Kodi needs to be force closed. Would you like to continue?[/COLOR]'.format(
+            msg='[COLOR {0}]כדי לשמור את השינויים, יש לסגור את קודי בכפייה. האם ברצונך להמשיך?[/COLOR]'.format(
                 CONFIG.COLOR2))
 
     def _view_errors(self, percent, errors, error, file):
         if int(errors) >= 1:
-            if self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}][COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, file) + '\n' + 'Completed: [COLOR {0}]{1}{2}[/COLOR] [Errors: [COLOR {3}]{4}[/COLOR]]'.format(CONFIG.COLOR1, percent, '%',CONFIG.COLOR1, errors) + '\n' + 'Would you like to view the errors?[/COLOR]',
-                                 nolabel='[B][COLOR red]No Thanks[/COLOR][/B]',
-                                 yeslabel='[B][COLOR springgreen]View Errors[/COLOR][/B]'):
+            if self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}][COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, file) + '\n' + 'הושלם: [COLOR {0}]{1}{2}[/COLOR] [שגיאות: [COLOR {3}]{4}[/COLOR]]'.format(CONFIG.COLOR1, percent, '%',CONFIG.COLOR1, errors) + '\n' + 'האם ברצונך להציג את השגיאות?[/COLOR]',
+                                 nolabel='[B][COLOR red]לא תודה[/COLOR][/B]',
+                                 yeslabel='[B][COLOR springgreen]הצג שגיאות[/COLOR][/B]'):
 
                 from resources.libs.gui import window
-                window.show_text_box("Viewing Errors", error.replace('\t', ''))
+                window.show_text_box("הצגת שגיאות", error.replace('\t', ''))
 
     def choose(self, location):
         from resources.libs import skin
 
         skin.look_and_feel_data('restore')
-        external = 'External' if self.external else 'Local'
+        external = 'חיצוני' if self.external else 'מקומי'
 
-        file = self.dialog.browseSingle(1, '[COLOR {0}]Select the backup file you want to restore[/COLOR]'.format(
+        file = self.dialog.browseSingle(1, '[COLOR {0}]בחר את קובץ הגיבוי שברצונך לשחזר[/COLOR]'.format(
             CONFIG.COLOR2), '' if self.external else 'files', mask='.zip', useThumbs=True,
                                         defaultt=None if self.external else CONFIG.MYBUILDS)
 
         if not file.endswith('.zip'):
             logging.log_notify(CONFIG.ADDONTITLE,
-                               "[COLOR {0}]{1} Restore: Cancelled[/COLOR]".format(
+                               "[COLOR {0}]{1} שחזור: בוטל[/COLOR]".format(
                                    CONFIG.COLOR2, external))
             return
 
@@ -175,11 +173,11 @@ class Restore:
 
             if not response:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   "[COLOR {0}]External Restore: Invalid URL[/COLOR]".format(CONFIG.COLOR2))
+                                   "[COLOR {0}]שחזור חיצוני: כתובת URL לא חוקית[/COLOR]".format(CONFIG.COLOR2))
                 return
 
-        skin.skin_to_default("Restore")
-        self.progress_dialog.create(CONFIG.ADDONTITLE, '[COLOR {0}]Installing {1} Backup'.format(CONFIG.COLOR2, external) + '\n' + 'Please Wait[/COLOR]')
+        skin.skin_to_default("שחזור")
+        self.progress_dialog.create(CONFIG.ADDONTITLE, '[COLOR {0}]מתקין גיבוי {1}'.format(CONFIG.COLOR2, external) + '\n' + 'נא להמתין[/COLOR]')
 
         self._from_file(file, location)
 
@@ -188,10 +186,10 @@ def restore(action, external=False):
     cls = Restore(external)
 
     if action == 'build':
-        cls.choose(CONFIG.HOME)  # Install into special://home/
+        cls.choose(CONFIG.HOME)  # התקן לתוך special://home/
     elif action in ['gui', 'theme', 'addonpack']:
-        cls.choose(CONFIG.USERDATA)  # Install into special://userdata/
+        cls.choose(CONFIG.USERDATA)  # התקן לתוך special://userdata/
     elif action == 'addondata':
-        cls.choose(CONFIG.ADDON_DATA)  # Install into special://userdata/addon_data/
+        cls.choose(CONFIG.ADDON_DATA)  # התקן לתוך special://userdata/addon_data/
     elif action == 'binaries':
         binaries()

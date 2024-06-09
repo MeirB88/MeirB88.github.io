@@ -245,26 +245,26 @@ def trakt_it(do, who):
                 except:
                     pass
             else:
-                logging.log('[Trakt Data] {0}({1}) is not installed'.format(TRAKTID[log]['name'], TRAKTID[log]['plugin']), level=xbmc.LOGERROR)
+                logging.log('[Trakt Data] {0}({1}) אינו מותקן'.format(TRAKTID[log]['name'], TRAKTID[log]['plugin']), level=xbmc.LOGERROR)
         CONFIG.set_setting('traktnextsave', tools.get_date(days=3, formatted=True))
     else:
         if TRAKTID[who]:
             if os.path.exists(TRAKTID[who]['path']):
                 update_trakt(do, who)
         else:
-            logging.log('[Trakt Data] Invalid Entry: {0}'.format(who), level=xbmc.LOGERROR)
+            logging.log('[Trakt Data] ערך לא חוקי: {0}'.format(who), level=xbmc.LOGERROR)
 
 
 def clear_saved(who, over=False):
     if who == 'all':
         for trakt in TRAKTID:
-            clear_saved(trakt,  True)
+            clear_saved(trakt, True)
     elif TRAKTID[who]:
         file = TRAKTID[who]['file']
         if os.path.exists(file):
             os.remove(file)
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, TRAKTID[who]['name']),
-                               '[COLOR {0}]Trakt Data: Removed![/COLOR]'.format(CONFIG.COLOR2),
+                               '[COLOR {0}]נתוני Trakt: הוסרו![/COLOR]'.format(CONFIG.COLOR2),
                                2000,
                                TRAKTID[who]['icon'])
         CONFIG.set_setting(TRAKTID[who]['saved'], '')
@@ -301,11 +301,11 @@ def update_trakt(do, who):
                 
                 user = addonid.getSetting(default)
                 CONFIG.set_setting(saved, user)
-                logging.log('Trakt Data Saved for {0}'.format(name), level=xbmc.LOGINFO)
+                logging.log('נתוני Trakt נשמרו עבור {0}'.format(name), level=xbmc.LOGINFO)
             except Exception as e:
-                logging.log("[Trakt Data] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+                logging.log("[Trakt Data] לא ניתן לעדכן את {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
-            logging.log('Trakt Data Not Registered for {0}'.format(name))
+            logging.log('נתוני Trakt לא רשומים עבור {0}'.format(name))
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
@@ -319,11 +319,11 @@ def update_trakt(do, who):
                 
                 user = addonid.getSetting(default)
                 CONFIG.set_setting(saved, user)
-                logging.log('Trakt Data Restored for {0}'.format(name), level=xbmc.LOGINFO)
+                logging.log('נתוני Trakt שוחזרו עבור {0}'.format(name), level=xbmc.LOGINFO)
             except Exception as e:
-                logging.log("[Trakt Data] Unable to Restore {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+                logging.log("[Trakt Data] לא ניתן לשחזר את {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
-            logging.log('Trakt Data Not Found for {0}'.format(name))
+            logging.log('נתוני Trakt לא נמצאו עבור {0}'.format(name))
     elif do == 'clearaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
         if os.path.exists(settings):
@@ -333,17 +333,17 @@ def update_trakt(do, who):
                 
                 for setting in root.findall('setting'):
                     if setting.attrib['id'] in data:
-                        logging.log('Removing Setting: {0}'.format(setting.attrib))
+                        logging.log('מסיר הגדרה: {0}'.format(setting.attrib))
                         root.remove(setting)
                             
                 tree.write(settings)
                 
                 logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
-                                   '[COLOR {0}]Addon Data: Cleared![/COLOR]'.format(CONFIG.COLOR2),
+                                   '[COLOR {0}]נתוני התוסף: נוקו![/COLOR]'.format(CONFIG.COLOR2),
                                    2000,
                                    icon)
             except Exception as e:
-                logging.log("[Trakt Data] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+                logging.log("[Trakt Data] לא ניתן לנקות את התוסף {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
     xbmc.executebuiltin('Container.Refresh()')
 
 
@@ -365,11 +365,11 @@ def auto_update(who):
                 dialog = xbmcgui.Dialog()
 
                 if dialog.yesno(CONFIG.ADDONTITLE,
-                                    "Would you like to save the [COLOR {0}]Trakt Data[/COLOR] for [COLOR {1}]{2}[/COLOR]?".format(CONFIG.COLOR2, CONFIG.COLOR1, n)
-                                    +'\n'+"Addon: [COLOR springgreen][B]{0}[/B][/COLOR]".format(u)
-                                    +'\n'+"Saved:[/COLOR] [COLOR red][B]{0}[/B][/COLOR]".format(su) if not su == '' else 'Saved:[/COLOR] [COLOR red][B]None[/B][/COLOR]',
-                                    yeslabel="[B][COLOR springgreen]Save Data[/COLOR][/B]",
-                                    nolabel="[B][COLOR red]No Cancel[/COLOR][/B]"):
+                                    "האם תרצה לשמור את [COLOR {0}]נתוני Trakt[/COLOR] עבור [COLOR {1}]{2}[/COLOR]?".format(CONFIG.COLOR2, CONFIG.COLOR1, n)
+                                    +'\n'+"תוסף: [COLOR springgreen][B]{0}[/B][/COLOR]".format(u)
+                                    +'\n'+"נשמר:[/COLOR] [COLOR red][B]{0}[/B][/COLOR]".format(su) if not su == '' else 'נשמר:[/COLOR] [COLOR red][B]אף אחד[/B][/COLOR]',
+                                    yeslabel="[B][COLOR springgreen]שמור נתונים[/COLOR][/B]",
+                                    nolabel="[B][COLOR red]לא בטל[/COLOR][/B]"):
                     trakt_it('update', who)
             else:
                 trakt_it('update', who)
@@ -399,7 +399,7 @@ def import_list(who):
                 addonid.setSetting(id, value)
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
-                       '[COLOR {0}]Trakt Data: Imported![/COLOR]'.format(CONFIG.COLOR2))
+                       '[COLOR {0}]נתוני Trakt: יובאו![/COLOR]'.format(CONFIG.COLOR2))
 
 
 def activate_trakt(who):
@@ -414,7 +414,7 @@ def activate_trakt(who):
         else:
             dialog = xbmcgui.Dialog()
 
-            dialog.ok(CONFIG.ADDONTITLE, '{0} is not currently installed.'.format(TRAKTID[who]['name']))
+            dialog.ok(CONFIG.ADDONTITLE, '{0} אינו מותקן כרגע.'.format(TRAKTID[who]['name']))
     else:
         xbmc.executebuiltin('Container.Refresh()')
         return

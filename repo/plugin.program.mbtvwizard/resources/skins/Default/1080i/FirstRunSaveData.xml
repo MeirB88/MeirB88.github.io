@@ -7,7 +7,7 @@
     <controls>
         <control type="group">
             <control type="image">
-                <description>Background Image</description>
+                <description>תמונת רקע</description>
                 <posx>0</posx>
                 <posy>0</posy>
                 <width>650</width>
@@ -15,7 +15,7 @@
                 <texture border="2">Background/loguploader-dialog-bg.png</texture>
             </control>
             <control type="image">
-                <description>Dialog Header image</description>
+                <description>תמונת כותרת דיאלוג</description>
                 <posx>0</posx>
                 <posy>0</posy>
                 <width>650</width>
@@ -23,7 +23,7 @@
                 <texture colordiffuse="FF12B2E7" border="2">Background/loguploader-white.png</texture>
             </control>
             <control type="label" id="101">
-                <description>header label</description>
+                <description>תווית כותרת</description>
                 <posx>0</posx>
                 <posy>0</posy>
                 <width>650</width>
@@ -42,10 +42,10 @@
                 <font>font12</font>
                 <align>left</align>
                 <aligny>top</aligny>
-                <label>Since this is your First Run of the Wizard, Would you like to Enable any of the following Settings?</label>
+                <label>מכיוון שזהו הריצה הראשונה של הקוסם, האם ברצונך לאפשר כל אחת מההגדרות הבאות?</label>
             </control>
         </control>
-	    <!-- Scrollbar  -->
+	    <!-- סרגל גלילה  -->
 	    <control type="scrollbar" id="17">
 	      <left>630</left>
 	      <top>139</top>
@@ -78,7 +78,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Trakt</label>
+                <label>שמור את ה-Trakt שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -94,7 +94,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Real Debrid</label>
+                <label>שמור את ה-Real Debrid שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -110,7 +110,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Login Data</label>
+                <label>שמור את נתוני ההתחברות שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -126,7 +126,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Sources.xml</label>
+                <label>שמור את ה-Sources.xml שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -142,7 +142,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Profiles.xml</label>
+                <label>שמור את ה-Profiles.xml שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -158,7 +158,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My playercorefactory.xml</label>
+                <label>שמור את ה-playercorefactory.xml שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -174,7 +174,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My guisettings.xml</label>
+                <label>שמור את ה-guisettings.xml שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -190,7 +190,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My AdvancedSettings.xml</label>
+                <label>שמור את ה-AdvancedSettings.xml שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -206,7 +206,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Favourites.xml</label>
+                <label>שמור את ה-Favourites.xml שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -222,7 +222,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Super Favourites</label>
+                <label>שמור את ה-Super Favourites שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -238,7 +238,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Repositories</label>
+                <label>שמור את המאגרים שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -254,7 +254,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Keep My Whitelist</label>
+                <label>שמור את רשימת הלבנים שלי</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -270,7 +270,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Clear Cache on Startup</label>
+                <label>נקה מטמון בעת אתחול</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -286,12 +286,12 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Clear Packages on Startup</label>
+                <label>נקה חבילות בעת אתחול</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
                 <textureradioonfocus colordiffuse="FF12B2E7">RadioButton/radiobutton-focus.png</textureradioonfocus>
-                <textureradioonnofocus colordiffuse="FF12B2E7">RadioButton/radiobutton-focus.png</textureradioonnofocus>
+                <textureradioonnofocus colordiffuse="FF12B2E7">RadioButton/radiobutton-focus.png</textureradioonfocus>
                 <textureradioofffocus colordiffuse="FF12B2E7">RadioButton/radiobutton-focus.png</textureradioofffocus>
                 <textureradiooffnofocus>RadioButton/radiobutton-nofocus.png</textureradiooffnofocus>
             </control>
@@ -302,7 +302,7 @@
                 <textoffsetx>10</textoffsetx>
                 <radioheight>45</radioheight>
                 <radioposx>530</radioposx>
-                <label>Clear Old Thumbnails on Startup</label>
+                <label>נקה תמונות ממוזערות ישנות בעת אתחול</label>
                 <font>font12</font>
                 <texturefocus colordiffuse="FF12B2E7">RadioButton/MenuItemFO.png</texturefocus>
                 <texturenofocus>RadioButton/MenuItemNF.png</texturenofocus>
@@ -320,7 +320,7 @@
                 <height>90</height>
                 <font>font13</font>
                 <textcolor>FFF0F0F0</textcolor>
-                <label>Continue</label>
+                <label>המשך</label>
                 <align>center</align>
                 <aligny>center</aligny>
                 <onup>9000</onup>

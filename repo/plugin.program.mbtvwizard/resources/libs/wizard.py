@@ -44,9 +44,9 @@ class Wizard:
     def _prompt_for_wipe(self):
         # Should we wipe first?
         if self.dialog.yesno(CONFIG.ADDONTITLE,
-                           "[COLOR {0}]Do you wish to restore your".format(CONFIG.COLOR2) +'\n' + "Kodi configuration to default settings" + '\n' + "Before installing the build backup?[/COLOR]",
-                           nolabel='[B][COLOR red]No[/COLOR][/B]',
-                           yeslabel='[B][COLOR springgreen]Yes[/COLOR][/B]'):
+                           "[COLOR {0}]האם ברצונך לשחזר את הגדרות הקודי לברירת המחדל".format(CONFIG.COLOR2) +'\n' + "לפני התקנת הגיבוי של הבנייה?[/COLOR]",
+                           nolabel='[B][COLOR red]לא[/COLOR][/B]',
+                           yeslabel='[B][COLOR springgreen]כן[/COLOR][/B]'):
             install.wipe()
 
     def build(self, name, over=False):
@@ -73,18 +73,18 @@ class Wizard:
             warning = False
 
         if warning:
-            yes_pressed = self.dialog.yesno("{0} - [COLOR red]WARNING!![/COLOR]".format(CONFIG.ADDONTITLE), '[COLOR {0}]There is a chance that the skin will not appear correctly'.format(CONFIG.COLOR2) + '\n' + 'When installing a {0} build on a Kodi {1} install'.format(check.check_build(name, 'kodi'), CONFIG.KODIV) + '\n' + 'Would you still like to install: [COLOR {0}]{1} v{2}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name, check.check_build(name, 'version')), nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]', yeslabel='[B][COLOR springgreen]Yes, Install[/COLOR][/B]')
+            yes_pressed = self.dialog.yesno("{0} - [COLOR red]אזהרה!![/COLOR]".format(CONFIG.ADDONTITLE), '[COLOR {0}]יש סיכוי שהעור לא יופיע נכון'.format(CONFIG.COLOR2) + '\n' + 'בעת התקנת בניית {0} על התקנת קודי {1}'.format(check.check_build(name, 'kodi'), CONFIG.KODIV) + '\n' + 'האם עדיין ברצונך להתקין: [COLOR {0}]{1} v{2}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name, check.check_build(name, 'version')), nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]', yeslabel='[B][COLOR springgreen]כן, התקן[/COLOR][/B]')
         else:
             if over:
                 yes_pressed = 1
             else:
-                yes_pressed = self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]Would you like to Download and Install: '.format(CONFIG.COLOR2) + '[COLOR {0}]{1} v{2}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name, check.check_build(name,'version')), nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]', yeslabel='[B][COLOR springgreen]Yes, Install[/COLOR][/B]')
+                yes_pressed = self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]האם ברצונך להוריד ולהתקין: '.format(CONFIG.COLOR2) + '[COLOR {0}]{1} v{2}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name, check.check_build(name,'version')), nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]', yeslabel='[B][COLOR springgreen]כן, התקן[/COLOR][/B]')
         if yes_pressed:
             CONFIG.clear_setting('build')
             buildzip = check.check_build(name, 'url')
             zipname = name.replace('\\', '').replace('/', '').replace(':', '').replace('*', '').replace('?', '').replace('"', '').replace('<', '').replace('>', '').replace('|', '')
 
-            self.dialogProgress.create(CONFIG.ADDONTITLE, '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2} v{3}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name, check.check_build(name, 'version')) + '\n' + 'Please Wait')
+            self.dialogProgress.create(CONFIG.ADDONTITLE, '[COLOR {0}][B]מוריד:[/B][/COLOR] [COLOR {1}]{2} v{3}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name, check.check_build(name, 'version')) + '\n' + 'נא להמתין')
 
             lib = os.path.join(CONFIG.MYBUILDS, '{0}.zip'.format(zipname))
             
@@ -108,8 +108,8 @@ class Wizard:
                 
             skin.look_and_feel_data('save')
             
-            title = '[COLOR {0}][B]Installing:[/B][/COLOR] [COLOR {1}]{2} v{3}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name, check.check_build(name, 'version'))
-            self.dialogProgress.update(0, title + '\n' + 'Please Wait')
+            title = '[COLOR {0}][B]מתקין:[/B][/COLOR] [COLOR {1}]{2} v{3}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name, check.check_build(name, 'version'))
+            self.dialogProgress.update(0, title + '\n' + 'נא להמתין')
             percent, errors, error = extract.all(lib, CONFIG.HOME, title=title)
             
             skin.skin_to_default('Build Install')
@@ -124,7 +124,7 @@ class Wizard:
                 CONFIG.set_setting('installed', 'true')
                 CONFIG.set_setting('extract', percent)
                 CONFIG.set_setting('errors', errors)
-                logging.log('INSTALLED {0}: [ERRORS:{1}]'.format(percent, errors))
+                logging.log('הותקן {0}: [שגיאות:{1}]'.format(percent, errors))
 
                 try:
                     os.remove(lib)
@@ -133,12 +133,12 @@ class Wizard:
 
                 if int(float(errors)) > 0:
                     yes_pressed = self.dialog.yesno(CONFIG.ADDONTITLE,
-                                       '[COLOR {0}][COLOR {1}]{2} v{3}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name, check.check_build(name, 'version')) +'\n' + 'Completed: [COLOR {0}]{1}{2}[/COLOR] [Errors:[COLOR {3}]{4}[/COLOR]]'.format(CONFIG.COLOR1, percent, '%', CONFIG.COLOR1, errors) + '\n' + 'Would you like to view the errors?[/COLOR]',
-                                       nolabel='[B][COLOR red]No Thanks[/COLOR][/B]',
-                                       yeslabel='[B][COLOR springgreen]View Errors[/COLOR][/B]')
+                                       '[COLOR {0}][COLOR {1}]{2} v{3}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name, check.check_build(name, 'version')) +'\n' + 'הושלם: [COLOR {0}]{1}{2}[/COLOR] [שגיאות:[COLOR {3}]{4}[/COLOR]]'.format(CONFIG.COLOR1, percent, '%', CONFIG.COLOR1, errors) + '\n' + 'האם ברצונך להציג את השגיאות?[/COLOR]',
+                                       nolabel='[B][COLOR red]לא תודה[/COLOR][/B]',
+                                       yeslabel='[B][COLOR springgreen]הצג שגיאות[/COLOR][/B]')
                     if yes_pressed:
                         from resources.libs.gui import window
-                        window.show_text_box("Viewing Build Install Errors", error)
+                        window.show_text_box("צפייה בשגיאות התקנת הבנייה", error)
                 self.dialogProgress.close()
 
                 from resources.libs.gui.build_menu import BuildMenu
@@ -152,14 +152,14 @@ class Wizard:
                 if os.path.exists(os.path.join(CONFIG.USERDATA, '.enableall')):
                 	CONFIG.set_setting('enable_all', 'true')
 
-                self.dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]To save changes you now need to force close Kodi, Press OK to force close Kodi[/COLOR]".format(CONFIG.COLOR2))
+                self.dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]כדי לשמור את השינויים יש לכפות סגירה של קודי, לחץ OK כדי לכפות סגירה של קודי[/COLOR]".format(CONFIG.COLOR2))
                 tools.kill_kodi(over=True)
             else:
                 from resources.libs.gui import window
-                window.show_text_box("Viewing Build Install Errors", error)
+                window.show_text_box("צפייה בשגיאות התקנת הבנייה", error)
         else:
             logging.log_notify(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]Build Install: Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+                               '[COLOR {0}]התקנת בנייה: בוטל![/COLOR]'.format(CONFIG.COLOR2))
 
     def gui(self, name, over=False):
         if name == CONFIG.get_setting('buildname'):
@@ -167,14 +167,14 @@ class Wizard:
                 yes_pressed = 1
             else:
                 yes_pressed = self.dialog.yesno(CONFIG.ADDONTITLE,
-                                   '[COLOR {0}]Would you like to apply the guifix for:'.format(CONFIG.COLOR2) + '\n' + '[COLOR {0}]{1}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name),
-                                   nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',
-                                   yeslabel='[B][COLOR springgreen]Apply Fix[/COLOR][/B]')
+                                   '[COLOR {0}]האם ברצונך ליישם את תיקון הגוי עבור:'.format(CONFIG.COLOR2) + '\n' + '[COLOR {0}]{1}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name),
+                                   nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]',
+                                   yeslabel='[B][COLOR springgreen]החל תיקון[/COLOR][/B]')
         else:
-            yes_pressed = self.dialog.yesno("{0} - [COLOR red]WARNING!![/COLOR]".format(CONFIG.ADDONTITLE),
-                               "[COLOR {0}][COLOR {1}]{2}[/COLOR] community build is not currently installed.".format(CONFIG.COLOR2, CONFIG.COLOR1, name) + '\n' + "Would you like to apply the guiFix anyways?.[/COLOR]",
-                               nolabel='[B][COLOR red]No, Cancel[/COLOR][/B]',
-                               yeslabel='[B][COLOR springgreen]Apply Fix[/COLOR][/B]')
+            yes_pressed = self.dialog.yesno("{0} - [COLOR red]אזהרה!![/COLOR]".format(CONFIG.ADDONTITLE),
+                               "[COLOR {0}][COLOR {1}]{2}[/COLOR] בניית קהילה אינה מותקנת כרגע.".format(CONFIG.COLOR2, CONFIG.COLOR1, name) + '\n' + "האם ברצונך ליישם את תיקון הגוי בכל מקרה?[/COLOR]",
+                               nolabel='[B][COLOR red]לא, בטל[/COLOR][/B]',
+                               yeslabel='[B][COLOR springgreen]החל תיקון[/COLOR][/B]')
         if yes_pressed:
             guizip = check.check_build(name, 'gui')
             zipname = name.replace('\\', '').replace('/', '').replace(':', '').replace('*', '').replace('?', '').replace('"', '').replace('<', '').replace('>', '').replace('|', '')
@@ -182,10 +182,10 @@ class Wizard:
             response = tools.open_url(guizip, check=True)
             if not response:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   '[COLOR {0}]GuiFix: Invalid Zip Url![/COLOR]'.format(CONFIG.COLOR2))
+                                   '[COLOR {0}]GuiFix: כתובת URL של קובץ זיפ לא חוקית![/COLOR]'.format(CONFIG.COLOR2))
                 return
 
-            self.dialogProgress.create(CONFIG.ADDONTITLE, '[COLOR {0}][B]Downloading GuiFix:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name), '', 'Please Wait')
+            self.dialogProgress.create(CONFIG.ADDONTITLE, '[COLOR {0}][B]מוריד תיקון גוי:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name), '', 'נא להמתין')
 
             lib = os.path.join(CONFIG.PACKAGES, '{0}_guisettings.zip'.format(zipname))
             
@@ -205,8 +205,8 @@ class Wizard:
                     
                 return
             
-            title = '[COLOR {0}][B]Installing:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
-            self.dialogProgress.update(0, title + '\n' + 'Please Wait')
+            title = '[COLOR {0}][B]מתקין:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, name)
+            self.dialogProgress.update(0, title + '\n' + 'נא להמתין')
             extract.all(lib, CONFIG.USERDATA, title=title)
             self.dialogProgress.close()
             skin.skin_to_default('Build Install')
@@ -214,11 +214,11 @@ class Wizard:
             installed = db.grab_addons(lib)
             db.addon_database(installed, 1, True)
 
-            self.dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]To save changes you now need to force close Kodi, Press OK to force close Kodi[/COLOR]".format(CONFIG.COLOR2))
+            self.dialog.ok(CONFIG.ADDONTITLE, "[COLOR {0}]כדי לשמור את השינויים יש לכפות סגירה של קודי, לחץ OK כדי לכפות סגירה של קודי[/COLOR]".format(CONFIG.COLOR2))
             tools.kill_kodi(over=True)
         else:
             logging.log_notify(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]GuiFix: Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+                               '[COLOR {0}]GuiFix: בוטל![/COLOR]'.format(CONFIG.COLOR2))
 
     def theme(self, name, theme='', over=False):
         installtheme = False
@@ -231,28 +231,28 @@ class Wizard:
                 from resources.libs.gui.build_menu import BuildMenu
                 themes = BuildMenu().theme_count(name, False)
                 if len(themes) > 0:
-                    if self.dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]The Build [COLOR {1}]{2}[/COLOR] comes with [COLOR {3}]{4}[/COLOR] different themes".format(CONFIG.COLOR2, CONFIG.COLOR1, name, CONFIG.COLOR1, len(themes)) + '\n' + "Would you like to install one now?[/COLOR]",
-                                    yeslabel="[B][COLOR springgreen]Install Theme[/COLOR][/B]",
-                                    nolabel="[B][COLOR red]Cancel Themes[/COLOR][/B]"):
-                        logging.log("Theme List: {0}".format(str(themes)))
+                    if self.dialog.yesno(CONFIG.ADDONTITLE, "[COLOR {0}]הבנייה [COLOR {1}]{2}[/COLOR] מגיעה עם [COLOR {3}]{4}[/COLOR] ערכות נושא שונות".format(CONFIG.COLOR2, CONFIG.COLOR1, name, CONFIG.COLOR1, len(themes)) + '\n' + "האם ברצונך להתקין אחת עכשיו?[/COLOR]",
+                                    yeslabel="[B][COLOR springgreen]התקן ערכת נושא[/COLOR][/B]",
+                                    nolabel="[B][COLOR red]בטל ערכות נושא[/COLOR][/B]"):
+                        logging.log("רשימת ערכות נושא: {0}".format(str(themes)))
                         ret = self.dialog.select(CONFIG.ADDONTITLE, themes)
-                        logging.log("Theme install selected: {0}".format(ret))
+                        logging.log("התקנת ערכת נושא נבחרה: {0}".format(ret))
                         if not ret == -1:
                             theme = themes[ret]
                             installtheme = True
                         else:
                             logging.log_notify(CONFIG.ADDONTITLE,
-                                               '[COLOR {0}]Theme Install: Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+                                               '[COLOR {0}]התקנת ערכת נושא: בוטל![/COLOR]'.format(CONFIG.COLOR2))
                             return
                     else:
                         logging.log_notify(CONFIG.ADDONTITLE,
-                                           '[COLOR {0}]Theme Install: Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+                                           '[COLOR {0}]התקנת ערכת נושא: בוטל![/COLOR]'.format(CONFIG.COLOR2))
                         return
             else:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   '[COLOR {0}]Theme Install: None Found![/COLOR]'.format(CONFIG.COLOR2))
+                                   '[COLOR {0}]התקנת ערכת נושא: לא נמצא![/COLOR]'.format(CONFIG.COLOR2))
         else:
-            installtheme = self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]Would you like to install the theme:'.format(CONFIG.COLOR2) +' \n' + '[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, theme) + '\n' + 'for [COLOR {0}]{1} v{2}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name, check.check_build(name,'version')),yeslabel="[B][COLOR springgreen]Install Theme[/COLOR][/B]", nolabel="[B][COLOR red]Cancel Themes[/COLOR][/B]")
+            installtheme = self.dialog.yesno(CONFIG.ADDONTITLE, '[COLOR {0}]האם ברצונך להתקין את ערכת הנושא:'.format(CONFIG.COLOR2) +' \n' + '[COLOR {0}]{1}[/COLOR]'.format(CONFIG.COLOR1, theme) + '\n' + 'עבור [COLOR {0}]{1} v{2}[/COLOR]?[/COLOR]'.format(CONFIG.COLOR1, name, check.check_build(name,'version')),yeslabel="[B][COLOR springgreen]התקן ערכת נושא[/COLOR][/B]", nolabel="[B][COLOR red]בטל ערכות נושא[/COLOR][/B]")
                                         
         if installtheme:
             themezip = check.check_theme(name, theme, 'url')
@@ -261,10 +261,10 @@ class Wizard:
             response = tools.open_url(themezip, check=True)
             if not response:
                 logging.log_notify(CONFIG.ADDONTITLE,
-                                   '[COLOR {0}]Theme Install: Invalid Zip Url![/COLOR]'.format(CONFIG.COLOR2))
+                                   '[COLOR {0}]התקנת ערכת נושא: כתובת URL של קובץ זיפ לא חוקית![/COLOR]'.format(CONFIG.COLOR2))
                 return False
 
-            self.dialogProgress.create(CONFIG.ADDONTITLE, '[COLOR {0}][B]Downloading:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, zipname) +' \n' + 'Please Wait')
+            self.dialogProgress.create(CONFIG.ADDONTITLE, '[COLOR {0}][B]מוריד:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, zipname) +' \n' + 'נא להמתין')
 
             lib = os.path.join(CONFIG.PACKAGES, '{0}.zip'.format(zipname))
             
@@ -284,7 +284,7 @@ class Wizard:
                     
                 return
             
-            self.dialogProgress.update(0, '\n' + "Installing {0}".format(name))
+            self.dialogProgress.update(0, '\n' + "מתקין {0}".format(name))
 
             test1 = False
             test2 = False
@@ -303,11 +303,11 @@ class Wizard:
 
                 xbmc.sleep(500)
 
-            title = '[COLOR {0}][B]Installing Theme:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, theme)
-            self.dialogProgress.update(0, title + '\n' + 'Please Wait')
+            title = '[COLOR {0}][B]מתקין ערכת נושא:[/B][/COLOR] [COLOR {1}]{2}[/COLOR]'.format(CONFIG.COLOR2, CONFIG.COLOR1, theme)
+            self.dialogProgress.update(0, title + '\n' + 'נא להמתין')
             percent, errors, error = extract.all(lib, CONFIG.HOME, title=title)
             CONFIG.set_setting('buildtheme', theme)
-            logging.log('INSTALLED {0}: [ERRORS:{1}]'.format(percent, errors))
+            logging.log('הותקן {0}: [שגיאות:{1}]'.format(percent, errors))
             self.dialogProgress.close()
 
             db.force_check_updates(over=True)
@@ -332,7 +332,7 @@ class Wizard:
                 xbmc.executebuiltin("Container.Refresh()")
         else:
             logging.log_notify(CONFIG.ADDONTITLE,
-                               '[COLOR {0}]Theme Install: Cancelled![/COLOR]'.format(CONFIG.COLOR2))
+                               '[COLOR {0}]התקנת ערכת נושא: בוטל![/COLOR]'.format(CONFIG.COLOR2))
 
 
 def wizard(action, name, url):
