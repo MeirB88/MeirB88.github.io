@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <addon id="repository.mbtv" name="MBTV Repo" version="1.0" provider-name="MeirB88">
+       <extension point="xbmc.addon.repository" name="Your Repository Name">
+           <dir>
+               <info>https://mbtv.site/repo/zips/addons.xml</info>
+               <checksum>https://mbtv.site/repo/zips/addons.xml.md5</checksum>
+               <datadir zip="true">https://mbtv.site/repo/zips</datadir>
+           </dir>
+       </extension>
+       <extension point="xbmc.addon.metadata">
+           <summary>MBTV Repo</summary>
+           <description>Repo for MBTV Build</description>
+           <platform>all</platform>
+		<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+       </extension>
+   </addon>
